@@ -1,3 +1,8 @@
 from django.contrib import admin
+from downtime.models import *
 
-# Register your models here.
+admin.site.register(Character)
+admin.site.register(Discipline)
+admin.site.register(Title)
+admin.site.register(Ability)
+admin.site.register(Boon)
