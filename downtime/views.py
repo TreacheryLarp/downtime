@@ -1,11 +1,22 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.views import generic
 
 from downtime.models import Session
 
-def index(request):
-    context = {'session_list': Session.objects.all()}
-    return render(request, 'downtime/index.html', context)
+
+class IndexView(generic.ListView):
+    template_name = 'downtime/index.html'
+    context_object_name = 'session_list'
+
+    def get_queryset(self):
+        """Return the last five published questions."""
+        return Session.objects.all()
+
+class SessionView(generic.DetailView):
+    model = Session
+    template_name = 'downtime/session.html'
 
 def session(request, session_id):
     session = get_object_or_404(Session, pk=session_id)

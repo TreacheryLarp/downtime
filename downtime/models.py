@@ -41,7 +41,7 @@ class Boon(models.Model):
 
 class Character(models.Model):
     name = models.CharField(max_length=200)
-    user = models.ForeignKey(User)
+    user = models.OneToOneField(User, related_name='character')
     disciplines = models.ManyToManyField(Discipline, blank=True)
     titles = models.ManyToManyField(Title, blank=True)
     age = models.ForeignKey(Age)
