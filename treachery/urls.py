@@ -6,5 +6,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'treachery.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
+    url(r'^downtime/', include('downtime.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

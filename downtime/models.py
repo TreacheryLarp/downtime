@@ -53,12 +53,12 @@ class Character(models.Model):
 class Debt(models.Model):
     count = models.IntegerField()
     size = models.ForeignKey(Boon)
-    creditor = models.ForeignKey(Character, related_name="credits")
-    debtor = models.ForeignKey(Character, related_name="debts")
+    creditor = models.ForeignKey(Character, related_name='credits')
+    debtor = models.ForeignKey(Character, related_name='debts')
     description = models.TextField()
 
     def __str__(self):
-        return "%s owes %s: %d %s" % (self.debtor, self.creditor, self.count, self.size)
+        return '%s owes %s: %d %s' % (self.debtor, self.creditor, self.count, self.size)
 
 class Domain(models.Model):
     name = models.CharField(max_length=200)
@@ -99,15 +99,15 @@ class Session(models.Model):
 class Action(models.Model):
     action_type = models.ForeignKey(ActionType)
     character = models.ForeignKey(Character)
-    session = models.ForeignKey(Session, related_name="actions")
+    session = models.ForeignKey(Session, related_name='actions')
     description = models.TextField()
 
     def __str__(self):
-        return "[s] %s" % (self.character, self.action_type)
+        return '[s] %s' % (self.character, self.action_type)
 
 class Feeding(models.Model):
     character = models.ForeignKey(Character)
-    session = models.ForeignKey(Session, related_name="feedings")
+    session = models.ForeignKey(Session, related_name='feedings')
     domain = models.ForeignKey(Domain)
     feeding_points = models.IntegerField()
     discipline = models.ForeignKey(Discipline)
@@ -118,7 +118,7 @@ class Feeding(models.Model):
 
 class BloodSpending(models.Model):
     character = models.ForeignKey(Character)
-    session = models.ForeignKey(Session, related_name="blood_spending")
+    session = models.ForeignKey(Session, related_name='blood_spending')
     active_disciples = models.ManyToManyField(Discipline, blank=True) # checka om de har disciplinerna
 
     def __str__(self):
