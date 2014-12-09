@@ -2,6 +2,8 @@
 
 {% block content %}
 
-Logged in. Your character is {{ character.name }} and is an {{ character.age }}
+  Logged in. Your character is {{ character.name }} and is an {{ character.age }}
+
+  {% include "downtime/elements/session_list.html" %}
 
 {% endblock %}

@@ -1,7 +1,13 @@
-<h1>{{session.name}}</h1>
-{% if session.is_open %}
-  open
-  {% include "downtime/action_form.html" %}
-{% else %}
-  closed
-{% endif %}
+{% extends "downtime/base.html" %}
+
+{% block content %}
+
+  <h1>{{session.name}}</h1>
+  {% if session.is_open %}
+    open
+    {% include "downtime/elements/action_form.html" %}
+  {% else %}
+    closed
+  {% endif %}
+
+{% endblock %}

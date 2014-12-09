@@ -6,17 +6,10 @@ from django.contrib.auth.decorators import login_required
 
 from downtime.models import Session
 
-class IndexView(generic.ListView):
-    template_name = 'downtime/index.html'
-    context_object_name = 'session_list'
-
-    def get_queryset(self):
-        """Return the last five published questions."""
-        return Session.objects.all()
-
 @login_required
 def profile(request):
-    return render(request, 'downtime/profile.html', {'character': request.user.character})
+    return render(request, 'downtime/profile.html', {'character': request.user.character,
+                                                     'session_list': Session.objects.all()})
 
 class SessionView(generic.DetailView):
     model = Session

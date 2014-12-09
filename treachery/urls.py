@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'treachery.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^downtime/', include('downtime.urls')),
+    url(r'^', include('downtime.urls')),
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'downtime/login.html', 'authentication_form': LoginForm}),
     url(r'^admin/', include(admin.site.urls)),
 )
