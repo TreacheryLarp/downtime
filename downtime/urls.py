@@ -4,5 +4,5 @@ from downtime import views
 
 urlpatterns = patterns('',
     url(r'^$', views.profile, name='profile'),
-    url(r'^s/(?P<pk>\d+)/$', views.SessionView.as_view(), name='session'),
+    url(r'^s/(?P<pk>\d+)/$', views.session, name='session'),
 )

@@ -11,15 +11,11 @@ def profile(request):
     return render(request, 'downtime/profile.html', {'character': request.user.character,
                                                      'session_list': Session.objects.all()})
 
-class SessionView(generic.DetailView):
-    model = Session
-    template_name = 'downtime/session.html'
-
 @login_required
-def session(request, session_id):
-    session = get_object_or_404(Session, pk=session_id)
-    return render(request, 'downtime/session.html', {'session': session})
-
-@login_required
-def submit(request):
-    return HttpResponse('Submit your report here.')
+def session(request, pk):
+    session = get_object_or_404(Session, pk=pk)
+    character = request.user.character
+    active_disciplines = session.active_disciplines.filter(character=character)
+    return render(request, 'downtime/session.html', {'session': session,
+                                                     'character': character,
+                                                     'active_disciplines': active_disciplines})

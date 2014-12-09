@@ -114,12 +114,12 @@ class Feeding(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return '%s feeds %d in %s' (self.character, self.feeding_points, self.domain)
+        return '%s feeds %d in %s' % (self.character, self.feeding_points, self.domain)
 
-class BloodSpending(models.Model):
+class ActiveDisciplines(models.Model):
     character = models.ForeignKey(Character)
-    session = models.ForeignKey(Session, related_name='blood_spending')
-    active_disciples = models.ManyToManyField(Discipline, blank=True) # checka om de har disciplinerna
+    session = models.ForeignKey(Session, related_name='active_disciplines')
+    active_disciplines = models.ManyToManyField(Discipline, blank=True)
 
     def __str__(self):
-        return
+        return '[%s] %s: %s' % (self.session, self.character, self.active_disciplines.all())

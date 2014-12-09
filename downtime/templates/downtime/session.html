@@ -5,6 +5,7 @@
   <h1>{{session.name}}</h1>
   {% if session.is_open %}
     open
+    {% include "downtime/elements/discipline_activation.html" %}
     {% include "downtime/elements/action_form.html" %}
   {% else %}
     closed
