@@ -39,6 +39,12 @@ class Boon(models.Model):
     def __str__(self):
         return self.name
 
+class Clan(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
 class Character(models.Model):
     name = models.CharField(max_length=200)
     user = models.OneToOneField(User, related_name='character')
@@ -46,6 +52,7 @@ class Character(models.Model):
     titles = models.ManyToManyField(Title, blank=True)
     age = models.ForeignKey(Age)
     resources = models.IntegerField()
+    clan = models.ForeignKey(Clan)
 
     def __str__(self):
         return self.name
@@ -119,7 +126,7 @@ class Feeding(models.Model):
 class ActiveDisciplines(models.Model):
     character = models.ForeignKey(Character)
     session = models.ForeignKey(Session, related_name='active_disciplines')
-    active_disciplines = models.ManyToManyField(Discipline, blank=True)
+    disciplines = models.ManyToManyField(Discipline, blank=True)
 
     def __str__(self):
-        return '[%s] %s: %s' % (self.session, self.character, self.active_disciplines.all())
+        return '[%s] %s: %s' % (self.session, self.character, self.disciplines.all())

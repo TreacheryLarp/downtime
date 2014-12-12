@@ -1,12 +1,11 @@
 {% extends "downtime/base.html" %}
-
 {% block content %}
 
   <h1>{{session.name}}</h1>
   {% if session.is_open %}
-    open
-    {% include "downtime/elements/discipline_activation.html" %}
-    {% include "downtime/elements/action_form.html" %}
+
+  <a href="{% url 'wizard' session.id %}">Submit actions</a>
+
   {% else %}
     closed
   {% endif %}

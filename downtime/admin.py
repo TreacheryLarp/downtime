@@ -18,6 +18,7 @@ admin.site.register(ActiveDisciplines)
 admin.site.register(InfluenceRating)
 admin.site.register(Population)
 admin.site.register(Influence)
+admin.site.register(Clan)
 
 # reversion
 patch_admin(Character)
