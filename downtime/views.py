@@ -33,7 +33,9 @@ class SubmitWizard(SessionWizardView):
         return {'user': self.request.user}
 
     def done(self, form_list, **kwargs):
-        session =  get_object_or_404(Session, pk=self.args[0])
-        # do_something_with_the_form_data(form_list)
-        print(form_list)
-        return HttpResponseRedirect('/')
+        session =  get_object_or_404(Session, pk=kwargs['pk'])
+        character = self.request.user.character
+        for f in form_list:
+            f.fill_save(session, character)
+
+        return HttpResponseRedirect('/s/%s' % kwargs['pk'])

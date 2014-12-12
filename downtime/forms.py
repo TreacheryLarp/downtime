@@ -12,23 +12,40 @@ class LoginForm(AuthenticationForm):
                 code='inactive',
             )
 
-class DisciplineActivationForm(forms.ModelForm):
+# Session submit forms
+class SessionForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        # Let us filter out disciplines that the character doesn't possess
+        self.user = kwargs.pop('user')
+        super(SessionForm, self).__init__(*args, **kwargs)
+
+    def fill_save(self, session, character):
+        o = self.save(commit=False)
+        o.session = session
+        o.character = character
+        o.save()
+        self.save_m2m()
+
+class DisciplineActivationForm(SessionForm):
     class Meta:
         model = ActiveDisciplines
         fields = ['disciplines']
 
     def __init__(self, *args, **kwargs):
-        # Let us filter out disciplines that the character doesn't possess
-        self.user = kwargs.pop('user')
         super(DisciplineActivationForm, self).__init__(*args, **kwargs)
         self.fields['disciplines'].queryset = self.user.character.disciplines.all()
 
-class ActionForm(forms.ModelForm):
+class ActionForm(SessionForm):
     class Meta:
         model = Action
         fields = ['action_type', 'description']
 
+class FeedingForm(SessionForm):
+    class Meta:
+        model = Feeding
+        fields = ['domain', 'feeding_points', 'discipline', 'description']
+
     def __init__(self, *args, **kwargs):
         # Let us filter out disciplines that the character doesn't possess
-        self.user = kwargs.pop('user')
-        super(ActionForm, self).__init__(*args, **kwargs)
+        super(FeedingForm, self).__init__(*args, **kwargs)
+        self.fields['discipline'].queryset = self.user.character.disciplines.all()

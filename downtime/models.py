@@ -110,7 +110,7 @@ class Action(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return '[s] %s' % (self.character, self.action_type)
+        return '[%s] %s' % (self.character, self.action_type)
 
 class Feeding(models.Model):
     character = models.ForeignKey(Character)

@@ -9,8 +9,8 @@ urlpatterns = patterns('',
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^s/(?P<pk>\d+)/$', views.session, name='session'),
 
-    url(r'^s/(?P<pk>\d+)/submit/$',
+    url(r'^s/submit/(?P<pk>\d+)$',
         login_required(views.SubmitWizard.as_view(
-        [forms.DisciplineActivationForm, forms.ActionForm])),
+        [forms.DisciplineActivationForm, forms.FeedingForm, forms.ActionForm])),
         name='wizard'),
 )
