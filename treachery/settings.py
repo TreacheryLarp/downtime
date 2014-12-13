@@ -57,8 +57,16 @@ WSGI_APPLICATION = 'treachery.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-DATABASES['default'] =  dj_database_url.config()
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mydatabase',
+        'USER': 'ehmgoxctevihjl',
+        'PASSWORD': 'OriJbNw2q4wacp78yVz6pSCUlz',
+        'HOST': 'ec2-54-83-205-46.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
