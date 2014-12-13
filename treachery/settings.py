@@ -60,7 +60,7 @@ WSGI_APPLICATION = 'treachery.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mydatabase',
+        'NAME': 'db7kl58209hf7u',
         'USER': 'ehmgoxctevihjl',
         'PASSWORD': 'OriJbNw2q4wacp78yVz6pSCUlz',
         'HOST': 'ec2-54-83-205-46.compute-1.amazonaws.com',
