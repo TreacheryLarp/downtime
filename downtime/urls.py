@@ -1,8 +1,10 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required, permission_required
+from django.forms.models import modelformset_factory
 
 from downtime import views
 from downtime import forms
+from downtime import models
 
 urlpatterns = patterns('',
     url(r'^$', views.profile, name='profile'),
@@ -11,6 +13,7 @@ urlpatterns = patterns('',
 
     url(r'^s/submit/(?P<pk>\d+)$',
         login_required(views.SubmitWizard.as_view(
-        [forms.DisciplineActivationForm, forms.FeedingForm, forms.ActionForm])),
+        [forms.DisciplineActivationForm, forms.FeedingForm,
+        modelformset_factory(models.Action, formset=forms.ActionFormSet, fields=('action_type', 'description'))])),
         name='wizard'),
 )

@@ -57,6 +57,9 @@ class Character(models.Model):
     def __str__(self):
         return self.name
 
+    def action_count(self):
+        return 3
+
 class Debt(models.Model):
     count = models.IntegerField()
     size = models.ForeignKey(Boon)

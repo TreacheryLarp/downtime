@@ -17,12 +17,8 @@ def profile(request):
 def session(request, pk):
     session = get_object_or_404(Session, pk=pk)
     character = request.user.character
-    active_disciplines = None
-    if session.active_disciplines.filter(character=character).exists():
-        active_disciplines = session.active_disciplines.get(character=character)
     data =  {'session': session,
-             'character': character,
-             'active_disciplines': active_disciplines}
+             'character': character}
     return render(request, 'downtime/session.html', data)
 
 # login dectorator is in urlconf
@@ -37,5 +33,4 @@ class SubmitWizard(SessionWizardView):
         character = self.request.user.character
         for f in form_list:
             f.fill_save(session, character)
-
         return HttpResponseRedirect('/s/%s' % kwargs['pk'])

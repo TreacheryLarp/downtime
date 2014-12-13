@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django import forms
+from django.forms.models import BaseModelFormSet
 
 from downtime.models import *
 
@@ -35,10 +36,20 @@ class DisciplineActivationForm(SessionForm):
         super(DisciplineActivationForm, self).__init__(*args, **kwargs)
         self.fields['disciplines'].queryset = self.user.character.disciplines.all()
 
-class ActionForm(SessionForm):
-    class Meta:
-        model = Action
-        fields = ['action_type', 'description']
+class ActionFormSet(BaseModelFormSet):
+    def __init__(self, *args, **kwargs):
+        self.user=kwargs.pop('user')
+        super(ActionFormSet, self).__init__(*args, **kwargs)
+        self.queryset = Action.objects.none()
+        self.max_num = self.user.character.action_count()
+        self.extra = self.user.character.action_count()
+
+    def fill_save(self, session, character):
+        instances = self.save(commit=False)
+        for instance in instances:
+            instance.session = session
+            instance.character = character
+            instance.save()
 
 class FeedingForm(SessionForm):
     class Meta:
