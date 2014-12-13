@@ -5,6 +5,7 @@ from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.db import models
 from django.contrib.formtools.wizard.views import SessionWizardView
+from django.utils.decorators import method_decorator
 
 from downtime.models import Session
 
@@ -18,12 +19,18 @@ def session(request, pk):
     session = get_object_or_404(Session, pk=pk)
     character = request.user.character
     data =  {'session': session,
-             'character': character}
+             'character': character,
+             'has_submitted': session.has_submitted(character)}
     return render(request, 'downtime/session.html', data)
 
-# login dectorator is in urlconf
 class SubmitWizard(SessionWizardView):
     template_name = 'downtime/submit_wizard.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        session =  get_object_or_404(Session, pk=kwargs['pk'])
+        character = self.request.user.character
+        return super(SessionWizardView, self).dispatch(*args, **kwargs)
 
     def get_form_kwargs(self, step):
         return {'user': self.request.user}

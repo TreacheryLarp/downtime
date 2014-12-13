@@ -12,8 +12,9 @@ urlpatterns = patterns('',
     url(r'^s/(?P<pk>\d+)/$', views.session, name='session'),
 
     url(r'^s/submit/(?P<pk>\d+)$',
-        login_required(views.SubmitWizard.as_view(
+        views.SubmitWizard.as_view(
         [forms.DisciplineActivationForm, forms.FeedingForm,
-        modelformset_factory(models.Action, formset=forms.ActionFormSet, fields=('action_type', 'description'))])),
+        modelformset_factory(models.Action, formset=forms.ActionFormSet,
+        fields=('action_type', 'description'))]),
         name='wizard'),
 )

@@ -101,7 +101,6 @@ class Session(models.Model):
     name = models.CharField(max_length=200)
     is_open = models.BooleanField(default=True)
     feeding_domains = models.ManyToManyField(Domain, blank=True)                # finns det risk
-    active_character = models.ManyToManyField(Character, blank=True)
 
     def __str__(self):
             return self.name
