@@ -26,18 +26,29 @@ def session(request, session):
 
 @login_required
 def wizard(request, session):
+    data = {
+        'user': request.user,
+        'character': request.user.character,
+        'session': session
+    }
+    initial = {
+        '0': data,
+        '1': data,
+        '2': data,
+    }
     return SubmitWizard.as_view([
         forms.DisciplineActivationForm,
         forms.FeedingForm,
         modelformset_factory(Action, formset=forms.ActionFormSet, fields=('action_type', 'description'))
-        ])(request, session=session)
+        ], initial_dict=initial)(request, **data)
 
 
 class SubmitWizard(SessionWizardView):
     template_name = 'downtime/submit_wizard.html'
 
-    def get_form_kwargs(self, step):
-        return {'user': self.request.user}
+    #def get_form_kwargs(self, step):
+    #    return {'user': self.request.user,
+    #            'session': self.session}
 
     def done(self, form_list, **kwargs):
         session =  get_object_or_404(Session, pk=kwargs['session'])
