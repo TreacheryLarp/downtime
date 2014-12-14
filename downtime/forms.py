@@ -43,6 +43,7 @@ class ActionFormSet(BaseModelFormSet):
         self.user = initial['user']
         self.character = initial['character']
         self.session = initial['session']
+        self.fields = ('action_type', 'description')
         super(ActionFormSet, self).__init__(*args, **kwargs)
         self.queryset = Action.objects.filter(character=self.character, session=self.session)
         self.extra = self.character.action_count()

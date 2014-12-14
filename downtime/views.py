@@ -39,8 +39,9 @@ def wizard(request, session):
     return SubmitWizard.as_view([
         forms.DisciplineActivationForm,
         forms.FeedingForm,
-        modelformset_factory(Action, formset=forms.ActionFormSet, fields=('action_type', 'description'))
-        ], initial_dict=initial)(request, **data)
+        modelformset_factory(Action,
+                            formset=forms.ActionFormSet)],
+                            initial_dict=initial)(request, **data)
 
 
 class SubmitWizard(SessionWizardView):
