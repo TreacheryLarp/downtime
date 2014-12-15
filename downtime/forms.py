@@ -6,7 +6,7 @@ from downtime.models import *
 
 class LoginForm(AuthenticationForm):
     def confirm_login_allowed(self, user):
-        super()
+        super(LoginForm, self).confirm_login_allowed(user)
         if not user.character:
             raise forms.ValidationError(
                 _('This user has no character.'),
@@ -15,40 +15,14 @@ class LoginForm(AuthenticationForm):
 
 
 # Session submit forms
-class SessionForm(forms.ModelForm):
-
-    def fill_save(self, session, character):
-        o = self.save(commit=False)
-        o.session = session
-        o.character = character
-        o.save()
-        self.save_m2m()
-
-
-class DisciplineActivationForm(SessionForm):
-
-    class Meta:
-        model = ActiveDisciplines
-        fields = ['disciplines']
-
-    def __init__(self, *args, **kwargs):
-        super(DisciplineActivationForm, self).__init__(*args, **kwargs)
-        self.fields['disciplines'].queryset = self.initial['character'].disciplines.all()
-
-
-class ActionFormSet(BaseModelFormSet):
+class SessionFormSet(BaseModelFormSet):
 
     def __init__(self, *args, **kwargs):
         initial = kwargs.pop('initial')
         self.user = initial['user']
         self.character = initial['character']
         self.session = initial['session']
-        self.fields = ('action_type', 'description')
-        super(ActionFormSet, self).__init__(*args, **kwargs)
-        self.queryset = Action.objects.filter(character=self.character, session=self.session)
-        self.extra = self.character.action_count()
-        self.max_num = self.character.action_count()
-        self.can_delete = True
+        super(SessionFormSet, self).__init__(*args, **kwargs)
 
     def fill_save(self, session, character):
         instances = self.save(commit=False)
@@ -62,13 +36,35 @@ class ActionFormSet(BaseModelFormSet):
                 form.instance.delete()
 
 
-class FeedingForm(SessionForm):
-
-    class Meta:
-        model = Feeding
-        fields = ['domain', 'feeding_points', 'discipline', 'description']
+class DisciplineActivationFormSet(SessionFormSet):
 
     def __init__(self, *args, **kwargs):
-        # Let us filter out disciplines that the character doesn't possess
-        super(FeedingForm, self).__init__(*args, **kwargs)
-        self.fields['discipline'].queryset = self.initial['character'].disciplines.all()
+        super(DisciplineActivationFormSet, self).__init__(*args, **kwargs)
+        self.queryset = ActiveDisciplines.objects.filter(character=self.character, session=self.session)
+        self.max_num = 1
+        self.can_delete = True
+        for form in self.forms:
+            form.fields['disciplines'].queryset = self.user.character.disciplines.all()
+
+
+class ActionFormSet(SessionFormSet):
+
+    def __init__(self, *args, **kwargs):
+        self.fields = ('action_type', 'description')
+        super(ActionFormSet, self).__init__(*args, **kwargs)
+        self.queryset = Action.objects.filter(character=self.character, session=self.session)
+        self.extra = self.character.action_count()
+        self.max_num = self.character.action_count()
+        self.can_delete = True
+
+
+class FeedingFormSet(SessionFormSet):
+
+    def __init__(self, *args, **kwargs):
+        self.fields = ('domain', 'feeding_points', 'discipline', 'description')
+        super(FeedingFormSet, self).__init__(*args, **kwargs)
+        self.queryset = Feeding.objects.filter(character=self.character, session=self.session)
+        self.max_num = 1
+        self.can_delete = True
+        for form in self.forms:
+            form.fields['discipline'].queryset = self.user.character.disciplines.all()

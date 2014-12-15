@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.forms.models import modelformset_factory
 
 from downtime import forms
-from downtime.models import Session, Action
+from downtime.models import Session, Action, ActiveDisciplines, Feeding
 
 @login_required
 def profile(request):
@@ -37,19 +37,18 @@ def wizard(request, session):
         '2': data,
     }
     return SubmitWizard.as_view([
-        forms.DisciplineActivationForm,
-        forms.FeedingForm,
+        modelformset_factory(ActiveDisciplines,
+                            formset=forms.DisciplineActivationFormSet),
+        modelformset_factory(Feeding,
+                            formset=forms.FeedingFormSet),
         modelformset_factory(Action,
                             formset=forms.ActionFormSet)],
                             initial_dict=initial)(request, **data)
 
 
 class SubmitWizard(SessionWizardView):
+    
     template_name = 'downtime/submit_wizard.html'
-
-    #def get_form_kwargs(self, step):
-    #    return {'user': self.request.user,
-    #            'session': self.session}
 
     def done(self, form_list, **kwargs):
         session =  get_object_or_404(Session, pk=kwargs['session'])
