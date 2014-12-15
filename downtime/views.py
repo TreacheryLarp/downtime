@@ -5,8 +5,11 @@ from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.db import models
 from django.contrib.formtools.wizard.views import SessionWizardView
+from django.utils.decorators import method_decorator
+from django.forms.models import modelformset_factory
 
-from downtime.models import Session
+from downtime import forms
+from downtime.models import Session, Action, ActiveDisciplines, Feeding
 
 @login_required
 def profile(request):
@@ -14,23 +17,43 @@ def profile(request):
                                                      'session_list': Session.objects.all()})
 
 @login_required
-def session(request, pk):
-    session = get_object_or_404(Session, pk=pk)
+def session(request, session):
+    session = get_object_or_404(Session, pk=session)
     character = request.user.character
     data =  {'session': session,
              'character': character}
     return render(request, 'downtime/session.html', data)
 
-# login dectorator is in urlconf
+@login_required
+def wizard(request, session):
+    data = {
+        'user': request.user,
+        'character': request.user.character,
+        'session': get_object_or_404(Session, pk=session)
+    }
+    initial = {
+        '0': data,
+        '1': data,
+        '2': data,
+    }
+    return SubmitWizard.as_view([
+        modelformset_factory(ActiveDisciplines,
+                            formset=forms.DisciplineActivationFormSet,
+                            fields=['disciplines']),
+        modelformset_factory(Feeding,
+                            formset=forms.FeedingFormSet,
+                            fields=['domain', 'feeding_points', 'discipline', 'description']),
+        modelformset_factory(Action,
+                            formset=forms.ActionFormSet,
+                            fields=['action_type', 'description'])],
+                            initial_dict=initial)(request, **data)
+
+
 class SubmitWizard(SessionWizardView):
     template_name = 'downtime/submit_wizard.html'
 
-    def get_form_kwargs(self, step):
-        return {'user': self.request.user}
-
     def done(self, form_list, **kwargs):
-        session =  get_object_or_404(Session, pk=kwargs['pk'])
         character = self.request.user.character
         for f in form_list:
-            f.fill_save(session, character)
-        return HttpResponseRedirect('/s/%s' % kwargs['pk'])
+            f.fill_save()
+        return HttpResponseRedirect('/s/%s' % kwargs['session'].id)
