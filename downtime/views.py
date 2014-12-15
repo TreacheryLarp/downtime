@@ -29,7 +29,7 @@ def wizard(request, session):
     data = {
         'user': request.user,
         'character': request.user.character,
-        'session': session
+        'session': get_object_or_404(Session, pk=session)
     }
     initial = {
         '0': data,
@@ -38,21 +38,22 @@ def wizard(request, session):
     }
     return SubmitWizard.as_view([
         modelformset_factory(ActiveDisciplines,
-                            formset=forms.DisciplineActivationFormSet),
+                            formset=forms.DisciplineActivationFormSet,
+                            fields=['disciplines']),
         modelformset_factory(Feeding,
-                            formset=forms.FeedingFormSet),
+                            formset=forms.FeedingFormSet,
+                            fields=['domain', 'feeding_points', 'discipline', 'description']),
         modelformset_factory(Action,
-                            formset=forms.ActionFormSet)],
+                            formset=forms.ActionFormSet,
+                            fields=['action_type', 'description'])],
                             initial_dict=initial)(request, **data)
 
 
 class SubmitWizard(SessionWizardView):
-    
     template_name = 'downtime/submit_wizard.html'
 
     def done(self, form_list, **kwargs):
-        session =  get_object_or_404(Session, pk=kwargs['session'])
         character = self.request.user.character
         for f in form_list:
-            f.fill_save(session, character)
-        return HttpResponseRedirect('/s/%s' % kwargs['session'])
+            f.fill_save()
+        return HttpResponseRedirect('/s/%s' % kwargs['session'].id)

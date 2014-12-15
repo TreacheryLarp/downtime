@@ -24,16 +24,14 @@ class SessionFormSet(BaseModelFormSet):
         self.session = initial['session']
         super(SessionFormSet, self).__init__(*args, **kwargs)
 
-    def fill_save(self, session, character):
+    def fill_save(self):
+        self.save_existing_objects(commit=True) # deletes objects
         instances = self.save(commit=False)
         for instance in instances:
-            instance.session = session
-            instance.character = character
+            instance.session = self.session
+            instance.character = self.character
             instance.save()
         self.save_m2m()
-        for form in self.deleted_forms:
-            if form.instance != None:
-                form.instance.delete()
 
 
 class DisciplineActivationFormSet(SessionFormSet):
@@ -50,7 +48,6 @@ class DisciplineActivationFormSet(SessionFormSet):
 class ActionFormSet(SessionFormSet):
 
     def __init__(self, *args, **kwargs):
-        self.fields = ('action_type', 'description')
         super(ActionFormSet, self).__init__(*args, **kwargs)
         self.queryset = Action.objects.filter(character=self.character, session=self.session)
         self.extra = self.character.action_count()
@@ -61,7 +58,6 @@ class ActionFormSet(SessionFormSet):
 class FeedingFormSet(SessionFormSet):
 
     def __init__(self, *args, **kwargs):
-        self.fields = ('domain', 'feeding_points', 'discipline', 'description')
         super(FeedingFormSet, self).__init__(*args, **kwargs)
         self.queryset = Feeding.objects.filter(character=self.character, session=self.session)
         self.max_num = 1
