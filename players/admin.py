@@ -1,5 +1,5 @@
 from django.contrib import admin
-from downtime.models import *
+from players.models import *
 from reversion.helpers import patch_admin
 
 # Admin interface

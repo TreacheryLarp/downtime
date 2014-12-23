@@ -1,6 +1,6 @@
 treachery/__pycache__
 db.sqlite3
-downtime/__pycache__
+players/__pycache__
 venv
 *.pyc
 staticfiles

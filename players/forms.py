@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from django.forms.models import BaseModelFormSet
 
-from downtime.models import *
+from players.models import *
 
 class LoginForm(AuthenticationForm):
     def confirm_login_allowed(self, user):

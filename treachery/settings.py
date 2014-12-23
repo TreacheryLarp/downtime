@@ -36,7 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'reversion',
-    'downtime',
+    'players',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,4 +89,4 @@ STATICFILES_DIRS = (
 
 # Authentication
 LOGIN_URL='/login'
-LOGIN_REDIRECT_URL='/downtime/profile'
+LOGIN_REDIRECT_URL='/players/profile'
