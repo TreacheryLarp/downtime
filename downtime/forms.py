@@ -50,9 +50,19 @@ class ActionFormSet(SessionFormSet):
     def __init__(self, *args, **kwargs):
         super(ActionFormSet, self).__init__(*args, **kwargs)
         self.queryset = Action.objects.filter(character=self.character, session=self.session)
-        self.extra = self.character.action_count()
-        self.max_num = self.character.action_count()
-        self.can_delete = True
+        extra_action_count = self.character.extra_action_count()
+        self.extra = self.character.free_action_count() + extra_action_count
+        self.max_num = self.extra
+        # otherwise django might populate the forms with actions that
+        # doest match their action_type queryset
+        self.can_delete = False
+
+        i = 0
+        for extra_action in self.character.extra_actions():
+            for j in range(extra_action.count):
+                form = self.forms[i]
+                form.fields['action_type'].queryset = extra_action.action_types.all()
+                i = i + 1
 
 
 class FeedingFormSet(SessionFormSet):
