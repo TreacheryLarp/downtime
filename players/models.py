@@ -16,7 +16,8 @@ class ActionOption(models.Model):
     count = models.PositiveIntegerField()
 
     def __str__(self):
-        return '%s x%i' % (self.action_types.all(), self.count)
+        action_types = ' or '.join(a.name for a in self.action_types.all())
+        return '[%s]x%i' % (action_types, self.count)
 
 
 class Influence(models.Model):
@@ -37,7 +38,7 @@ class Discipline(models.Model):
     name = models.CharField(max_length=200)
 
     def __str__(self):
-            return self.name
+        return self.name
 
 
 class Title(models.Model):
@@ -45,7 +46,7 @@ class Title(models.Model):
     action_options = models.ManyToManyField(ActionOption, blank=True)
 
     def __str__(self):
-            return self.name
+        return self.name
 
 
 class Age(models.Model):
@@ -53,7 +54,7 @@ class Age(models.Model):
     action_options = models.ManyToManyField(ActionOption, blank=True)
 
     def __str__(self):
-            return self.name
+        return self.name
 
 
 class Boon(models.Model):
@@ -61,7 +62,7 @@ class Boon(models.Model):
     value = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.name
+        return '(%i) %s' % (self.value, self.name)
 
 
 class Clan(models.Model):
@@ -81,7 +82,7 @@ class Character(models.Model):
     clan = models.ForeignKey(Clan)
 
     def __str__(self):
-        return self.name
+        return '%s (%s)' % (self.name, self.user)
 
     def action_count(self):
         action_options = self.actions()
@@ -126,7 +127,7 @@ class InfluenceRating(models.Model):
     character = models.ForeignKey(Character, related_name='influences')
 
     def __str__(self):
-        return '[%s]%s: %i' % (self.character, self.influence, self.rating)
+        return '[%s] %s: %i' % (self.character, self.influence, self.rating)
 
 
 # Session actions
@@ -136,7 +137,7 @@ class Session(models.Model):
     feeding_domains = models.ManyToManyField(Domain, blank=True)
 
     def __str__(self):
-        return self.name
+        return '[%s] %s' % ('open' if self.is_open else 'closed', self.name)
 
 
 class Action(models.Model):
@@ -146,7 +147,7 @@ class Action(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return '[%s] %s' % (self.character, self.action_type)
+        return '[%s] %s: %s' % (self.session, self.character, self.action_type)
 
 
 class Feeding(models.Model):
@@ -158,7 +159,7 @@ class Feeding(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return '%s feeds %d in %s' % (self.character, self.feeding_points, self.domain)
+        return '[%s] %s: %d in %s' % (self.session, self.character, self.feeding_points, self.domain)
 
 
 class ActiveDisciplines(models.Model):
@@ -167,4 +168,5 @@ class ActiveDisciplines(models.Model):
     disciplines = models.ManyToManyField(Discipline, blank=True)
 
     def __str__(self):
-        return '[%s] %s: %s' % (self.session, self.character, self.disciplines.all())
+        disciplines = ', '.join(d.name for d in self.disciplines.all())
+        return '[%s] %s: %s' % (self.session, self.character, disciplines)
