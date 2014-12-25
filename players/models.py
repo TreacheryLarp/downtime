@@ -83,17 +83,14 @@ class Character(models.Model):
     def __str__(self):
         return self.name
 
-    def free_action_count(self):
-        return 4
-
-    def extra_action_count(self):
-        extra_actions = self.extra_actions()
+    def action_count(self):
+        extra_actions = self.actions()
         count = 0
         for extra_action in extra_actions:
             count += extra_action.count
         return count
 
-    def extra_actions(self):
+    def actions(self):
         actions = list(self.age.extra_actions.all())
         for title in self.titles.all():
             actions.extend(list(title.extra_actions.all()))
