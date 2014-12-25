@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
-import reversion
-
+from simple_history.models import HistoricalRecords
 
 class ActionType(models.Model):
     name = models.CharField(max_length=200)
     template = models.TextField(blank=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -14,6 +14,7 @@ class ActionType(models.Model):
 class ActionOption(models.Model):
     action_types = models.ManyToManyField(ActionType)
     count = models.PositiveIntegerField()
+    history = HistoricalRecords()
 
     def __str__(self):
         action_types = ' or '.join(a.name for a in self.action_types.all())
@@ -22,6 +23,7 @@ class ActionOption(models.Model):
 
 class Influence(models.Model):
     name = models.CharField(max_length=200)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -29,6 +31,7 @@ class Influence(models.Model):
 
 class Population(models.Model):
     name = models.CharField(max_length=200)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -36,6 +39,7 @@ class Population(models.Model):
 
 class Discipline(models.Model):
     name = models.CharField(max_length=200)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -44,6 +48,7 @@ class Discipline(models.Model):
 class Title(models.Model):
     name = models.CharField(max_length=200)
     action_options = models.ManyToManyField(ActionOption, blank=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -52,6 +57,7 @@ class Title(models.Model):
 class Age(models.Model):
     name = models.CharField(max_length=200)
     action_options = models.ManyToManyField(ActionOption, blank=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -60,6 +66,7 @@ class Age(models.Model):
 class Boon(models.Model):
     name = models.CharField(max_length=200)
     value = models.PositiveIntegerField()
+    history = HistoricalRecords()
 
     def __str__(self):
         return '(%i) %s' % (self.value, self.name)
@@ -67,6 +74,7 @@ class Boon(models.Model):
 
 class Clan(models.Model):
     name = models.CharField(max_length=200)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -80,6 +88,7 @@ class Character(models.Model):
     age = models.ForeignKey(Age)
     resources = models.PositiveIntegerField()
     clan = models.ForeignKey(Clan)
+    history = HistoricalRecords()
 
     def __str__(self):
         return '%s (%s)' % (self.name, self.user)
@@ -104,6 +113,7 @@ class Debt(models.Model):
     creditor = models.ForeignKey(Character, related_name='credits')
     debtor = models.ForeignKey(Character, related_name='debts')
     description = models.TextField()
+    history = HistoricalRecords()
 
     def __str__(self):
         return '%s owes %s: %d %s' % (self.debtor, self.creditor, self.count, self.size)
@@ -116,6 +126,7 @@ class Domain(models.Model):
     influence = models.TextField()
     masquerade = models.TextField()
     population = models.ForeignKey(Population)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -125,6 +136,7 @@ class InfluenceRating(models.Model):
     influence = models.ForeignKey(Influence)
     rating = models.PositiveIntegerField()
     character = models.ForeignKey(Character, related_name='influences')
+    history = HistoricalRecords()
 
     def __str__(self):
         return '[%s] %s: %i' % (self.character, self.influence, self.rating)
@@ -135,6 +147,7 @@ class Session(models.Model):
     name = models.CharField(max_length=200)
     is_open = models.BooleanField(default=True)
     feeding_domains = models.ManyToManyField(Domain, blank=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return '[%s] %s' % ('open' if self.is_open else 'closed', self.name)
@@ -145,6 +158,7 @@ class Action(models.Model):
     character = models.ForeignKey(Character)
     session = models.ForeignKey(Session, related_name='actions')
     description = models.TextField()
+    history = HistoricalRecords()
 
     def __str__(self):
         return '[%s] %s: %s' % (self.session, self.character, self.action_type)
@@ -157,6 +171,7 @@ class Feeding(models.Model):
     feeding_points = models.PositiveIntegerField()
     discipline = models.ForeignKey(Discipline)
     description = models.TextField()
+    history = HistoricalRecords()
 
     def __str__(self):
         return '[%s] %s: %d in %s' % (self.session, self.character, self.feeding_points, self.domain)
@@ -166,6 +181,7 @@ class ActiveDisciplines(models.Model):
     character = models.ForeignKey(Character)
     session = models.ForeignKey(Session, related_name='active_disciplines')
     disciplines = models.ManyToManyField(Discipline, blank=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         disciplines = ', '.join(d.name for d in self.disciplines.all())

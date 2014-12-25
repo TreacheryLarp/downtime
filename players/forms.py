@@ -40,7 +40,7 @@ class DisciplineActivationFormSet(SessionFormSet):
         super(DisciplineActivationFormSet, self).__init__(*args, **kwargs)
         self.queryset = ActiveDisciplines.objects.filter(character=self.character, session=self.session)
         self.max_num = 1
-        self.can_delete = True
+        self.can_delete = False
         for form in self.forms:
             form.fields['disciplines'].queryset = self.user.character.disciplines.all()
 
@@ -61,6 +61,8 @@ class ActionFormSet(SessionFormSet):
         for action in self.character.actions():
             for j in range(action.count):
                 form = self.forms[i]
+                # we could use form.initial to look at previous values. However
+                # matching the action to the option is hard.
                 form.fields['action_type'].queryset = action.action_types.all()
                 i = i + 1
 
@@ -71,6 +73,6 @@ class FeedingFormSet(SessionFormSet):
         super(FeedingFormSet, self).__init__(*args, **kwargs)
         self.queryset = Feeding.objects.filter(character=self.character, session=self.session)
         self.max_num = 1
-        self.can_delete = True
+        self.can_delete = False
         for form in self.forms:
             form.fields['discipline'].queryset = self.user.character.disciplines.all()

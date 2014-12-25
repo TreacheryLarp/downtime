@@ -1,25 +1,23 @@
 from django.contrib import admin
+from simple_history.admin import SimpleHistoryAdmin
+
 from players.models import *
-from reversion.helpers import patch_admin
 
 # Admin interface
-admin.site.register(Character)
-admin.site.register(Discipline)
-admin.site.register(Title)
-admin.site.register(Boon)
-admin.site.register(Debt)
-admin.site.register(Age)
-admin.site.register(ActionType)
-admin.site.register(Action)
-admin.site.register(Domain)
-admin.site.register(Session)
-admin.site.register(Feeding)
-admin.site.register(ActiveDisciplines)
-admin.site.register(InfluenceRating)
-admin.site.register(Population)
-admin.site.register(Influence)
-admin.site.register(Clan)
-admin.site.register(ActionOption)
-
-# reversion
-patch_admin(Character)
+admin.site.register(Character, SimpleHistoryAdmin)
+admin.site.register(Discipline, SimpleHistoryAdmin)
+admin.site.register(Title, SimpleHistoryAdmin)
+admin.site.register(Boon, SimpleHistoryAdmin)
+admin.site.register(Debt, SimpleHistoryAdmin)
+admin.site.register(Age, SimpleHistoryAdmin)
+admin.site.register(ActionType, SimpleHistoryAdmin)
+admin.site.register(Action, SimpleHistoryAdmin)
+admin.site.register(Domain, SimpleHistoryAdmin)
+admin.site.register(Session, SimpleHistoryAdmin)
+admin.site.register(Feeding, SimpleHistoryAdmin)
+admin.site.register(ActiveDisciplines, SimpleHistoryAdmin)
+admin.site.register(InfluenceRating, SimpleHistoryAdmin)
+admin.site.register(Population, SimpleHistoryAdmin)
+admin.site.register(Influence, SimpleHistoryAdmin)
+admin.site.register(Clan, SimpleHistoryAdmin)
+admin.site.register(ActionOption, SimpleHistoryAdmin)
