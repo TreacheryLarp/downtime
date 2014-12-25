@@ -11,7 +11,7 @@ class ActionType(models.Model):
         return self.name
 
 
-class ExtraAction(models.Model):
+class ActionOption(models.Model):
     action_types = models.ManyToManyField(ActionType)
     count = models.PositiveIntegerField()
 
@@ -42,7 +42,7 @@ class Discipline(models.Model):
 
 class Title(models.Model):
     name = models.CharField(max_length=200)
-    extra_actions = models.ManyToManyField(ExtraAction, blank=True)
+    action_options = models.ManyToManyField(ActionOption, blank=True)
 
     def __str__(self):
             return self.name
@@ -50,7 +50,7 @@ class Title(models.Model):
 
 class Age(models.Model):
     name = models.CharField(max_length=200)
-    extra_actions = models.ManyToManyField(ExtraAction, blank=True)
+    action_options = models.ManyToManyField(ActionOption, blank=True)
 
     def __str__(self):
             return self.name
@@ -84,17 +84,17 @@ class Character(models.Model):
         return self.name
 
     def action_count(self):
-        extra_actions = self.actions()
+        action_options = self.actions()
         count = 0
-        for extra_action in extra_actions:
-            count += extra_action.count
+        for action_option in action_options:
+            count += action_option.count
         return count
 
     def actions(self):
-        actions = list(self.age.extra_actions.all())
+        action_options = list(self.age.action_options.all())
         for title in self.titles.all():
-            actions.extend(list(title.extra_actions.all()))
-        return actions
+            action_options.extend(list(title.action_options.all()))
+        return action_options
 
 
 class Debt(models.Model):
