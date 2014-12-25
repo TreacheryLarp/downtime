@@ -161,7 +161,7 @@ class Action(models.Model):
     history = HistoricalRecords()
 
     def __str__(self):
-        return '[%s] %s: %s' % (self.session, self.character, self.action_type)
+        return '[%s] %s: %s' % (self.session.name, self.character, self.action_type)
 
 
 class Feeding(models.Model):
@@ -174,7 +174,7 @@ class Feeding(models.Model):
     history = HistoricalRecords()
 
     def __str__(self):
-        return '[%s] %s: %d in %s' % (self.session, self.character, self.feeding_points, self.domain)
+        return '[%s] %s: %d in %s' % (self.session.name, self.character, self.feeding_points, self.domain)
 
 
 class ActiveDisciplines(models.Model):
@@ -185,4 +185,4 @@ class ActiveDisciplines(models.Model):
 
     def __str__(self):
         disciplines = ', '.join(d.name for d in self.disciplines.all())
-        return '[%s] %s: %s' % (self.session, self.character, disciplines)
+        return '[%s] %s: %s' % (self.session.name, self.character, disciplines)
