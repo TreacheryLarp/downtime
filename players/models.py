@@ -186,3 +186,13 @@ class ActiveDisciplines(models.Model):
     def __str__(self):
         disciplines = ', '.join(d.name for d in self.disciplines.all())
         return '[%s] %s: %s' % (self.session.name, self.character, disciplines)
+
+
+class ExtraAction(models.Model):
+    character = models.ForeignKey(Character)
+    session = models.ForeignKey(Session)
+    action_options = models.ManyToManyField(ActionOption)
+    history = HistoricalRecords()
+
+    def __str__(self):
+        return '[%s] + %s to %s' % (session.name, action_options, character.name)
