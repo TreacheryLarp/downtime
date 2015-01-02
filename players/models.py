@@ -100,8 +100,9 @@ class Character(models.Model):
             count += action_option.count
         return count
 
-    def actions(self):
+    def actions(self, session):
         action_options = list(self.age.action_options.all())
+        ExtraAction.objects.filter(character=self, session=session)
         for title in self.titles.all():
             action_options.extend(list(title.action_options.all()))
         return action_options

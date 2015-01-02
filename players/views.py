@@ -13,7 +13,7 @@ from players.models import Session, Action, ActiveDisciplines, Feeding
 
 @login_required
 def profile(request):
-    return render(request, 'players/profile.html', {'character': request.user.character,
+    return render(request, 'profile.html', {'character': request.user.character,
                                                      'session_list': Session.objects.all()})
 
 @login_required
@@ -22,7 +22,7 @@ def session(request, session):
     character = request.user.character
     data =  {'session': session,
              'character': character}
-    return render(request, 'players/session.html', data)
+    return render(request, 'session.html', data)
 
 @login_required
 def wizard(request, session):
@@ -50,7 +50,7 @@ def wizard(request, session):
 
 
 class SubmitWizard(SessionWizardView):
-    template_name = 'players/submit_wizard.html'
+    template_name = 'submit_wizard.html'
 
     def done(self, form_list, **kwargs):
         character = self.request.user.character

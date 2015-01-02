@@ -4,3 +4,4 @@ players/__pycache__
 venv
 *.pyc
 staticfiles
+migrations

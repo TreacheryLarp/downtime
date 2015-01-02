@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from django.views.generic.list import ListView
+from django.utils import timezone
 
-# Create your views here.
+from players.models import Session
+
+class SessionListView(ListView):
+    model = Session
+    template_name = 'sessions.html'
