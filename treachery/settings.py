@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'simple_history',
     'players',
     'gamemaster',
+    'boons',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -7,8 +7,6 @@ from players.models import *
 admin.site.register(Character, SimpleHistoryAdmin)
 admin.site.register(Discipline, SimpleHistoryAdmin)
 admin.site.register(Title, SimpleHistoryAdmin)
-admin.site.register(Boon, SimpleHistoryAdmin)
-admin.site.register(Debt, SimpleHistoryAdmin)
 admin.site.register(Age, SimpleHistoryAdmin)
 admin.site.register(ActionType, SimpleHistoryAdmin)
 admin.site.register(Action, SimpleHistoryAdmin)

@@ -63,15 +63,6 @@ class Age(models.Model):
         return self.name
 
 
-class Boon(models.Model):
-    name = models.CharField(max_length=200)
-    value = models.PositiveIntegerField()
-    history = HistoricalRecords()
-
-    def __str__(self):
-        return '(%i) %s' % (self.value, self.name)
-
-
 class Clan(models.Model):
     name = models.CharField(max_length=200)
     history = HistoricalRecords()
@@ -106,18 +97,6 @@ class Character(models.Model):
         for title in self.titles.all():
             action_options.extend(list(title.action_options.all()))
         return action_options
-
-
-class Debt(models.Model):
-    count = models.PositiveIntegerField()
-    size = models.ForeignKey(Boon)
-    creditor = models.ForeignKey(Character, related_name='credits')
-    debtor = models.ForeignKey(Character, related_name='debts')
-    description = models.TextField()
-    history = HistoricalRecords()
-
-    def __str__(self):
-        return '%s owes %s: %d %s' % (self.debtor, self.creditor, self.count, self.size)
 
 
 class Domain(models.Model):
