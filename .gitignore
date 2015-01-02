@@ -1,6 +1,5 @@
-treachery/__pycache__
 db.sqlite3
-players/__pycache__
+__pycache__
 venv
 *.pyc
 staticfiles
