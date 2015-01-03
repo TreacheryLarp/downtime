@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from downtime import views
+from players import views
 
 urlpatterns = patterns('',
     url(r'^$', views.profile, name='profile'),

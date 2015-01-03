@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from django.forms.models import BaseModelFormSet
 
-from downtime.models import *
+from players.models import *
 
 class LoginForm(AuthenticationForm):
     def confirm_login_allowed(self, user):
@@ -40,7 +40,7 @@ class DisciplineActivationFormSet(SessionFormSet):
         super(DisciplineActivationFormSet, self).__init__(*args, **kwargs)
         self.queryset = ActiveDisciplines.objects.filter(character=self.character, session=self.session)
         self.max_num = 1
-        self.can_delete = True
+        self.can_delete = False
         for form in self.forms:
             form.fields['disciplines'].queryset = self.user.character.disciplines.all()
 
@@ -50,9 +50,21 @@ class ActionFormSet(SessionFormSet):
     def __init__(self, *args, **kwargs):
         super(ActionFormSet, self).__init__(*args, **kwargs)
         self.queryset = Action.objects.filter(character=self.character, session=self.session)
-        self.extra = self.character.action_count()
-        self.max_num = self.character.action_count()
-        self.can_delete = True
+        action_count = self.character.action_count()
+        self.extra = action_count
+        self.max_num = self.extra
+        # otherwise django might populate the forms with actions that
+        # doest match their action_type queryset
+        self.can_delete = False
+
+        i = 0
+        for action in self.character.actions():
+            for j in range(action.count):
+                form = self.forms[i]
+                # we could use form.initial to look at previous values. However
+                # matching the action to the option is hard.
+                form.fields['action_type'].queryset = action.action_types.all()
+                i = i + 1
 
 
 class FeedingFormSet(SessionFormSet):
@@ -61,6 +73,6 @@ class FeedingFormSet(SessionFormSet):
         super(FeedingFormSet, self).__init__(*args, **kwargs)
         self.queryset = Feeding.objects.filter(character=self.character, session=self.session)
         self.max_num = 1
-        self.can_delete = True
+        self.can_delete = False
         for form in self.forms:
             form.fields['discipline'].queryset = self.user.character.disciplines.all()

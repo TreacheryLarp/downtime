@@ -36,8 +36,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'reversion',
-    'downtime',
+    'simple_history',
+    'players',
+    'gamemaster',
+    'boons',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -48,6 +50,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 )
 
 ROOT_URLCONF = 'treachery.urls'
@@ -81,6 +84,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Template system
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
@@ -93,4 +98,4 @@ STATICFILES_DIRS = (
 
 # Authentication
 LOGIN_URL='/login'
-LOGIN_REDIRECT_URL='/downtime/profile'
+LOGIN_REDIRECT_URL='/players/profile'
