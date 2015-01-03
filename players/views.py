@@ -14,7 +14,7 @@ from players.models import Session, Action, ActiveDisciplines, Feeding
 @login_required
 def profile(request):
     return render(request, 'profile.html', {'character': request.user.character,
-                                                     'session_list': Session.objects.all()})
+                                            'session_list': Session.objects.all()})
 
 @login_required
 def session(request, session):

@@ -1,8 +1,22 @@
 {% extends "base.html" %}
 
+{% block head %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+{% endblock %}
+
 {% block content %}
 
 Transaction for boon: {{boon}}.
 {{url}}
+
+<div id="qrcode"></div>
+
+<script>
+jQuery('#qrcode').qrcode({
+  text	: "{{url}}",
+  width: 128,
+  height: 128,
+});
+</script>
 
 {% endblock %}
