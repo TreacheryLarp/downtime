@@ -33,8 +33,11 @@ def view_boon(request, boon_key):
     else:
         raise PermissionDenied
 
-@user_passes_test(lambda u:u.is_staff, login_url='/login/')
+@login_required
 def print_boon(request, boon_key):
+    if not request.user.is_staff:
+        raise PermissionDenied
+
     boon = get_object_or_404(Boon, pk=boon_key)
     url = request.build_absolute_uri(reverse('boons.views.transaction',
                                              kwargs={'boon_key' :boon_key}))
