@@ -73,7 +73,7 @@ class Clan(models.Model):
 
 class Character(models.Model):
     name = models.CharField(max_length=200)
-    user = models.OneToOneField(User, related_name='character')
+    user = models.OneToOneField(User, related_name='character', blank=True, null=True)
     disciplines = models.ManyToManyField(Discipline, blank=True)
     titles = models.ManyToManyField(Title, blank=True)
     age = models.ForeignKey(Age)

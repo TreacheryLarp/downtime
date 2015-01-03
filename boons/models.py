@@ -9,7 +9,6 @@ from simple_history.models import HistoricalRecords
 from players.models import Session, Character
 
 
-
 class BoonSize(models.Model):
     name = models.CharField(max_length=200)
     value = models.PositiveIntegerField()
@@ -20,6 +19,7 @@ class BoonSize(models.Model):
 
 
 class Transaction(models.Model):
+    boon = models.ForeignKey('Boon', related_name='transactions')
     creditor = models.ForeignKey(Character, related_name='credits')
     transaction_time = models.DateTimeField(auto_now_add=True)
     history = HistoricalRecords()
@@ -32,8 +32,7 @@ class Boon(models.Model):
 
     def pkgen():
         while True:
-            # Use secure random? Not really needed though..
-            pk = b32encode(sha1(str(random())).digest()).lower()[:5]
+            pk = b32encode(sha1(str(random()).encode('utf-8')).digest()).lower()[:5]
             if len(Boon.objects.filter(key=pk)) == 0:
                 return pk
 
@@ -41,9 +40,13 @@ class Boon(models.Model):
     key = models.CharField(max_length=5, primary_key=True, default=pkgen)
     debtor = models.ForeignKey(Character, related_name='boons')
     size = models.ForeignKey(BoonSize)
-    active_transaction = models.ForeignKey(Transaction, blank=True, related_name='+')
-    transactions = models.ManyToManyField(Transaction, blank=True)
+    active_transaction = models.ForeignKey(Transaction, blank=True ,null=True, related_name='+')
     history = HistoricalRecords()
 
     def __str__(self):
         return '[%s] %s' % (self.key, self.debtor)
+
+    def creditor(self):
+        if self.active_transaction == None:
+            return None
+        return self.active_transaction.creditor

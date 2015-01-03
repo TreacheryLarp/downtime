@@ -53,7 +53,6 @@ class SubmitWizard(SessionWizardView):
     template_name = 'submit_wizard.html'
 
     def done(self, form_list, **kwargs):
-        character = self.request.user.character
         for f in form_list:
             f.fill_save()
         return HttpResponseRedirect('/s/%s' % kwargs['session'].id)
