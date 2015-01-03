@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,7 +13,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="{% static "treachery/style.css" %}" />
 
     <title>{% block title %}Treachery{% endblock %}</title>
 
