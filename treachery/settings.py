@@ -24,7 +24,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', 'treachery.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', 'treachery.herokuapp.com', 'treachery.smoiz.com']
 
 
 # Application definition
