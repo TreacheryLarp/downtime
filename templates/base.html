@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
-    <link rel="stylesheet" href="{% static "treachery/style.css" %}" />
+    <link rel="stylesheet" href="{% static "treachery/css/style.css" %}" />
 
     <title>{% block title %}Treachery{% endblock %}</title>
 
@@ -23,7 +23,9 @@
 
   <body>
     <div id="content">
-      {% block content %}THIS IS AN EMPTY TEMPLATE!{% endblock %}
+      {% block content %}
+        THIS IS AN EMPTY TEMPLATE!
+      {% endblock %}
     </div>
   </body>
 </html>
