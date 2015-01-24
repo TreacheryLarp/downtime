@@ -139,6 +139,7 @@ class Action(models.Model):
     session = models.ForeignKey(Session, related_name='actions')
     description = models.TextField()
     history = HistoricalRecords()
+    resolved = models.BooleanField(default=False)
 
     def __str__(self):
         return '[%s] %s: %s' % (self.session.name, self.character, self.action_type)

@@ -9,26 +9,33 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Sessions</h1>
+  <h1>Actions</h1>
+
+  <div id="filter" style="float: left;">
+    Name:
+    <select id="filter-name" name="name">
+      <option></option>
+      {% for session in object_list %}
+        <option>{{ session.name }}</option>
+      {% empty %}
+      {% endfor %}
+    </select>
+  </div>
 
   <table id="session-table" class="table">
     <thead>
       <tr>
+        <th class="dynatable-head">Id</th>
         <th class="dynatable-head">Name</th>
-        <th class="dynatable-head">Characters</th>
-        <th class="dynatable-head">Actions</th>
-        <th class="dynatable-head">Feedings</th>
-        <th class="dynatable-head">Active Disciplines</th>
+        <th class="dynatable-head">Open</th>
       </tr>
     </thead>
     <tbody>
       {% for session in object_list %}
         <tr>
+          <td>{{ session.id }}</td>
           <td>{{ session.name }}</td>
-          <td><a href="{% url 'characters' session.id %}">{{ characters | length }}</a></td>
-          <td><a href="{% url 'actions' session.id %}">{{ session.actions.all | length }}</a></td>
-          <td><a href="{% url 'feedings' session.id %}">{{ session.feedings.all | length }}</a></td>
-          <td><a href="{% url 'disciplines' session.id %}">{{ session.active_disciplines.all | length }}</a></td>
+          <td>{{ session.is_open }}</td>
         </tr>
       {% empty %}
       {% endfor %}
@@ -41,6 +48,9 @@
           paginate: false,
           recordCount: true,
           sorting: true
+        },
+        inputs: {
+          queries: $('#filter-name')
         }
     });
   </script>
