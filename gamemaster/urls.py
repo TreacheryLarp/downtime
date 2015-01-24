@@ -8,4 +8,5 @@ urlpatterns = patterns('',
     url(r'^s/(?P<session>\d+)/f$', views.ActionListView.as_view(), name='feedings'),
     url(r'^s/(?P<session>\d+)/d$', views.ActionListView.as_view(), name='disciplines'),
     url(r'^s/(?P<session>\d+)/c$', views.ActionListView.as_view(), name='characters'),
+    url(r'^a/(?P<action>\d+)$', views.ActionListView.as_view(), name='action'),
 )

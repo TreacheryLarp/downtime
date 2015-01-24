@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.views.generic.list import ListView
 from django.utils import timezone
 
-from players.models import Session, Action, Character
+from players.models import Session, Action, Character, ActionType
 
 class SessionListView(ListView):
     model = Session
@@ -20,3 +20,9 @@ class ActionListView(ListView):
     def get_queryset(self):
         self.session = get_object_or_404(Session, id=self.kwargs['session'])
         return Action.objects.filter(session=self.session)
+
+    def get_context_data(self, **kwargs):
+        context = super(ActionListView, self).get_context_data(**kwargs)
+        context['characters'] = Character.objects.all()
+        context['action_types'] = ActionType.objects.all()
+        return context

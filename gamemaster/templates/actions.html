@@ -11,33 +11,52 @@
 {% block content %}
   <h1>Actions</h1>
 
-  <div id="filter" style="float: left;">
-    Name:
-    <select id="filter-name" name="name">
+  <div class="filter-box" style="float: left;">
+    Type:
+    <select id="filter-select" name="type">
       <option></option>
-      {% for session in object_list %}
-        <option>{{ session.name }}</option>
-      {% empty %}
+      {% for type in action_types %}
+        <option>{{ type.name }}</option>
       {% endfor %}
+    </select>
+  </div>
+
+  <div class="filter-box" style="float: left;">
+    Character:
+    <select id="filter-character" name="character">
+      <option></option>
+      {% for character in characters %}
+      <option>{{ character.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="filter-box" style="float: left;">
+    Resolved:
+    <select id="filter-resolved" name="resolved">
+      <option></option>
+      <option>Yes</option>
+      <option>No</option>
     </select>
   </div>
 
   <table id="session-table" class="table">
     <thead>
       <tr>
-        <th class="dynatable-head">Id</th>
-        <th class="dynatable-head">Name</th>
-        <th class="dynatable-head">Open</th>
+        <th class="dynatable-head">Type</th>
+        <th class="dynatable-head">Character</th>
+        <th class="dynatable-head">Description</th>
+        <th class="dynatable-head">Resolved</th>
       </tr>
     </thead>
     <tbody>
-      {% for session in object_list %}
+      {% for action in object_list %}
         <tr>
-          <td>{{ session.id }}</td>
-          <td>{{ session.name }}</td>
-          <td>{{ session.is_open }}</td>
+          <td>{{ action.action_type.name }}</td>
+          <td>{{ action.character.name }}</td>
+          <td>{{ action.description|truncatechars:25 }}</td>
+          <td>{{ action.resolved|yesno:"Yes,No" }}</td>
         </tr>
-      {% empty %}
       {% endfor %}
     </tbody>
   </table>
@@ -45,12 +64,12 @@
   <script>
     $('#session-table').dynatable({
         features: {
-          paginate: false,
+          paginate: true,
           recordCount: true,
           sorting: true
         },
         inputs: {
-          queries: $('#filter-name')
+          queries: $('#filter-resolved,#filter-type,#filter-character'),
         }
     });
   </script>
