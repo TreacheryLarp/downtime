@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   {% load staticfiles %}
+  {% load bootstrap3 %}
 
   <!-- Latest compiled and minified JavaScript -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -33,8 +34,12 @@
     {% endif %}
 
     <form action="" method="post">{% csrf_token %}
-      {{ form.as_p }}
-      <input id="submit-button" type="submit" value="Update" />
+      {% bootstrap_form form %}
+      {% buttons %}
+        <button id="submit-button" type="submit" class="btn btn-primary">
+          {% bootstrap_icon "ok" %}Update
+        </button>
+      {% endbuttons %}
     </form>
 
   </div>

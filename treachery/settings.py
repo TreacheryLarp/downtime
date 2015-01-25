@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'simple_history',
+    'bootstrap3',
     'players',
     'gamemaster',
     'boons',

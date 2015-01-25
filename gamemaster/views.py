@@ -29,6 +29,8 @@ class ActionListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ActionListView, self).get_context_data(**kwargs)
+        session_name = get_object_or_404(Session, id=self.kwargs['session']).name
+        context['session_name'] = session_name
         context['characters'] = Character.objects.all()
         context['action_types'] = ActionType.objects.all()
         return context
