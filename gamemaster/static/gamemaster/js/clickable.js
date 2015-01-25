@@ -21,7 +21,7 @@ function clickableRowReader(rowIndex, rowElement, record) {
 };
 
 $( document ).ready(function() {
-  $(".clickableRow").on( "click", function() {
+  $("table").on( "click", ".clickableRow", function() {
     window.open($(this).data("href"), "windowName", "height=500,width=400");
   });
 });

@@ -18,15 +18,25 @@
 
   <title>{% block title %}Treachery Gamemaster{% endblock %}</title>
 
-  {% block head %}{% endblock %}
-
 </head>
 
 <body>
   <div id="content">
-    {% block content %}
-    THIS IS AN EMPTY TEMPLATE!
-    {% endblock %}
+
+    {% if extra_title %}
+      <span id="extra-title">
+        <b>{{ extra_title }}:</b>
+      </span>
+      <span id="extra-data">
+        {{ extra_data }}
+      </span>
+    {% endif %}
+
+    <form action="" method="post">{% csrf_token %}
+      {{ form.as_p }}
+      <input id="submit-button" type="submit" value="Update" />
+    </form>
+
   </div>
 </body>
 </html>
