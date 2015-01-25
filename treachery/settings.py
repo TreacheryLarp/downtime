@@ -17,12 +17,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ien^q6kug&kusfp433big&@fjam%o4j(bm#nrg9&8547cfni14'
+SECRET_KEY = os.environ.get('DJANGO_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-TEMPLATE_DEBUG = True
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', ''))
+TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = ['localhost', 'treachery.herokuapp.com', 'treachery.smoiz.com']
 
@@ -61,16 +60,7 @@ WSGI_APPLICATION = 'treachery.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db7kl58209hf7u',
-        'USER': 'ehmgoxctevihjl',
-        'PASSWORD': 'OriJbNw2q4wacp78yVz6pSCUlz',
-        'HOST': 'ec2-54-83-205-46.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
+DATABASES['default'] =  dj_database_url.config()
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
