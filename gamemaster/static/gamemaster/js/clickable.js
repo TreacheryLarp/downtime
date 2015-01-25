@@ -22,6 +22,6 @@ function clickableRowReader(rowIndex, rowElement, record) {
 
 $( document ).ready(function() {
   $(".clickableRow").on( "click", function() {
-    window.document.location = $(this).data("href");
+    window.open($(this).data("href"), "windowName", "height=500,width=400");
   });
 });

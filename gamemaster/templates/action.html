@@ -1,0 +1,10 @@
+{% extends "editor.html" %}
+
+{% block content %}
+
+<form action="" method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <input id="submit-button" type="submit" value="Update" />
+</form>
+
+{% endblock %}

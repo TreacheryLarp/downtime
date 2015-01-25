@@ -10,11 +10,11 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Actions</h1>
+  <h1>Feedings</h1>
 
   <div class="filter-box" style="float: left;">
     Type:
-    <select id="filter-type" name="type">
+    <select id="filter-domain" name="type">
       <option></option>
       {% for type in action_types %}
         <option>{{ type.name }}</option>
@@ -44,19 +44,21 @@
   <table id="session-table" class="table">
     <thead>
       <tr>
-        <th class="dynatable-head">Type</th>
+        <th class="dynatable-head">Domain</th>
         <th class="dynatable-head">Character</th>
+        <th class="dynatable-head">Points</th>
+        <th class="dynatable-head">Disciplines</th>
         <th class="dynatable-head">Description</th>
-        <th class="dynatable-head">Resolved</th>
       </tr>
     </thead>
     <tbody>
-      {% for action in object_list %}
-        <tr class="clickableRow" data-href="{% url 'action' action.id %}">
-          <td>{{ action.action_type.name }}</td>
-          <td>{{ action.character.name }}</td>
-          <td>{{ action.description|truncatechars:25 }}</td>
-          <td>{{ action.resolved|yesno:"Yes,No" }}</td>
+      {% for feeding in object_list %}
+        <tr class="clickableRow" data-href="{% url 'feeding' feeding.id %}">
+          <td>{{ feeding.domain.name }}</td>
+          <td>{{ feeding.character.name }}</td>
+          <td>{{ feeding.feeding_points }}</td>
+          <td>{{ feeding.discipline.name }}</td>
+          <td>{{ feeding.description|truncatechars:25 }}</td>
         </tr>
       {% endfor %}
     </tbody>
