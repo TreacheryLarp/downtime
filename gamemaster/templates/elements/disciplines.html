@@ -1,0 +1,41 @@
+<h1>Disciplines for {{ session_name }}</h1>
+<table id="disciplines-table" class="table">
+  <thead>
+    <tr>
+      <th class="dynatable-head">Character</th>
+      <th class="dynatable-head">Disciplines</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for discipline in object_list %}
+    <tr>
+      <td>{{ discipline.character.name }}</td>
+      <td>
+        {% for d in discipline.disciplines.all %}
+        {{ d.name }}
+        {% endfor %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<script>
+
+$('#disciplines-table').dynatable({
+  features: {
+    paginate:     true,
+    recordCount:  true,
+    sorting:      true
+  },
+  inputs: {
+  },
+  writers: {
+    _rowWriter: clickableRowWriter
+  },
+  readers: {
+    _rowReader: clickableRowReader
+  }
+});
+
+</script>

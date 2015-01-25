@@ -11,17 +11,18 @@ def close(request):
 
 class SessionListView(ListView):
     model = Session
-    template_name = 'sessions.html'
+    template_name = 'list.html'
 
     def get_context_data(self, **kwargs):
         context = super(SessionListView, self).get_context_data(**kwargs)
         context['characters'] = Character.objects.all()
+        context['type'] = 'sessions'
         return context
 
 
 class ActionListView(ListView):
     model = Action
-    template_name = 'actions.html'
+    template_name = 'list.html'
 
     def get_queryset(self):
         self.session = get_object_or_404(Session, id=self.kwargs['session'])
@@ -33,6 +34,7 @@ class ActionListView(ListView):
         context['session_name'] = session_name
         context['characters'] = Character.objects.all()
         context['action_types'] = ActionType.objects.all()
+        context['type'] = 'actions'
         return context
 
 
@@ -46,9 +48,10 @@ class CharacterListView(ListView):
         context['session'] = session
         return context
 
+
 class DisciplineListView(ListView):
     model = ActiveDisciplines
-    template_name = 'disciplines.html'
+    template_name = 'list.html'
 
     def get_queryset(self):
         self.session = get_object_or_404(Session, id=self.kwargs['session'])
@@ -58,7 +61,9 @@ class DisciplineListView(ListView):
         context = super(DisciplineListView, self).get_context_data(**kwargs)
         session_name = get_object_or_404(Session, id=self.kwargs['session']).name
         context['session_name'] = session_name
+        context['type'] = 'disciplines'
         return context
+
 
 class FeedingListView(ListView):
     model = Feeding
@@ -74,6 +79,7 @@ class FeedingListView(ListView):
         context['session_name'] = session_name
         context['characters'] = Character.objects.all()
         context['domains'] = Domain.objects.all()
+        context['type'] = 'feedings'
         return context
 
 
