@@ -60,7 +60,7 @@ WSGI_APPLICATION = 'treachery.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-DATABASES['default'] =  dj_database_url.config()
+DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
