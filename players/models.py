@@ -98,6 +98,15 @@ class Character(models.Model):
             action_options.extend(list(title.action_options.all()))
         return action_options
 
+    def submitted(self, session):
+        actions = Action.objects.filter(character=self, session=session)
+        feeding = Feeding.objects.filter(character=self, session=session)
+        active_disciplines = ActiveDisciplines.objects.filter(character=self, session=session)
+        if len(actions) + len(feedings) + len(active_disciplines) > 0:
+            return True
+        else:
+            return False
+
 
 class Domain(models.Model):
     name = models.CharField(max_length=200)

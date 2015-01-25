@@ -36,6 +36,30 @@ class ActionListView(ListView):
         return context
 
 
+class CharacterListView(ListView):
+    model = Character
+    template_name = 'characters.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CharacterListView, self).get_context_data(**kwargs)
+        session = get_object_or_404(Session, id=self.kwargs['session'])
+        context['session'] = session
+        return context
+
+class DisciplineListView(ListView):
+    model = ActiveDisciplines
+    template_name = 'disciplines.html'
+
+    def get_queryset(self):
+        self.session = get_object_or_404(Session, id=self.kwargs['session'])
+        return ActiveDisciplines.objects.filter(session=self.session)
+
+    def get_context_data(self, **kwargs):
+        context = super(DisciplineListView, self).get_context_data(**kwargs)
+        session_name = get_object_or_404(Session, id=self.kwargs['session']).name
+        context['session_name'] = session_name
+        return context
+
 class FeedingListView(ListView):
     model = Feeding
     template_name = 'feedings.html'
