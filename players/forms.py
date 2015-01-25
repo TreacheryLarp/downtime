@@ -50,7 +50,7 @@ class ActionFormSet(SessionFormSet):
     def __init__(self, *args, **kwargs):
         super(ActionFormSet, self).__init__(*args, **kwargs)
         self.queryset = Action.objects.filter(character=self.character, session=self.session)
-        action_count = self.character.action_count()
+        action_count = self.character.action_count(self.session)
         self.extra = action_count
         self.max_num = self.extra
         # otherwise django might populate the forms with actions that
@@ -58,7 +58,7 @@ class ActionFormSet(SessionFormSet):
         self.can_delete = False
 
         i = 0
-        for action in self.character.actions():
+        for action in self.character.actions(self.session):
             for j in range(action.count):
                 form = self.forms[i]
                 # we could use form.initial to look at previous values. However

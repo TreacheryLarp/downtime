@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView
 from django.utils import timezone
 
-from players.models import Session, Action, Character, ActionType, ActiveDisciplines
+from players.models import *
 
 def close(request):
     return render(request, 'closewindow.html')
@@ -35,10 +35,28 @@ class ActionListView(ListView):
         context['action_types'] = ActionType.objects.all()
         return context
 
+
+class FeedingListView(ListView):
+    model = Feeding
+    template_name = 'feedings.html'
+
+    def get_queryset(self):
+        self.session = get_object_or_404(Session, id=self.kwargs['session'])
+        return Feeding.objects.filter(session=self.session)
+
+    def get_context_data(self, **kwargs):
+        context = super(FeedingListView, self).get_context_data(**kwargs)
+        session_name = get_object_or_404(Session, id=self.kwargs['session']).name
+        context['session_name'] = session_name
+        context['characters'] = Character.objects.all()
+        context['domains'] = Domain.objects.all()
+        return context
+
+
 class ActionUpdate(UpdateView):
     model = Action
     template_name = 'editor.html'
-    fields = ['action_type', 'character', 'description', 'resolved']
+    fields = ['character', 'action_type', 'description', 'resolved']
     success_url = reverse_lazy('closewindow')
 
     def get_context_data(self, **kwargs):
@@ -51,3 +69,10 @@ class ActionUpdate(UpdateView):
             context['extra_title'] = 'Active Disciplines'
             context['extra_data'] = ', '.join([d.name for d in disc.disciplines.all()])
         return context
+
+
+class FeedingUpdate(UpdateView):
+    model = Feeding
+    template_name = 'editor.html'
+    fields = ['character', 'domain', 'feeding_points', 'discipline', 'description', 'resolved']
+    success_url = reverse_lazy('closewindow')
