@@ -3,9 +3,7 @@
 
   <h1>{{session.name}}</h1>
   {% if session.is_open %}
-
     <a href="{% url 'wizard' session.id %}">Submit actions</a>
-
   {% else %}
     closed
   {% endif %}

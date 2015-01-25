@@ -84,8 +84,8 @@ class Character(models.Model):
     def __str__(self):
         return '%s (%s)' % (self.name, self.user)
 
-    def action_count(self):
-        action_options = self.actions()
+    def action_count(self, session):
+        action_options = self.actions(session)
         count = 0
         for action_option in action_options:
             count += action_option.count
@@ -97,6 +97,15 @@ class Character(models.Model):
         for title in self.titles.all():
             action_options.extend(list(title.action_options.all()))
         return action_options
+
+    def submitted(self, session):
+        actions = Action.objects.filter(character=self, session=session)
+        feeding = Feeding.objects.filter(character=self, session=session)
+        active_disciplines = ActiveDisciplines.objects.filter(character=self, session=session)
+        if len(actions) + len(feedings) + len(active_disciplines) > 0:
+            return True
+        else:
+            return False
 
 
 class Domain(models.Model):
@@ -138,6 +147,7 @@ class Action(models.Model):
     character = models.ForeignKey(Character)
     session = models.ForeignKey(Session, related_name='actions')
     description = models.TextField()
+    resolved = models.BooleanField(default=False)
     history = HistoricalRecords()
 
     def __str__(self):
@@ -151,6 +161,7 @@ class Feeding(models.Model):
     feeding_points = models.PositiveIntegerField()
     discipline = models.ForeignKey(Discipline)
     description = models.TextField()
+    resolved = models.BooleanField(default=False)
     history = HistoricalRecords()
 
     def __str__(self):
