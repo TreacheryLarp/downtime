@@ -5,6 +5,7 @@
 {% block head %}
   {% load staticfiles %}
   <script src="{% static "gamemaster/js/jquery.dynatable.js" %}"></script>
+  <script src="{% static "gamemaster/js/clickable.js" %}"></script>
   <link rel="stylesheet" href="{% static "gamemaster/css/jquery.dynatable.css" %}" />
 {% endblock %}
 
@@ -51,7 +52,7 @@
     </thead>
     <tbody>
       {% for action in object_list %}
-        <tr>
+        <tr class="clickableRow" data-href="{% url 'action' action.id %}">
           <td>{{ action.action_type.name }}</td>
           <td>{{ action.character.name }}</td>
           <td>{{ action.description|truncatechars:25 }}</td>
@@ -62,16 +63,24 @@
   </table>
 
   <script>
+
     $('#session-table').dynatable({
-        features: {
-          paginate: true,
-          recordCount: true,
-          sorting: true
-        },
-        inputs: {
-          queries: $('#filter-resolved,#filter-type,#filter-character'),
-        }
+      features: {
+        paginate:     true,
+        recordCount:  true,
+        sorting:      true
+      },
+      inputs: {
+        queries: $('#filter-resolved,#filter-type,#filter-character'),
+      },
+      writers: {
+        _rowWriter: clickableRowWriter
+      },
+      readers: {
+        _rowReader: clickableRowReader
+      }
     });
+
   </script>
 
 {% endblock %}
