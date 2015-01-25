@@ -20,9 +20,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'ien^q6kug&kusfp433big&@fjam%o4j(bm#nrg9&8547cfni14'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-TEMPLATE_DEBUG = False
+TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'treachery.herokuapp.com', 'treachery.smoiz.com']
 
