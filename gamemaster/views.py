@@ -67,7 +67,7 @@ class DisciplineListView(ListView):
 
 class FeedingListView(ListView):
     model = Feeding
-    template_name = 'feedings.html'
+    template_name = 'list.html'
 
     def get_queryset(self):
         self.session = get_object_or_404(Session, id=self.kwargs['session'])
