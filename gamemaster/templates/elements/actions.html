@@ -38,7 +38,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for action in object_list %}
+    {% for action in actions %}
     <tr class="clickableRow" data-href="{% url 'action' action.id %}">
       <td>{{ action.action_type.name }}</td>
       <td>{{ action.character.name }}</td>

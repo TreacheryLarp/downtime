@@ -1,0 +1,68 @@
+<h1>Characters for {{ session.name }}</h1>
+<div class="filter-actions-box" style="float: left;">
+  Age:
+  <select id="filter-age" name="age">
+    <option></option>
+    {% for age in ages %}
+    <option>{{ age.name }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+<div class="filter-actions-box" style="float: left;">
+  Clan:
+  <select id="filter-clan" name="clan">
+    <option></option>
+    {% for clan in clans %}
+    <option>{{ clan.name }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+<table id="character-table" class="table">
+  <thead>
+    <tr>
+      <th class="dynatable-head">Name</th>
+      <th class="dynatable-head">Player</th>
+      <th class="dynatable-head">Age</th>
+      <th class="dynatable-head">Titles</th>
+      <th class="dynatable-head">Clan</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for character in characters %}
+      <tr class="clickableRow" data-href="{% url 'character' session.id character.id %}">
+        <td>{{ character.name }}</td>
+        <td>{{ character.user.first_name }} {{ character.user.last_name }}</td>
+        <td>{{ character.age.name }}</td>
+        <td>
+          {% for t in character.titles.all %}
+            {{ t.name }}
+          {% endfor %}
+        </td>
+        <td>{{ character.clan.name }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<script>
+
+  $('#character-table').dynatable({
+    features: {
+      paginate:     true,
+      recordCount:  true,
+      sorting:      true
+    },
+    inputs: {
+      queries: $('#filter-age,#filter-clan'),
+    },
+    writers: {
+      _rowWriter: clickableRowWriter
+    },
+    readers: {
+      _rowReader: clickableRowReader
+    }
+  });
+
+</script>

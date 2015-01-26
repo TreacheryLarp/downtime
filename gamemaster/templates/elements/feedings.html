@@ -40,7 +40,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for feeding in object_list %}
+    {% for feeding in feedings %}
     <tr class="clickableRow" data-href="{% url 'feeding' feeding.id %}">
       <td>{{ feeding.domain.name }}</td>
       <td>{{ feeding.character.name }}</td>
