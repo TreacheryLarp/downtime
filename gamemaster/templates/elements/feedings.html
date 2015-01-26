@@ -1,7 +1,7 @@
 <h1>Feedings for {{ session_name }}</h1>
-<div class="filter-box" style="float: left;">
+<div class="filter-feedings-box" style="float: left;">
   Domain:
-  <select id="filter-domain" name="domain">
+  <select id="filter-feedings-domain" name="domain">
     <option></option>
     {% for domain in domains %}
     <option>{{ domain.name }}</option>
@@ -9,9 +9,9 @@
   </select>
 </div>
 
-<div class="filter-box" style="float: left;">
+<div class="filter-feedings-box" style="float: left;">
   Character:
-  <select id="filter-character" name="character">
+  <select id="filter-feedings-character" name="character">
     <option></option>
     {% for character in characters %}
     <option>{{ character.name }}</option>
@@ -19,16 +19,16 @@
   </select>
 </div>
 
-<div class="filter-box" style="float: left;">
+<div class="filter-feedings-box" style="float: left;">
   Resolved:
-  <select id="filter-resolved" name="resolved">
+  <select id="filter-feedings-resolved" name="resolved">
     <option></option>
     <option>Yes</option>
     <option>No</option>
   </select>
 </div>
 
-<table id="session-table" class="table">
+<table id="feedings-table" class="table">
   <thead>
     <tr>
       <th class="dynatable-head">Domain</th>
@@ -55,14 +55,14 @@
 
 <script>
 
-  $('#session-table').dynatable({
+  $('#feedings-table').dynatable({
     features: {
       paginate:     true,
       recordCount:  true,
       sorting:      true
     },
     inputs: {
-      queries: $('#filter-resolved,#filter-domain,#filter-character'),
+      queries: $('#filter-feedings-resolved,#filter-feedings-domain,#filter-feedings-character'),
     },
     writers: {
       _rowWriter: clickableRowWriter
