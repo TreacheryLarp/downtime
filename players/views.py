@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db import models
 from django.contrib.formtools.wizard.views import SessionWizardView
 from django.utils.decorators import method_decorator
@@ -12,11 +12,13 @@ from players import forms
 from players.models import Session, Action, ActiveDisciplines, Feeding
 
 @login_required
+@user_passes_test(lambda u: not u.is_superuser, login_url='/gm')
 def profile(request):
     return render(request, 'profile.html', {'character': request.user.character,
                                             'session_list': Session.objects.all()})
 
 @login_required
+@user_passes_test(lambda u: not u.is_superuser, login_url='/gm')
 def session(request, session):
     session = get_object_or_404(Session, pk=session)
     character = request.user.character
@@ -25,6 +27,7 @@ def session(request, session):
     return render(request, 'session.html', data)
 
 @login_required
+@user_passes_test(lambda u: not u.is_superuser, login_url='/gm')
 def wizard(request, session):
     data = {
         'user': request.user,
