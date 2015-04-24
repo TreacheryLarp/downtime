@@ -93,7 +93,7 @@ class Character(models.Model):
 
     def actions(self, session):
         action_options = list(self.age.action_options.all())
-        ExtraAction.objects.filter(character=self, session=session)
+        action_options.extend(list(ExtraAction.objects.filter(character=self, session=session)))
         for title in self.titles.all():
             action_options.extend(list(title.action_options.all()))
         return action_options
@@ -166,6 +166,16 @@ class Feeding(models.Model):
 
     def __str__(self):
         return '[%s] %s: %d in %s' % (self.session.name, self.character, self.feeding_points, self.domain)
+
+    def is_overfeeding(self):
+        feedings = list(Feeding.objects.filter(session=self.session, domain=self.domain))
+        sum = 0
+        for feeding in feedings:
+            sum += feeding.feeding_points
+            if sum > self.domain.feeding_capacity:
+                return True
+
+        return False
 
 
 class ActiveDisciplines(models.Model):

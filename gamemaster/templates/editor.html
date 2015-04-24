@@ -22,25 +22,38 @@
 </head>
 
 <body>
-  <div id="content">
+  <div class="container-fluid">
 
-    {% if extra_title %}
-      <span id="extra-title">
-        <b>{{ extra_title }}:</b>
-      </span>
-      <span id="extra-data">
-        {{ extra_data }}
-      </span>
-    {% endif %}
+    <div class="row">
 
-    <form action="" method="post">{% csrf_token %}
-      {% bootstrap_form form %}
-      {% buttons %}
-        <button id="submit-button" type="submit" class="btn btn-primary">
-          {% bootstrap_icon "ok" %}Update
-        </button>
-      {% endbuttons %}
-    </form>
+      <div class="col-md-offset-2 col-md-8">
+        {% if extra_title %}
+          <span id="extra-title">
+            <b>{{ extra_title }}:</b>
+          </span>
+          <span id="extra-data">
+            {{ extra_data }}
+          </span>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-offset-2 col-md-8">
+        <form action="" method="post">{% csrf_token %}
+          {% bootstrap_form form %}
+
+          <div class="text-right">
+            {% buttons %}
+              <button id="submit-button" type="submit" class="btn btn-primary">
+                {% bootstrap_icon "ok" %} Update
+              </button>
+            {% endbuttons %}
+          </div>
+
+        </form>
+      </div>
+    </div>
 
   </div>
 </body>

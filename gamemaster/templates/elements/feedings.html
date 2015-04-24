@@ -36,6 +36,7 @@
       <th class="dynatable-head">Points</th>
       <th class="dynatable-head">Discipline</th>
       <th class="dynatable-head">Description</th>
+      <th class="dynatable-head">Overfeeding</th>
       <th class="dynatable-head">Resolved</th>
     </tr>
   </thead>
@@ -47,6 +48,7 @@
       <td>{{ feeding.feeding_points }}</td>
       <td>{{ feeding.discipline.name }}</td>
       <td>{{ feeding.description|truncatechars:25 }}</td>
+      <td>{{ feeding.is_overfeeding|yesno:"Yes,No" }}</td>
       <td>{{ feeding.resolved|yesno:"Yes,No" }}</td>
     </tr>
     {% endfor %}
