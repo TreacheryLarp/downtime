@@ -93,17 +93,17 @@ class Character(models.Model):
 
     def actions(self, session):
         action_options = list(self.age.action_options.all())
-        ExtraAction.objects.filter(character=self, session=session)
+        action_options.extend(list(ExtraAction.objects.filter(character=self, session=session)))
         for title in self.titles.all():
             action_options.extend(list(title.action_options.all()))
         return action_options
 
     def submitted(self, session):
         actions = Action.objects.filter(character=self, session=session)
-        feeding = Feeding.objects.filter(character=self, session=session)
+        feedings = Feeding.objects.filter(character=self, session=session)
         active_disciplines = ActiveDisciplines.objects.filter(character=self, session=session)
         if len(actions) + len(feedings) + len(active_disciplines) > 0:
-            return True
+            return {'disc': active_disciplines, 'feed': feedings, 'actions': actions}
         else:
             return False
 
@@ -159,13 +159,23 @@ class Feeding(models.Model):
     session = models.ForeignKey(Session, related_name='feedings')
     domain = models.ForeignKey(Domain)
     feeding_points = models.PositiveIntegerField()
-    discipline = models.ForeignKey(Discipline)
+    discipline = models.ForeignKey(Discipline, blank=True)
     description = models.TextField()
     resolved = models.BooleanField(default=False)
     history = HistoricalRecords()
 
     def __str__(self):
         return '[%s] %s: %d in %s' % (self.session.name, self.character, self.feeding_points, self.domain)
+
+    def is_overfeeding(self):
+        feedings = list(Feeding.objects.filter(session=self.session, domain=self.domain))
+        sum = 0
+        for feeding in feedings:
+            sum += feeding.feeding_points
+            if sum > self.domain.feeding_capacity:
+                return True
+
+        return False
 
 
 class ActiveDisciplines(models.Model):

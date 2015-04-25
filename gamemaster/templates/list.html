@@ -1,6 +1,4 @@
-{% extends "base.html" %}
-
-{% block title %}Treachery Gamemaster{% endblock %}
+{% extends "gm_base.html" %}
 
 {% block head %}
   {% load staticfiles %}
@@ -11,6 +9,8 @@
 
 {% block content %}
 
-  {% include "elements/"|add:type|add:".html" %}
+  <div class="container">
+    {% include "elements/"|add:type|add:".html" %}
+  </div>
 
 {% endblock %}

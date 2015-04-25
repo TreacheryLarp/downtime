@@ -1,9 +1,7 @@
 {% if session_list %}
-  <ul>
+  <ul class="list-group">
     {% for session in session_list %}
-    <li><a href="{% url 'session' session.id %}">{{ session.name }}</a></li>
+      <a href="{% url 'session' session.id %}" class="list-group-item">{{ session.name }}</a>
     {% endfor %}
   </ul>
-{% else %}
-  No sessions exists!
 {% endif %}

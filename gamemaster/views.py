@@ -9,6 +9,17 @@ from players.models import *
 def close(request):
     return render(request, 'closewindow.html')
 
+def character(request, session, character):
+    context = {
+        'character': get_object_or_404(Character, id=character),
+        'session':  get_object_or_404(Character, id=character),
+        'actions': Action.objects.filter(character=character, session=session),
+        'disciplines': Action.objects.filter(character=character, session=session),
+        'feedings': Feeding.objects.filter(character=character, session=session),
+    }
+    return render(request, 'character.html', context)
+
+
 class SessionListView(ListView):
     model = Session
     template_name = 'list.html'
@@ -17,6 +28,7 @@ class SessionListView(ListView):
         context = super(SessionListView, self).get_context_data(**kwargs)
         context['characters'] = Character.objects.all()
         context['type'] = 'sessions'
+        context['sessions'] = self.object_list
         return context
 
 
@@ -35,17 +47,22 @@ class ActionListView(ListView):
         context['characters'] = Character.objects.all()
         context['action_types'] = ActionType.objects.all()
         context['type'] = 'actions'
+        context['actions'] = self.object_list
         return context
 
 
 class CharacterListView(ListView):
     model = Character
-    template_name = 'characters.html'
+    template_name = 'list.html'
 
     def get_context_data(self, **kwargs):
         context = super(CharacterListView, self).get_context_data(**kwargs)
         session = get_object_or_404(Session, id=self.kwargs['session'])
         context['session'] = session
+        context['clans'] = Clan.objects.all()
+        context['ages'] = Age.objects.all()
+        context['type'] = 'characters'
+        context['characters'] = self.object_list
         return context
 
 
@@ -62,12 +79,13 @@ class DisciplineListView(ListView):
         session_name = get_object_or_404(Session, id=self.kwargs['session']).name
         context['session_name'] = session_name
         context['type'] = 'disciplines'
+        context['disciplines'] = self.object_list
         return context
 
 
 class FeedingListView(ListView):
     model = Feeding
-    template_name = 'feedings.html'
+    template_name = 'list.html'
 
     def get_queryset(self):
         self.session = get_object_or_404(Session, id=self.kwargs['session'])
@@ -80,6 +98,7 @@ class FeedingListView(ListView):
         context['characters'] = Character.objects.all()
         context['domains'] = Domain.objects.all()
         context['type'] = 'feedings'
+        context['feedings'] = self.object_list
         return context
 
 
