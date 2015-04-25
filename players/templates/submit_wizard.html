@@ -31,12 +31,14 @@
             {% bootstrap_form wizard.form %}
           {% endif %}
         </table>
-        {% buttons %}
-          {% if wizard.steps.prev %}
-            <button class="btn" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Prev step" %}</button>
-          {% endif %}
-          <input class="btn btn-primary" type="submit" value="{% if wizard.steps.count == wizard.steps.step1 %} Submit {% else %} Next {% endif %}"/>
-        {% endbuttons %}
+        <div class="text-right"
+          {% buttons %}
+            {% if wizard.steps.prev %}
+              <button class="btn" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Prev step" %}</button>
+            {% endif %}
+            <input class="btn btn-primary" type="submit" value="{% if wizard.steps.count == wizard.steps.step1 %} Submit {% else %} Next {% endif %}"/>
+          {% endbuttons %}
+        </div>
       </form>
 
     </div>

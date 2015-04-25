@@ -100,10 +100,10 @@ class Character(models.Model):
 
     def submitted(self, session):
         actions = Action.objects.filter(character=self, session=session)
-        feeding = Feeding.objects.filter(character=self, session=session)
+        feedings = Feeding.objects.filter(character=self, session=session)
         active_disciplines = ActiveDisciplines.objects.filter(character=self, session=session)
         if len(actions) + len(feedings) + len(active_disciplines) > 0:
-            return True
+            return {'disc': active_disciplines, 'feed': feedings, 'actions': actions}
         else:
             return False
 

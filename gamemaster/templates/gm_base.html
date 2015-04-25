@@ -16,7 +16,7 @@
 
     <link rel="stylesheet" href="{% static "treachery/css/treachery.css" %}" />
 
-    <title>{% block title %}Treachery{% endblock %}</title>
+    <title>Treachery Gamemaster</title>
 
     {% block head %}{% endblock %}
 
@@ -34,11 +34,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{% url 'profile' %}">Treachery</a>
+          <a class="navbar-brand" href="{% url 'sessions' %}">Treachery Gamemaster</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="/admin">Admin</a></li>
+          </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user.first_name}} {{user.last_name}}<span class="caret"></span></a>
@@ -48,16 +51,11 @@
             </li>
           </ul>
         </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
+      </div><!-- /.navbar-collapse -->
     </nav>
 
-    <div class="container">
-
-      {% block content %}
-        THIS IS AN EMPTY TEMPLATE!
-      {% endblock %}
-
-    </div>
-
+    {% block content %}
+      THIS IS AN EMPTY TEMPLATE!
+    {% endblock %}
   </body>
 </html>

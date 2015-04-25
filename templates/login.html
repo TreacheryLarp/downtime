@@ -1,52 +1,68 @@
-{% extends "base.html" %}
-{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
 
-{% block head %}
-  <link rel="stylesheet" href="{% static "treachery/css/login.css" %}" />
-{% endblock %}
+    {% load staticfiles %}
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-{% block content %}
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-  <div class="container">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css">
 
-    <div class="row">
-      <div class="col-md-4 col-md-offset-4">
-      {% if form.errors %}
-        <div class="alert alert-danger" role="alert">
-          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-          <span class="sr-only">Error:</span>
-          <p>Your username and password didn't match. Please try again.</p>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="{% static "treachery/css/login.css" %}" />
+
+    <title>Treachery</title>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+        {% if form.errors %}
+          <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            <p>Your username and password didn't match. Please try again.</p>
+          </div>
+
+        {% endif %}
         </div>
-
-      {% endif %}
       </div>
+
+      <div class="row">
+  		<div class="col-md-4 col-md-offset-4">
+      		<div class="panel panel-default">
+  			  	<div class="panel-heading">
+  			    	<h3 class="panel-title">Please sign in</h3>
+  			 	</div>
+  			  	<div class="panel-body">
+              <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+                 {% csrf_token %}
+                      <fieldset>
+  			    	  	<div class="form-group">
+  			    		    <input class="form-control" placeholder="Username" name="username" type="text">
+  			    		</div>
+  			    		<div class="form-group">
+  			    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
+  			    		</div>
+                  <input class="btn btn-lg btn-success btn-block" type="submit" value="Login"/>
+                  <input type="hidden" name="next" value="{{ next }}" />
+  			    	</fieldset>
+  			      	</form>
+  			    </div>
+  			</div>
+  		</div>
+      </div>
+
     </div>
 
-    <div class="row">
-		<div class="col-md-4 col-md-offset-4">
-    		<div class="panel panel-default">
-			  	<div class="panel-heading">
-			    	<h3 class="panel-title">Please sign in</h3>
-			 	</div>
-			  	<div class="panel-body">
-            <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
-               {% csrf_token %}
-                    <fieldset>
-			    	  	<div class="form-group">
-			    		    <input class="form-control" placeholder="Username" name="username" type="text">
-			    		</div>
-			    		<div class="form-group">
-			    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
-			    		</div>
-                <input class="btn btn-lg btn-success btn-block" type="submit" value="Login"/>
-                <input type="hidden" name="next" value="{{ next }}" />
-			    	</fieldset>
-			      	</form>
-			    </div>
-			</div>
-		</div>
-    </div>
-  </div>
-
-
-{% endblock %}
+  </body>
+</html>
