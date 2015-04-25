@@ -2,8 +2,18 @@
 
 {% block content %}
 
-  Logged in. Your character is {{ character.name }} and is an {{ character.age }}
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+    <h1>{{user.first_name}} {{user.last_name}} <small>{{ character.name }}</small></h1>
+    <p></p>
+    </div>
+  </div>
 
-  {% include "elements/session_list.html" %}
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+      <h2>Sessions</h2>
+      {% include "elements/session_list.html" %}
+    </div>
+  </div>
 
 {% endblock %}

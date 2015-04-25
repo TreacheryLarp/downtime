@@ -1,11 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
 
-  <h1>{{session.name}}</h1>
-  {% if session.is_open %}
-    <a href="{% url 'wizard' session.id %}">Submit actions</a>
-  {% else %}
-    closed
-  {% endif %}
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+    <h1>{{session.name}} <small>{% if session.is_open %}Open{% else %}Closed{% endif %}</small></h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="well">
+
+        ....
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 text-right">
+      {% if session.is_open %}
+        <a class="btn btn-primary" href="{% url 'wizard' session.id %}">Submit actions</a>
+      {% else %}
+        <a class="btn btn-primary" href="#" disabled="disabled">Submit actions</a>
+      {% endif %}
+    </div>
+  </div>
+
+
 
 {% endblock %}
