@@ -159,7 +159,7 @@ class Feeding(models.Model):
     session = models.ForeignKey(Session, related_name='feedings')
     domain = models.ForeignKey(Domain)
     feeding_points = models.PositiveIntegerField()
-    discipline = models.ForeignKey(Discipline, null=True)
+    discipline = models.ForeignKey(Discipline, blank=True)
     description = models.TextField()
     resolved = models.BooleanField(default=False)
     history = HistoricalRecords()
