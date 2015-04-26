@@ -11,6 +11,5 @@ urlpatterns = patterns('',
         {'template_name': 'login.html',
          'authentication_form': LoginForm}),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^boons/', include('boons.urls')),
     url(r'^', include('players.urls')),
 )
