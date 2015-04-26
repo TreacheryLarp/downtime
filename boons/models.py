@@ -18,35 +18,14 @@ class BoonSize(models.Model):
         return '%s' % self.name
 
 
-class Transaction(models.Model):
-    boon = models.ForeignKey('Boon', related_name='transactions')
-    creditor = models.ForeignKey(Character, related_name='credits')
-    transaction_time = models.DateTimeField(auto_now_add=True)
-    history = HistoricalRecords()
-
-    def __str__(self):
-        return '%s' % self.creditor
-
-
 class Boon(models.Model):
 
-    def pkgen():
-        while True:
-            pk = b32encode(sha1(str(random()).encode('utf-8')).digest()).lower()[:5]
-            if len(Boon.objects.filter(key=pk)) == 0:
-                return pk
-
     is_activated = models.BooleanField(default=False)
-    key = models.CharField(max_length=5, primary_key=True, default=pkgen)
-    debtor = models.ForeignKey(Character, related_name='boons')
+    debtor = models.ForeignKey(Character, related_name='credits')
+    creditor = models.ForeignKey(Character, related_name='debits')
     size = models.ForeignKey(BoonSize)
-    active_transaction = models.ForeignKey(Transaction, blank=True ,null=True, related_name='+')
+    description = models.TextField()
     history = HistoricalRecords()
 
     def __str__(self):
         return '[%s] %s' % (self.key, self.debtor)
-
-    def creditor(self):
-        if self.active_transaction == None:
-            return None
-        return self.active_transaction.creditor

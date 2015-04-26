@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'players',
     'gamemaster',
+    'boons'
 )
 
 MIDDLEWARE_CLASSES = (
