@@ -8,6 +8,7 @@ from django.contrib.formtools.wizard.views import SessionWizardView
 from django.utils.decorators import method_decorator
 from django.forms.models import modelformset_factory
 from django.contrib.auth import logout
+from django.core.exceptions import PermissionDenied
 
 from players import forms
 from players.models import Session, Action, ActiveDisciplines, Feeding
@@ -44,6 +45,9 @@ def wizard(request, session):
         '1': data,
         '2': data,
     }
+
+    if not data['session'].is_open:
+        raise PermissionDenied('Session closed')
 
     Action.objects.filter(character=request.user.character, session=session).delete()
     ActiveDisciplines.objects.filter(character=request.user.character, session=session).delete()
