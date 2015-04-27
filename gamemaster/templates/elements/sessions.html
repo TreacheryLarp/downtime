@@ -3,20 +3,22 @@
   <thead>
     <tr>
       <th class="dynatable-head">Name</th>
-      <th class="dynatable-head">Characters</th>
+      <th class="dynatable-head">Characters submitted</th>
       <th class="dynatable-head">Actions</th>
       <th class="dynatable-head">Feedings</th>
       <th class="dynatable-head">Active Disciplines</th>
+      <th class="dynatable-head">Current State</th>
     </tr>
   </thead>
   <tbody>
     {% for session in sessions %}
-    <tr>
+    <tr class="{% if session.is_open %}warning{% else %}success{% endif %}">
       <td>{{ session.name }}</td>
-      <td><a href="{% url 'characters' session.id %}">{{ characters | length }}</a></td>
+      <td><a href="{% url 'characters' session.id %}">{{ session.submitted | length }} / {{ characters | length }}</a></td>
       <td><a href="{% url 'actions' session.id %}">{{ session.actions.all | length }}</a></td>
       <td><a href="{% url 'feedings' session.id %}">{{ session.feedings.all | length }}</a></td>
       <td><a href="{% url 'disciplines' session.id %}">{{ session.active_disciplines.all | length }}</a></td>
+      <td><a href="{% url 'toggle_session' session.id %}">{% if session.is_open %}Open{% else %}Closed{% endif %}</td>
     </tr>
     {% empty %}
     {% endfor %}
@@ -27,8 +29,15 @@
 $('#session-table').dynatable({
   features: {
     paginate: false,
-    recordCount: true,
-    sorting: true
+    recordCount: false,
+    sorting: false,
+    search: false,
+  },
+  writers: {
+    _rowWriter: clickableRowWriter
+  },
+  readers: {
+    _rowReader: clickableRowReader
   }
 });
 </script>

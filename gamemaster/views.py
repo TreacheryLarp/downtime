@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView
 from django.utils import timezone
+from django.shortcuts import redirect
 
 from players.models import *
 
@@ -19,6 +20,11 @@ def character(request, session, character):
     }
     return render(request, 'character.html', context)
 
+def toggle_session(request, session):
+    session_obj = get_object_or_404(Session, id=session)
+    session_obj.is_open = not session_obj.is_open
+    session_obj.save()
+    return redirect('sessions')
 
 class SessionListView(ListView):
     model = Session

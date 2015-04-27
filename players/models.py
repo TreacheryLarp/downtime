@@ -141,6 +141,9 @@ class Session(models.Model):
     def __str__(self):
         return '[%s] %s' % ('open' if self.is_open else 'closed', self.name)
 
+    def submitted(self):
+        return [i for i in list(Character.objects.all()) if i.submitted(self)]
+
 
 class Action(models.Model):
     action_type = models.ForeignKey(ActionType)
