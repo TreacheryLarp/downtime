@@ -141,6 +141,9 @@ class Session(models.Model):
     def __str__(self):
         return '[%s] %s' % ('open' if self.is_open else 'closed', self.name)
 
+    def submitted(self):
+        return [i for i in list(Character.objects.all()) if i.submitted(self)]
+
 
 class Action(models.Model):
     action_type = models.ForeignKey(ActionType)
@@ -159,7 +162,7 @@ class Feeding(models.Model):
     session = models.ForeignKey(Session, related_name='feedings')
     domain = models.ForeignKey(Domain)
     feeding_points = models.PositiveIntegerField()
-    discipline = models.ForeignKey(Discipline, blank=True)
+    discipline = models.ForeignKey(Discipline, blank=True, null=True)
     description = models.TextField()
     resolved = models.BooleanField(default=False)
     history = HistoricalRecords()
@@ -190,10 +193,11 @@ class ActiveDisciplines(models.Model):
 
 
 class ExtraAction(models.Model):
-    character = models.ForeignKey(Character)
-    session = models.ForeignKey(Session)
+    character = models.ForeignKey(Character, related_name='+')
+    session = models.ForeignKey(Session, related_name='+')
     action_options = models.ManyToManyField(ActionOption)
     history = HistoricalRecords()
 
     def __str__(self):
-        return '[%s] + %s to %s' % (session.name, action_options, character.name)
+        action_options = ', '.join(str(d) for d in self.action_options.all())
+        return '[%s] +%s to %s' % (self.session.name, action_options, self.character)

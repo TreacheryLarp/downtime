@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView
 from django.utils import timezone
+from django.shortcuts import redirect
 
 from players.models import *
 
@@ -19,6 +20,11 @@ def character(request, session, character):
     }
     return render(request, 'character.html', context)
 
+def toggle_session(request, session):
+    session_obj = get_object_or_404(Session, id=session)
+    session_obj.is_open = not session_obj.is_open
+    session_obj.save()
+    return redirect('sessions')
 
 class SessionListView(ListView):
     model = Session
@@ -62,6 +68,8 @@ class CharacterListView(ListView):
         context['clans'] = Clan.objects.all()
         context['ages'] = Age.objects.all()
         context['type'] = 'characters'
+        for c in self.object_list:
+            c.has_submitted = c.submitted(session)
         context['characters'] = self.object_list
         return context
 
@@ -124,4 +132,11 @@ class FeedingUpdate(UpdateView):
     model = Feeding
     template_name = 'editor.html'
     fields = ['character', 'domain', 'feeding_points', 'discipline', 'description', 'resolved']
+    success_url = reverse_lazy('closewindow')
+
+
+class CharUpdate(UpdateView):
+    model = Character
+    template_name = 'editor.html'
+    #fields = ['character', 'domain', 'feeding_points', 'discipline', 'description', 'resolved']
     success_url = reverse_lazy('closewindow')

@@ -1,43 +1,55 @@
 
 <div class="row">
-  <div class="col-md-12">
-    <h1>Actions for {{ session_name }}</h1>
+  <div class="col-md-10 col-md-offset-1">
+    <h1>{{ session_name }} <small>Actions</small></h1>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-offset-1 col-md-7">
 
-    <div class="filter-actions-box" style="float: left;">
-      Type:
-      <select id="filter-actions-type" name="type">
-        <option></option>
-        {% for type in action_types %}
-        <option>{{ type.name }}</option>
-        {% endfor %}
-      </select>
+    <div class="form-group form-inline" style="float: left; padding-right:10px">
+      <span><label>Type:</label>
+        <select class="form-control" id="filter-actions-type" name="type">
+          <option></option>
+          {% for type in action_types %}
+          <option>{{ type.name }}</option>
+          {% endfor %}
+        </select>
+      </span>
     </div>
 
-    <div class="filter-actions-box" style="float: left;">
-      Character:
-      <select id="filter-actions-character" name="character">
-        <option></option>
-        {% for character in characters %}
-        <option>{{ character.name }}</option>
-        {% endfor %}
-      </select>
+    <div class="form-group form-inline" style="float: left; padding-right:10px">
+      <span><label>Character:</label>
+        <select class="form-control" id="filter-actions-character" name="character">
+          <option></option>
+          {% for character in characters %}
+          <option>{{ character.name }}</option>
+          {% endfor %}
+        </select>
+      </span>
     </div>
 
-    <div class="filter-actions-box" style="float: left;">
-      Resolved:
-      <select id="filter-actions-resolved" name="resolved">
-        <option></option>
-        <option>Yes</option>
-        <option>No</option>
-      </select>
+    <div class="form-group form-inline" style="float: left;">
+      <span><label>Resolved:</label>
+        <select class="form-control" id="filter-actions-resolved" name="resolved">
+          <option></option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </span>
     </div>
 
-    <table id="action-table" class="table">
+  </div>
+
+  <div class="col-md-3 text-right">
+    <input type="text" class="form-control" id="search" placeholder="Search...">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-offset-1 col-md-10">
+    <table id="action-table" class="table table-hover">
       <thead>
         <tr>
           <th class="dynatable-head">Type</th>
@@ -48,7 +60,7 @@
       </thead>
       <tbody>
         {% for action in actions %}
-        <tr class="clickableRow" data-href="{% url 'action' action.id %}">
+        <tr class="clickableRow {{ action.resolved|yesno:'success,warning' }}" data-href="{% url 'action' action.id %}">
           <td>{{ action.action_type.name }}</td>
           <td>{{ action.character.name }}</td>
           <td>{{ action.description|truncatechars:25 }}</td>
@@ -57,9 +69,9 @@
         {% endfor %}
       </tbody>
     </table>
-
   </div>
 </div>
+
 
 <script>
 
@@ -67,16 +79,21 @@
     features: {
       paginate:     true,
       recordCount:  true,
-      sorting:      true
+      sorting:      true,
+      perPageSelect: false,
+      search:       false,
     },
     inputs: {
-      queries: $('#filter-actions-resolved,#filter-actions-type,#filter-actions-character'),
+      queries: $('#filter-actions-resolved,#filter-actions-type,#filter-actions-character,#search'),
     },
     writers: {
       _rowWriter: clickableRowWriter
     },
     readers: {
       _rowReader: clickableRowReader
+    },
+    dataset: {
+      perPageDefault: 25,
     }
   });
 
