@@ -133,3 +133,10 @@ class FeedingUpdate(UpdateView):
     template_name = 'editor.html'
     fields = ['character', 'domain', 'feeding_points', 'discipline', 'description', 'resolved']
     success_url = reverse_lazy('closewindow')
+
+
+class CharUpdate(UpdateView):
+    model = Character
+    template_name = 'editor.html'
+    #fields = ['character', 'domain', 'feeding_points', 'discipline', 'description', 'resolved']
+    success_url = reverse_lazy('closewindow')
