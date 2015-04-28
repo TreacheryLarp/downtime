@@ -68,6 +68,8 @@ class CharacterListView(ListView):
         context['clans'] = Clan.objects.all()
         context['ages'] = Age.objects.all()
         context['type'] = 'characters'
+        for c in self.object_list:
+            c.has_submitted = c.submitted(session)
         context['characters'] = self.object_list
         return context
 

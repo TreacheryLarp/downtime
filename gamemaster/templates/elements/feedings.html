@@ -1,59 +1,93 @@
-<h1>Feedings for {{ session_name }}</h1>
-<div class="filter-feedings-box" style="float: left;">
-  Domain:
-  <select id="filter-feedings-domain" name="domain">
-    <option></option>
-    {% for domain in domains %}
-    <option>{{ domain.name }}</option>
-    {% endfor %}
-  </select>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h1>{{ session_name }} <small>Feeding</small></h1>
+  </div>
 </div>
 
-<div class="filter-feedings-box" style="float: left;">
-  Character:
-  <select id="filter-feedings-character" name="character">
-    <option></option>
-    {% for character in characters %}
-    <option>{{ character.name }}</option>
-    {% endfor %}
-  </select>
+<div class="row">
+  <div class="col-md-offset-1 col-md-7">
+
+    <div class="form-group form-inline" style="float: left; padding-right:10px">
+      <span><label>Domain:</label>
+        <select class="form-control" id="filter-feedings-domain" name="domain">
+          <option></option>
+          {% for domain in domains %}
+          <option>{{ domain.name }}</option>
+          {% endfor %}
+        </select>
+      </span>
+    </div>
+
+    <div class="form-group form-inline" style="float: left; padding-right:10px">
+      <span><label>Character:</label>
+        <select class="form-control" id="filter-feedings-character" name="character">
+          <option></option>
+          {% for character in characters %}
+          <option>{{ character.name }}</option>
+          {% endfor %}
+        </select>
+      </span>
+    </div>
+
+    <div class="form-group form-inline" style="float: left; padding-right: 10px">
+      <span><label>Overfeeding:</label>
+        <select class="form-control" id="filter-feedings-overfeeding" name="overfeeding">
+          <option></option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </span>
+    </div>
+
+    <div class="form-group form-inline" style="float: left;">
+      <span><label>Resolved:</label>
+        <select class="form-control" id="filter-feedings-resolved" name="resolved">
+          <option></option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </span>
+    </div>
+
+  </div>
+
+  <div class="col-md-3 text-right">
+    <input type="text" class="form-control" id="search" placeholder="Search...">
+  </div>
 </div>
 
-<div class="filter-feedings-box" style="float: left;">
-  Resolved:
-  <select id="filter-feedings-resolved" name="resolved">
-    <option></option>
-    <option>Yes</option>
-    <option>No</option>
-  </select>
-</div>
+<div class="row">
+  <div class="col-md-offset-1 col-md-10">
+    <table id="feedings-table" class="table-hover table">
+      <thead>
+        <tr>
+          <th class="dynatable-head">Domain</th>
+          <th class="dynatable-head">Character</th>
+          <th class="dynatable-head">Points</th>
+          <th class="dynatable-head">Discipline</th>
+          <th class="dynatable-head">Description</th>
+          <th class="dynatable-head">Overfeeding</th>
+          <th class="dynatable-head">Resolved</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for feeding in feedings %}
+        <tr class="clickableRow {{ feeding.resolved|yesno:'success,warning' }}" data-href="{% url 'feeding' feeding.id %}">
+          <td>{{ feeding.domain.name }}</td>
+          <td>{{ feeding.character.name }}</td>
+          <td>{{ feeding.feeding_points }}</td>
+          <td>{{ feeding.discipline.name }}</td>
+          <td>{{ feeding.description|truncatechars:25 }}</td>
+          <td>{{ feeding.is_overfeeding|yesno:"Yes,No" }}</td>
+          <td>{{ feeding.resolved|yesno:"Yes,No" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
 
-<table id="feedings-table" class="table-hover table">
-  <thead>
-    <tr>
-      <th class="dynatable-head">Domain</th>
-      <th class="dynatable-head">Character</th>
-      <th class="dynatable-head">Points</th>
-      <th class="dynatable-head">Discipline</th>
-      <th class="dynatable-head">Description</th>
-      <th class="dynatable-head">Overfeeding</th>
-      <th class="dynatable-head">Resolved</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for feeding in feedings %}
-    <tr class="clickableRow" data-href="{% url 'feeding' feeding.id %}">
-      <td>{{ feeding.domain.name }}</td>
-      <td>{{ feeding.character.name }}</td>
-      <td>{{ feeding.feeding_points }}</td>
-      <td>{{ feeding.discipline.name }}</td>
-      <td>{{ feeding.description|truncatechars:25 }}</td>
-      <td>{{ feeding.is_overfeeding|yesno:"Yes,No" }}</td>
-      <td>{{ feeding.resolved|yesno:"Yes,No" }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+  </div>
+</div>
 
 <script>
 
@@ -61,16 +95,21 @@
     features: {
       paginate:     true,
       recordCount:  true,
-      sorting:      true
+      sorting:      true,
+      search:       false,
+      perPageSelect: false,
     },
     inputs: {
-      queries: $('#filter-feedings-resolved,#filter-feedings-domain,#filter-feedings-character'),
+      queries: $('#filter-feedings-resolved,#filter-feedings-domain,#filter-feedings-character,#search, #filter-feedings-overfeeding'),
     },
     writers: {
       _rowWriter: clickableRowWriter
     },
     readers: {
       _rowReader: clickableRowReader
+    },
+    dataset: {
+      perPageDefault: 25,
     }
   });
 

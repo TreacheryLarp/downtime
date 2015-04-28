@@ -1,50 +1,68 @@
-<h1>Characters for {{ session.name }}</h1>
-<div class="filter-actions-box" style="float: left;">
-  Age:
-  <select id="filter-age" name="age">
-    <option></option>
-    {% for age in ages %}
-    <option>{{ age.name }}</option>
-    {% endfor %}
-  </select>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h1>{{ session.name }} <small>Characters</small></h1>
+  </div>
 </div>
 
-<div class="filter-actions-box" style="float: left;">
-  Clan:
-  <select id="filter-clan" name="clan">
-    <option></option>
-    {% for clan in clans %}
-    <option>{{ clan.name }}</option>
-    {% endfor %}
-  </select>
-</div>
+<div class="row">
+  <div class="col-md-offset-1 col-md-7">
 
-<table id="character-table" class="table">
-  <thead>
-    <tr>
-      <th class="dynatable-head">Name</th>
-      <th class="dynatable-head">Player</th>
-      <th class="dynatable-head">Age</th>
-      <th class="dynatable-head">Titles</th>
-      <th class="dynatable-head">Clan</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for character in characters %}
-      <tr class="clickableRow" data-href="{% url 'character' session.id character.id %}">
-        <td>{{ character.name }}</td>
-        <td>{{ character.user.first_name }} {{ character.user.last_name }}</td>
-        <td>{{ character.age.name }}</td>
-        <td>
-          {% for t in character.titles.all %}
-            {{ t.name }}
+    <div class="form-group form-inline" style="float: left; padding-right:10px">
+      <span><label>Age:</label>
+        <select class="form-control" id="filter-age" name="age">
+          <option></option>
+          {% for age in ages %}
+          <option>{{ age.name }}</option>
           {% endfor %}
-        </td>
-        <td>{{ character.clan.name }}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+        </select>
+      </span>
+    </div>
+
+    <div class="form-group form-inline" style="float: left; padding-right:10px">
+      <span><label>Clan:</label>
+        <select class="form-control" id="filter-clan" name="clan">
+          <option></option>
+          {% for clan in clans %}
+          <option>{{ clan.name }}</option>
+          {% endfor %}
+        </select>
+      </span>
+    </div>
+  </div>
+
+  <div class="col-md-3 text-right">
+    <input type="text" class="form-control" id="search" placeholder="Search...">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-offset-1 col-md-10">
+    <table id="character-table" class="table">
+      <thead>
+        <tr>
+          <th class="dynatable-head">Name</th>
+          <th class="dynatable-head">Player</th>
+          <th class="dynatable-head">Age</th>
+          <th class="dynatable-head">Titles</th>
+          <th class="dynatable-head">Clan</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for character in characters %}
+          <tr class="clickableRow {{ character.has_submitted|yesno:'success,warning' }}" data-href="{% url 'character' session.id character.id %}">
+            <td>{{ character.name }}</td>
+            <td>{{ character.user.first_name }} {{ character.user.last_name }}</td>
+            <td>{{ character.age.name }}</td>
+            <td>
+              {% for t in character.titles.all %}
+                {{ t.name }}
+              {% endfor %}
+            </td>
+            <td>{{ character.clan.name }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
 
 <script>
 
@@ -52,16 +70,21 @@
     features: {
       paginate:     true,
       recordCount:  true,
-      sorting:      true
+      sorting:      true,
+      perPageSelect: false,
+      search:       false,
     },
     inputs: {
-      queries: $('#filter-age,#filter-clan'),
+      queries: $('#filter-age,#filter-clan, #search'),
     },
     writers: {
       _rowWriter: clickableRowWriter
     },
     readers: {
       _rowReader: clickableRowReader
+    },
+    dataset: {
+      perPageDefault: 40,
     }
   });
 
