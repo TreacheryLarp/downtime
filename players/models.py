@@ -193,10 +193,11 @@ class ActiveDisciplines(models.Model):
 
 
 class ExtraAction(models.Model):
-    character = models.ForeignKey(Character)
-    session = models.ForeignKey(Session)
+    character = models.ForeignKey(Character, related_name='+')
+    session = models.ForeignKey(Session, related_name='+')
     action_options = models.ManyToManyField(ActionOption)
     history = HistoricalRecords()
 
     def __str__(self):
-        return '[%s] + %s to %s' % (session.name, action_options, character.name)
+        action_options = ', '.join(str(d) for d in self.action_options.all())
+        return '[%s] +%s to %s' % (self.session.name, action_options, self.character)

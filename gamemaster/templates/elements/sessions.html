@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     {% for session in sessions %}
-    <tr class="{% if session.is_open %}warning{% else %}success{% endif %}">
+    <tr class="{% if session.is_open %}success{% else %}{% endif %}">
       <td>{{ session.name }}</td>
       <td><a href="{% url 'characters' session.id %}">{{ session.submitted | length }} / {{ characters | length }}</a></td>
       <td><a href="{% url 'actions' session.id %}">{{ session.actions.all | length }}</a></td>
