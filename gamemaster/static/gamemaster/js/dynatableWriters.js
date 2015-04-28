@@ -6,7 +6,7 @@ function clickableRowWriter(rowIndex, record, columns, cellWriter) {
     tr += cellWriter(columns[i], record);
   }
 
-  return '<tr class=' + record.class + ' data-href=' + record.hrefData + '>' + tr + '</tr>';
+  return '<tr class="' + record.class + '" data-href="' + record.hrefData + '">' + tr + '</tr>';
 };
 
 function clickableRowReader(rowIndex, rowElement, record) {
