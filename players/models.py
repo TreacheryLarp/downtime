@@ -93,7 +93,9 @@ class Character(models.Model):
 
     def actions(self, session):
         action_options = list(self.age.action_options.all())
-        action_options.extend(list(ExtraAction.objects.filter(character=self, session=session)))
+        extra_actions = ExtraAction.objects.filter(character=self, session=session)
+        for extra_action in extra_actions:
+            action_options.extend(extra_action.action_options.all())
         for title in self.titles.all():
             action_options.extend(list(title.action_options.all()))
         return action_options
@@ -196,6 +198,7 @@ class ExtraAction(models.Model):
     character = models.ForeignKey(Character, related_name='+')
     session = models.ForeignKey(Session, related_name='+')
     action_options = models.ManyToManyField(ActionOption)
+    description = models.TextField()
     history = HistoricalRecords()
 
     def __str__(self):
