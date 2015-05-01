@@ -11,7 +11,7 @@ from django.contrib.auth import logout
 from django.core.exceptions import PermissionDenied
 
 from players import forms
-from players.models import Session, Action, ActiveDisciplines, Feeding
+from players.models import Session, Action, ActiveDisciplines, Feeding, ExtraAction
 
 def logout_view(request):
     logout(request)
@@ -29,7 +29,8 @@ def session(request, session):
     character = request.user.character
     data =  {'session': session,
              'character': character,
-             'submitted': character.submitted(session)}
+             'submitted': character.submitted(session),
+             'extra_actions': ExtraAction.objects.filter(session=session, character=character)}
     return render(request, 'session.html', data)
 
 @login_required

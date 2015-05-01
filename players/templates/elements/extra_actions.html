@@ -1,0 +1,18 @@
+{% if extra_actions %}
+  <h3>Extra Actions</h3>
+  <ul class="list-group">
+  {% for action in extra_actions %}
+    <li class="list-group-item {% if action.resolved %}list-group-item-success{% endif %}">
+      <h4 class="list-group-item-heading">
+        {% for option in action.action_options.all %}
+          {% for type in option.action_types.all %}
+            {{type}}
+          {% endfor %}
+          <small> x{{ option.count}}</small>
+        {% endfor %}
+        </h4>
+      <p class="list-group-item-text">{{ action.description }}</p>
+    </li>
+  {% endfor %}
+  </ul>
+{% endif %}
