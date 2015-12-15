@@ -1,6 +1,6 @@
 # Treachery app #
 
-This app handles management of the treachey downtime system. This app is optimised for Heroku.
+This app handles management of the Treachery downtime system. This app is optimised for Dokku.
 
 ## Installation ##
 1. Create a venv `python -m venv venv`
