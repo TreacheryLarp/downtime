@@ -28,7 +28,7 @@
   <ul class="list-group">
   {% for feed in submitted.feed %}
       <li class="list-group-item {% if feed.resolved %}list-group-item-success{% endif %}">
-        <h4 class="list-group-item-heading">{{ feed.feeding_points }} at {{ feed.domain}} {% if feed.discipline %} with {{feed.discipline}} {% endif %}</h4>
+        <h4 class="list-group-item-heading">{{ feed.feeding_points }} FP at {{ feed.domain}} {% if feed.discipline %} with {{feed.discipline}} {% endif %}</h4>
         <p class="list-group-item-text">{{ feed.description }}</p>
       </li>
   {% endfor %}
