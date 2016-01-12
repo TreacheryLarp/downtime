@@ -67,7 +67,8 @@ class FeedingFormSet(SessionFormSet):
     def __init__(self, *args, **kwargs):
         super(FeedingFormSet, self).__init__(*args, **kwargs)
         self.queryset = Feeding.objects.filter(character=self.character, session=self.session)
-        self.max_num = 1
+        self.max_num = 3
+        self.extra = 3
         self.can_delete = False
         for form in self.forms:
             form.fields['discipline'].queryset = self.user.character.disciplines.all()
