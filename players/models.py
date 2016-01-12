@@ -116,12 +116,14 @@ class Domain(models.Model):
     status = models.TextField()
     influence = models.TextField()
     masquerade = models.TextField()
-    population = models.ForeignKey(Population)
+    population = models.ManyToManyField(Population, blank=True)
     history = HistoricalRecords()
 
     def __str__(self):
-        return self.name
-
+        population = ', '.join(d.name for d in self.population.all())
+        return '%s - %s FP (%s)' % (self.name,
+                                    self.feeding_capacity,
+                                    population)
 
 class InfluenceRating(models.Model):
     influence = models.ForeignKey(Influence)
