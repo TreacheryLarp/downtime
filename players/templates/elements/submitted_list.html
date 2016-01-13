@@ -19,7 +19,7 @@
   <h3>Active Disciplines</h3>
   {% for adisc in submitted.disc %}
     {% for disc in adisc.disciplines.all %}
-      <div class="panel panel-{% if disc.resolved == "RESOLVED" %}success{% elif disc.resolved == "PENDING" %}warning{% else %}default{% endif %}">
+      <div class="panel panel-success">
         <div class="panel-heading">
           <h3 class="panel-title">{{ disc }}</h3>
         </div>
