@@ -11,5 +11,6 @@ urlpatterns = patterns('',
         {'template_name': 'login.html',
          'authentication_form': LoginForm}),
     url(r'^admin/', include(admin.site.urls)),
+    (r'^comments/', include('django_comments.urls')),
     url(r'^', include('players.urls')),
 )

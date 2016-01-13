@@ -1,0 +1,20 @@
+{% load comments %}
+<style>#id_honeypot {
+  display: none;
+}
+</style>
+{% render_comment_list for comment_object %}
+{% get_comment_form for comment_object as form %}
+<form action="{% comment_form_target %}" method="POST">
+  <div class="form-group">
+    {% csrf_token %}
+    {{ form.honeypot }}
+    {{ form.content_type }}
+    {{ form.object_pk }}
+    {{ form.timestamp }}
+    {{ form.security_hash }}
+    <input type="hidden" name="next" value="{{ request.path }}" />
+    <textarea id="id_comment" maxlength="3000" name="comment" rows="2" class="form-control"></textarea>
+  </div>
+  <input class="btn btn-primary" type="submit" value="Post" id="id_submit" />
+</form>

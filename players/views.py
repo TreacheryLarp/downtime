@@ -30,7 +30,8 @@ def session(request, session):
     data =  {'session': session,
              'character': character,
              'submitted': character.submitted(session),
-             'extra_actions': ExtraAction.objects.filter(session=session, character=character)}
+             'extra_actions': ExtraAction.objects.filter(session=session, character=character),
+             'request': request}
     return render(request, 'session.html', data)
 
 @login_required
