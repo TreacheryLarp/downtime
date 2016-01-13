@@ -23,7 +23,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET')
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', ''))
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ['localhost', 'treachery.gartner.io', 'downtime.treachery.eu']
+ALLOWED_HOSTS = ['localhost', 'treachery.gartner.io', 'downtime.treachery.eu', 'treachery-dev.gartner.io']
 
 
 # Application definition
