@@ -20,7 +20,7 @@ def logout_view(request):
 @user_passes_test(lambda u: not u.is_superuser, login_url='/gm')
 def profile(request):
     return render(request, 'profile.html', {'character': request.user.character,
-                                            'session_list': Session.objects.all()})
+                                            'session_list': Session.objects.order_by('name').all()})
 
 @login_required
 @user_passes_test(lambda u: not u.is_superuser, login_url='/gm')
