@@ -3,18 +3,27 @@
   display: none;
 }
 </style>
-{% render_comment_list for comment_object %}
-{% get_comment_form for comment_object as form %}
-<form action="{% comment_form_target %}" method="POST">
-  <div class="form-group">
-    {% csrf_token %}
-    {{ form.honeypot }}
-    {{ form.content_type }}
-    {{ form.object_pk }}
-    {{ form.timestamp }}
-    {{ form.security_hash }}
-    <input type="hidden" name="next" value="{{ request.path }}" />
-    <textarea id="id_comment" maxlength="3000" name="comment" rows="2" class="form-control"></textarea>
+<div>
+  <a class="h5" role="button" data-toggle="collapse" href="#{{comment_object | slugify}}{{comment_object.id}}" aria-expanded="false" aria-controls="collapseExample">Show Comments</a>
+  <div id="{{comment_object | slugify}}{{comment_object.id}}" class="collapse">
+    {% get_comment_list for comment_object as comment_list %}
+    {% for comment in comment_list %}
+      <h6>{{comment.user}} <small>{{comment.submit_date}}</small></h6>
+      <pre style="background-color:white;">{{comment.comment}}</pre>
+    {% endfor %}
+    {% get_comment_form for comment_object as form %}
+    <form action="{% comment_form_target %}" method="POST">
+      <div class="form-group">
+        {% csrf_token %}
+        {{ form.honeypot }}
+        {{ form.content_type }}
+        {{ form.object_pk }}
+        {{ form.timestamp }}
+        {{ form.security_hash }}
+        <input type="hidden" name="next" value="{{ request.path }}" />
+        <textarea id="id_comment" maxlength="3000" name="comment" rows="2" class="form-control"></textarea>
+      </div>
+      <input class="btn btn-primary" type="submit" value="Post" id="id_submit" />
+    </form>
   </div>
-  <input class="btn btn-primary" type="submit" value="Post" id="id_submit" />
-</form>
+</div>
