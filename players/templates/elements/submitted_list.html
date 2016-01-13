@@ -1,7 +1,7 @@
 {% if submitted.actions %}
   <h3>Actions</h3>
   {% for action in submitted.actions %}
-    <div class="panel panel-{% if action.resolved %}success{% else %}default{% endif %}">
+    <div class="panel panel-{% if action.resolved == "RESOLVED" %}success{% elif action.resolved == "PENDING" %}warning{% else %}default{% endif %}">
       <div class="panel-heading">
         <h3 class="panel-title">{{ action.action_type }}</h3>
       </div>
@@ -19,12 +19,9 @@
   <h3>Active Disciplines</h3>
   {% for adisc in submitted.disc %}
     {% for disc in adisc.disciplines.all %}
-      <div class="panel panel-default">
+      <div class="panel panel-{% if disc.resolved == "RESOLVED" %}success{% elif disc.resolved == "PENDING" %}warning{% else %}default{% endif %}">
         <div class="panel-heading">
           <h3 class="panel-title">{{ disc }}</h3>
-        </div>
-        <div class="panel-footer">
-          {% include "comment.html" with comment_object=disc %}
         </div>
       </div>
     {% endfor %}
@@ -34,7 +31,7 @@
 {% if submitted.feed %}
   <h3>Feeding</h3>
   {% for feed in submitted.feed %}
-    <div class="panel panel-{% if feed.resolved %}success{% else %}default{% endif %}">
+    <div class="panel panel-{% if feed.resolved == "RESOLVED" %}success{% elif feed.resolved == "PENDING" %}warning{% else %}default{% endif %}">
       <div class="panel-heading">
         <h3 class="panel-title">{{ feed.feeding_points }} FP at {{ feed.domain}} {% if feed.discipline %} with {{feed.discipline}} {% endif %}</h3>
       </div>

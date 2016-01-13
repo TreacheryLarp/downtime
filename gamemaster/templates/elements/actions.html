@@ -34,8 +34,9 @@
       <span><label>Resolved:</label>
         <select class="form-control" id="filter-actions-resolved" name="resolved">
           <option></option>
-          <option>Yes</option>
-          <option>No</option>
+          <option>Unresolved</option>
+          <option>Pending</option>
+          <option>Resolved</option>
         </select>
       </span>
     </div>
@@ -60,11 +61,11 @@
       </thead>
       <tbody>
         {% for action in actions %}
-        <tr class="clickableRow {{ action.resolved|yesno:'success,warning' }}" data-href="{% url 'action' action.id %}">
+        <tr class="clickableRow {% if action.resolved == "RESOLVED" %}success{% elif action.resolved == "PENDING" %}warning{% endif %}" data-href="{% url 'action' action.id %}">
           <td>{{ action.action_type.name }}</td>
           <td>{{ action.character.name }}</td>
           <td>{{ action.description|truncatechars:25 }}</td>
-          <td>{{ action.resolved|yesno:"Yes,No" }}</td>
+          <td>{{ action.get_resolved_display}}</td>
         </tr>
         {% endfor %}
       </tbody>

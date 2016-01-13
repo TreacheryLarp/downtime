@@ -18,7 +18,7 @@
         </select>
       </span>
     </div>
-
+<!--
     <div class="form-group form-inline" style="float: left; padding-right:10px">
       <span><label>Character:</label>
         <select class="form-control" id="filter-feedings-character" name="character">
@@ -29,7 +29,7 @@
         </select>
       </span>
     </div>
-
+-->
     <div class="form-group form-inline" style="float: left; padding-right: 10px">
       <span><label>Overfeeding:</label>
         <select class="form-control" id="filter-feedings-overfeeding" name="overfeeding">
@@ -44,12 +44,12 @@
       <span><label>Resolved:</label>
         <select class="form-control" id="filter-feedings-resolved" name="resolved">
           <option></option>
-          <option>Yes</option>
-          <option>No</option>
+          <option>Unresolved</option>
+          <option>Pending</option>
+          <option>Resolved</option>
         </select>
       </span>
     </div>
-
   </div>
 
   <div class="col-md-2 text-right">
@@ -73,14 +73,14 @@
       </thead>
       <tbody>
         {% for feeding in feedings %}
-        <tr class="clickableRow {{ feeding.resolved|yesno:'success,warning' }}" data-href="{% url 'feeding' feeding.id %}">
+        <tr class="clickableRow {% if action.resolved == "RESOLVED" %}success{% elif action.resolved == "PENDING" %}warning{% endif %}" data-href="{% url 'feeding' feeding.id %}">
           <td>{{ feeding.domain.name }}</td>
           <td>{{ feeding.character.name }}</td>
           <td>{{ feeding.feeding_points }}</td>
           <td>{{ feeding.discipline.name }}</td>
           <td>{{ feeding.description|truncatechars:25 }}</td>
           <td>{{ feeding.is_overfeeding|yesno:"Yes,No" }}</td>
-          <td>{{ feeding.resolved|yesno:"Yes,No" }}</td>
+          <td>{{ feeding.get_resolved_display}}</td>
         </tr>
         {% endfor %}
       </tbody>

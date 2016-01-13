@@ -154,7 +154,11 @@ class Action(models.Model):
     character = models.ForeignKey(Character)
     session = models.ForeignKey(Session, related_name='actions')
     description = models.TextField()
-    resolved = models.BooleanField(default=False)
+    resolved = models.CharField(max_length=10,
+                                choices=(('UNRESOLVED', 'Unresolved'),
+                                         ('PENDING', 'Pending'),
+                                         ('RESOLVED', 'Resolved')),
+                                default='UNRESOLVED')
     history = HistoricalRecords()
 
     def __str__(self):
@@ -168,7 +172,11 @@ class Feeding(models.Model):
     feeding_points = models.PositiveIntegerField()
     discipline = models.ForeignKey(Discipline, blank=True, null=True)
     description = models.TextField()
-    resolved = models.BooleanField(default=False)
+    resolved = models.CharField(max_length=10,
+                                choices=(('UNRESOLVED', 'Unresolved'),
+                                         ('PENDING', 'Pending'),
+                                         ('RESOLVED', 'Resolved')),
+                                default='UNRESOLVED')
     history = HistoricalRecords()
 
     def __str__(self):
