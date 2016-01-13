@@ -5,6 +5,6 @@ table rows clickable.
 **/
 $( document ).ready(function() {
   $("table").on( "click", ".clickableRow", function() {
-    window.open($(this).data("href"), "editor", "width=400,height=500");
+    window.open($(this).data("href"), "editor", "width=400,height=700");
   });
 });
