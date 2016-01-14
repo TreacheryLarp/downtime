@@ -7,3 +7,4 @@ gunicorn==19.1.1
 static3==0.5.1
 whitenoise==1.0.6
 django-contrib-comments==1.6.2
+Markdown==2.6.5
