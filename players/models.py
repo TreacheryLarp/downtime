@@ -9,7 +9,7 @@ class ActionType(models.Model):
 
     def help_texts():
         help_texts = []
-        for action_type in ActionType.objects.all():
+        for action_type in ActionType.objects.order_by('name').all():
             if action_type.template:
                 help_texts.append({
                     'title': action_type.name,
