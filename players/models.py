@@ -7,6 +7,16 @@ class ActionType(models.Model):
     template = models.TextField(blank=True)
     history = HistoricalRecords()
 
+    def help_texts():
+        help_texts = []
+        for action_type in ActionType.objects.all():
+            if action_type.template:
+                help_texts.append({
+                    'title': action_type.name,
+                    'text': action_type.template
+                })
+        return help_texts
+
     def __str__(self):
         return self.name
 
@@ -163,7 +173,6 @@ class Action(models.Model):
 
     def __str__(self):
         return '[%s] %s: %s' % (self.session.name, self.character, self.action_type)
-
 
 class Feeding(models.Model):
     character = models.ForeignKey(Character)

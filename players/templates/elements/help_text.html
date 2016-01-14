@@ -1,0 +1,11 @@
+{% load player_extras %}
+
+<div>
+  {% if help_texts %}
+    <h2>Help</h2>
+    {% for help in help_texts %}
+      <h4>{{help.title}}</h4>
+      {{help.text|markdownify|safe}}</div>
+    {% endfor %}
+  {% endif %}
+</div>
