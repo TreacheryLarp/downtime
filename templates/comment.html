@@ -5,7 +5,7 @@
 }
 </style>
 <div>
-  <a class="h5" role="button" data-toggle="collapse" href="#{{comment_object | slugify}}{{comment_object.id}}" aria-expanded="false" aria-controls="collapseExample">Show Comments</a>
+  <a class="h5" role="button" data-toggle="collapse" href="#{{comment_object | slugify}}{{comment_object.id}}" aria-expanded="false" aria-controls="{{comment_object | slugify}}{{comment_object.id}}">Show Comments</a>
   <div id="{{comment_object | slugify}}{{comment_object.id}}" class="collapse">
     {% get_comment_list for comment_object as comment_list %}
     {% for comment in comment_list %}

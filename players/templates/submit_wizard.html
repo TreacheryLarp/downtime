@@ -2,45 +2,49 @@
 {% load i18n %}
 
 {% block head %}
-  {{ wizard.form.media }}
+{{ wizard.form.media }}
 {% endblock %}
 
 {% load bootstrap3 %}
 {% block content %}
 
-  <div class="row">
-    <div class="col-md-offset-3 col-md-6">
-      <h3>Downtime Submission <small>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</small></h3>
+<div class="row">
+  <div class="col-md-offset-3 col-md-6">
+    <h3>Downtime Submission
+      <small>Step
+        {{ wizard.steps.step1 }}
+        of
+        {{ wizard.steps.count }}</small>
+    </h3>
 
-      <form action="" method="post">{% csrf_token %}
-        <table>
-          {{ wizard.management_form }}
-          {% if wizard.form.forms %}
-            {{ wizard.form.management_form }}
-          {% for form in wizard.form.forms %}
-            <div class="well">
-              {% bootstrap_form form %}
-            </div>
-          {% endfor %}
-          {% else %}
-            {% bootstrap_form wizard.form %}
-          {% endif %}
-        </table>
-        <div class="text-right"
-          {% buttons %}
-            {% if wizard.steps.prev %}
-              <button class="btn" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Prev step" %}</button>
-            {% endif %}
-            <input class="btn btn-primary" type="submit" value="{% if wizard.steps.count == wizard.steps.step1 %} Submit {% else %} Next {% endif %}"/>
-          {% endbuttons %}
+    <form action="" method="post">{% csrf_token %}
+      <table>
+        {{ wizard.management_form }}
+        {% if wizard.form.forms %}
+        {{ wizard.form.management_form }}
+        {% for form in wizard.form.forms %}
+        <div class="well">
+          {% bootstrap_form form %}
         </div>
-      </form>
+        {% endfor %}
+      {% else %}
+        {% bootstrap_form wizard.form %}
+        {% endif %}
+      </table>
+      <div class="text-right">
+        {% buttons %}
+        {% if wizard.steps.prev %}
+        <button class="btn" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Prev step" %}</button>
+        {% endif %}
+        <input class="btn btn-primary" type="submit" value="{% if wizard.steps.count == wizard.steps.step1 %} Submit {% else %} Next {% endif %}"/>
+        {% endbuttons %}
+      </div>
+    </form>
 
-    </div>
-    <div class="col-md-3">
-      {% include "elements/help_text.html" %}
-    </div>
   </div>
-
+  <div class="col-md-3">
+    {% include "elements/help_text.html" %}
+  </div>
+</div>
 
 {% endblock %}
