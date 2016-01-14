@@ -118,6 +118,7 @@ class ActionUpdate(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ActionUpdate, self).get_context_data(**kwargs)
+        context['request'] = self.request
         session = self.object.session
         character = self.object.character
         adisc = ActiveDisciplines.objects.filter(session=session, character=character)
@@ -134,9 +135,18 @@ class FeedingUpdate(UpdateView):
     fields = ['character', 'domain', 'feeding_points', 'discipline', 'description', 'resolved']
     success_url = reverse_lazy('closewindow')
 
+    def get_context_data(self, **kwargs):
+        context = super(FeedingUpdate, self).get_context_data(**kwargs)
+        context['request'] = self.request
+        return context
+
 
 class CharUpdate(UpdateView):
     model = Character
     template_name = 'editor.html'
-    #fields = ['character', 'domain', 'feeding_points', 'discipline', 'description', 'resolved']
     success_url = reverse_lazy('closewindow')
+
+    def get_context_data(self, **kwargs):
+        context = super(CharUpdate, self).get_context_data(**kwargs)
+        context['request'] = self.request
+        return context

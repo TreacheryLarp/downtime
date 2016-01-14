@@ -11,7 +11,7 @@ from django.contrib.auth import logout
 from django.core.exceptions import PermissionDenied
 
 from players import forms
-from players.models import Session, Action, ActiveDisciplines, Feeding, ExtraAction
+from players.models import *
 
 def logout_view(request):
     logout(request)
@@ -20,7 +20,7 @@ def logout_view(request):
 @user_passes_test(lambda u: not u.is_superuser, login_url='/gm')
 def profile(request):
     return render(request, 'profile.html', {'character': request.user.character,
-                                            'session_list': Session.objects.all()})
+                                            'session_list': Session.objects.order_by('name').all()})
 
 @login_required
 @user_passes_test(lambda u: not u.is_superuser, login_url='/gm')
@@ -30,7 +30,8 @@ def session(request, session):
     data =  {'session': session,
              'character': character,
              'submitted': character.submitted(session),
-             'extra_actions': ExtraAction.objects.filter(session=session, character=character)}
+             'extra_actions': ExtraAction.objects.filter(session=session, character=character),
+             'request': request}
     return render(request, 'session.html', data)
 
 @login_required
@@ -74,3 +75,9 @@ class SubmitWizard(SessionWizardView):
         for f in form_list:
             f.fill_save()
         return HttpResponseRedirect('/s/%s' % kwargs['session'].id)
+
+    def get_context_data(self, form, **kwargs):
+        context = super(SubmitWizard, self).get_context_data(form=form, **kwargs)
+        if self.steps.current == '2':
+            context.update({'help_texts': ActionType.help_texts()})
+        return context

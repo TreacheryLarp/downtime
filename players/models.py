@@ -7,6 +7,16 @@ class ActionType(models.Model):
     template = models.TextField(blank=True)
     history = HistoricalRecords()
 
+    def help_texts():
+        help_texts = []
+        for action_type in ActionType.objects.order_by('name').all():
+            if action_type.template:
+                help_texts.append({
+                    'title': action_type.name,
+                    'text': action_type.template
+                })
+        return help_texts
+
     def __str__(self):
         return self.name
 
@@ -154,12 +164,15 @@ class Action(models.Model):
     character = models.ForeignKey(Character)
     session = models.ForeignKey(Session, related_name='actions')
     description = models.TextField()
-    resolved = models.BooleanField(default=False)
+    resolved = models.CharField(max_length=10,
+                                choices=(('UNRESOLVED', 'Unresolved'),
+                                         ('PENDING', 'Pending'),
+                                         ('RESOLVED', 'Resolved')),
+                                default='UNRESOLVED')
     history = HistoricalRecords()
 
     def __str__(self):
         return '[%s] %s: %s' % (self.session.name, self.character, self.action_type)
-
 
 class Feeding(models.Model):
     character = models.ForeignKey(Character)
@@ -168,7 +181,11 @@ class Feeding(models.Model):
     feeding_points = models.PositiveIntegerField()
     discipline = models.ForeignKey(Discipline, blank=True, null=True)
     description = models.TextField()
-    resolved = models.BooleanField(default=False)
+    resolved = models.CharField(max_length=10,
+                                choices=(('UNRESOLVED', 'Unresolved'),
+                                         ('PENDING', 'Pending'),
+                                         ('RESOLVED', 'Resolved')),
+                                default='UNRESOLVED')
     history = HistoricalRecords()
 
     def __str__(self):

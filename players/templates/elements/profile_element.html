@@ -1,29 +1,25 @@
 <div class="row">
   <div class="col-md-offset-3 col-md-6">
-    <div class="well">
-
-      <dl class="dl-horizontal">
-        <dt>Name</dt>
-        <dd>{{ character.name }}</dd>
-        <dt>Clan</dt>
-        <dd>{{character.clan}}</dd>
-        <dt>Age</dt>
-        <dd>{{character.age}}</dd>
-        <dt>Titles</dt>
-        <dd>
-        {% for t in character.titles.all %}
-          {{ t.name }}
-        {% endfor %}
-        <dt>Disciplines</dt>
-        <dd>
-        {% for d in character.disciplines.all %}
-          {{ d.name }}
-        {% endfor %}
-        </dd>
-        <dt>Resources</dt>
-        <dd>{{character.resources}}</dd>
-      </dl>
-
-    </div>
+    <dl class="dl-horizontal">
+      <dt>Name</dt>
+      <dd>{{ character.name }}</dd>
+      <dt>Clan</dt>
+      <dd>{{character.clan}}</dd>
+      <dt>Age</dt>
+      <dd>{{character.age}}</dd>
+      <dt>Titles</dt>
+      <dd>
+      {% for t in character.titles.all %}
+        {{ t.name }}
+      {% endfor %}
+      <dt>Disciplines</dt>
+      <dd>
+      {% for d in character.disciplines.all %}
+        {{ d.name }}
+      {% endfor %}
+      </dd>
+      <dt>Resources</dt>
+      <dd>{{character.resources}}</dd>
+    </dl>
   </div>
 </div>

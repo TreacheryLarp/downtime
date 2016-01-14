@@ -35,6 +35,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django_comments',
     'simple_history',
     'bootstrap3',
     'players',
@@ -89,3 +91,6 @@ STATICFILES_DIRS = (
 # Authentication
 LOGIN_URL='/login'
 LOGIN_REDIRECT_URL='/players/profile'
+
+# Enable site contrib module setting
+SITE_ID = 1
