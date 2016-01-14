@@ -3,9 +3,11 @@
 {% if help_texts %}
   <h2>Help</h2>
   {% for help in help_texts %}
-    <a class="h4" role="button" data-toggle="collapse" href="#{{help.title | slugify}}" aria-expanded="false" aria-controls="{{help.title | slugify}}">{{help.title}}</a>
-    <div id="{{help.title | slugify}}" class="collapse">
-      {{help.text|markdownify|safe}}
+    <div>
+      <a class="h4" role="button" data-toggle="collapse" href="#{{help.title | slugify}}" aria-expanded="false" aria-controls="{{help.title | slugify}}">{{help.title}}</a>
+      <div id="{{help.title | slugify}}" class="collapse">
+        {{help.text|markdownify|safe}}
+      </div>
     </div>
   {% endfor %}
 {% endif %}
