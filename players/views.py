@@ -78,6 +78,11 @@ class SubmitWizard(SessionWizardView):
 
     def get_context_data(self, form, **kwargs):
         context = super(SubmitWizard, self).get_context_data(form=form, **kwargs)
-        if self.steps.current == '2':
+        if self.steps.current == '0':
+            context.update({'stepTitle': 'Active Disciplines'})
+        elif self.steps.current == '1':
+            context.update({'stepTitle': 'Feeding'})
+        elif self.steps.current == '2':
+            context.update({'stepTitle': 'Actions'})
             context.update({'help_texts': ActionType.help_texts()})
         return context
