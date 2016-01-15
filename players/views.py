@@ -19,8 +19,14 @@ def logout_view(request):
 @login_required
 @user_passes_test(lambda u: not u.is_superuser, login_url='/gm')
 def profile(request):
+    session_state = []
+    for session in Session.objects.order_by('name').all():
+        print(dir(session))
+        state = session.resolved_state(request.user.character)
+        session_state.append({'state':state, 'session': session})
+
     return render(request, 'profile.html', {'character': request.user.character,
-                                            'session_list': Session.objects.order_by('name').all()})
+                                            'session_list': session_state})
 
 @login_required
 @user_passes_test(lambda u: not u.is_superuser, login_url='/gm')
