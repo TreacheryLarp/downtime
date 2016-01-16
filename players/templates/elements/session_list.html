@@ -1,10 +1,9 @@
 {% load player_extras %}
 
 {% if session_list %}
-<ul class="list-group">
-  {% for s in session_list %}
-  <a href="{% url 'session' s.session.id %}" class="list-group-item {{ s | session_resolved_state_color}}">{{ s.session.name}}
-    {{ s | session_resolved_state}}</a>
-  {% endfor %}
-</ul>
+  <ul class="list-group">
+    {% for s in session_list %}
+      <a href="{% url 'session' s.session.id %}" class="list-group-item {{ s | session_resolved_state_color}}">{{ s.session.name}} {{ s | session_resolved_state}}</a>
+    {% endfor %}
+  </ul>
 {% endif %}

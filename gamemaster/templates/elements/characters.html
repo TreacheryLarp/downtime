@@ -1,8 +1,6 @@
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
-    <h1>{{ session.name }}
-      <small>Characters</small>
-    </h1>
+    <h1>{{ session.name }} <small>Characters</small></h1>
   </div>
 </div>
 
@@ -10,8 +8,7 @@
   <div class="col-md-offset-1 col-md-7">
 
     <div class="form-group form-inline" style="float: left; padding-right:10px">
-      <span>
-        <label>Age:</label>
+      <span><label>Age:</label>
         <select class="form-control" id="filter-age" name="age">
           <option></option>
           {% for age in ages %}
@@ -22,8 +19,7 @@
     </div>
 
     <div class="form-group form-inline" style="float: left; padding-right:10px">
-      <span>
-        <label>Clan:</label>
+      <span><label>Clan:</label>
         <select class="form-control" id="filter-clan" name="clan">
           <option></option>
           {% for clan in clans %}
@@ -53,43 +49,43 @@
       </thead>
       <tbody>
         {% for character in characters %}
-        <tr class="clickableRow {{ character.has_submitted|yesno:'success,warning' }}" data-href="{% url 'character' character.id %}">
-          <td>{{ character.name }}</td>
-          <td>{{ character.user.first_name }}
-            {{ character.user.last_name }}</td>
-          <td>{{ character.age.name }}</td>
-          <td>
-            {% for t in character.titles.all %}
-            {{ t.name }}
-            {% endfor %}
-          </td>
-          <td>{{ character.clan.name }}</td>
-        </tr>
+          <tr class="clickableRow {{ character.has_submitted|yesno:'success,warning' }}" data-href="{% url 'character' character.id %}">
+            <td>{{ character.name }}</td>
+            <td>{{ character.user.first_name }} {{ character.user.last_name }}</td>
+            <td>{{ character.age.name }}</td>
+            <td>
+              {% for t in character.titles.all %}
+                {{ t.name }}
+              {% endfor %}
+            </td>
+            <td>{{ character.clan.name }}</td>
+          </tr>
         {% endfor %}
       </tbody>
     </table>
 
-    <script>
+<script>
 
-      $('#character-table').dynatable({
-        features: {
-          paginate: true,
-          recordCount: true,
-          sorting: true,
-          perPageSelect: false,
-          search: false
-        },
-        inputs: {
-          queries: $('#filter-age,#filter-clan, #search')
-        },
-        writers: {
-          _rowWriter: clickableRowWriter
-        },
-        readers: {
-          _rowReader: clickableRowReader
-        },
-        dataset: {
-          perPageDefault: 40
-        }
-      });
-    </script>
+  $('#character-table').dynatable({
+    features: {
+      paginate:     true,
+      recordCount:  true,
+      sorting:      true,
+      perPageSelect: false,
+      search:       false,
+    },
+    inputs: {
+      queries: $('#filter-age,#filter-clan, #search'),
+    },
+    writers: {
+      _rowWriter: clickableRowWriter
+    },
+    readers: {
+      _rowReader: clickableRowReader
+    },
+    dataset: {
+      perPageDefault: 40,
+    }
+  });
+
+</script>

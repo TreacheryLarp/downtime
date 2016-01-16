@@ -6,14 +6,18 @@
 
 {% block content %}
 
-Print for boon:
-{{boon}}.
+Print for boon: {{boon}}.
 {{url}}
 
 <div id="{{boon.key}}"></div>
 {{boon.key}}
 <script>
-  jQuery('#{{boon.key}}').qrcode({text: "{{url}}", width: 128, height: 128});
+jQuery('#{{boon.key}}').qrcode({
+  text: "{{url}}",
+  width: 128,
+  height: 128,
+});
 </script>
+
 
 {% endblock %}

@@ -1,17 +1,17 @@
 {% extends "gm_base.html" %}
 
 {% block head %}
-{% load staticfiles %}
-<script src="{% static " gamemaster/js/jquery.dynatable.js" %}"></script>
-<script src="{% static " gamemaster/js/dynatableWriters.js" %}"></script>
-<script src="{% static " gamemaster/js/clickable.js" %}"></script>
-<link rel="stylesheet" href="{% static " gamemaster/css/jquery.dynatable.css" %}"/>
+  {% load staticfiles %}
+  <script src="{% static "gamemaster/js/jquery.dynatable.js" %}"></script>
+  <script src="{% static "gamemaster/js/dynatableWriters.js" %}"></script>
+  <script src="{% static "gamemaster/js/clickable.js" %}"></script>
+  <link rel="stylesheet" href="{% static "gamemaster/css/jquery.dynatable.css" %}" />
 {% endblock %}
 
 {% block content %}
 
-<div class="container">
-  {% include "elements/"|add:type|add:".html" %}
-</div>
+  <div class="container">
+    {% include "elements/"|add:type|add:".html" %}
+  </div>
 
 {% endblock %}

@@ -1,8 +1,7 @@
+
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
-    <h1>{{ session_name }}
-      <small>Actions</small>
-    </h1>
+    <h1>{{ session_name }} <small>Actions</small></h1>
   </div>
 </div>
 
@@ -10,8 +9,7 @@
   <div class="col-md-offset-1 col-md-7">
 
     <div class="form-group form-inline" style="float: left; padding-right:10px">
-      <span>
-        <label>Type:</label>
+      <span><label>Type:</label>
         <select class="form-control" id="filter-actions-type" name="type">
           <option></option>
           {% for type in action_types %}
@@ -22,8 +20,7 @@
     </div>
 
     <div class="form-group form-inline" style="float: left; padding-right:10px">
-      <span>
-        <label>Character:</label>
+      <span><label>Character:</label>
         <select class="form-control" id="filter-actions-character" name="character">
           <option></option>
           {% for character in characters %}
@@ -34,8 +31,7 @@
     </div>
 
     <div class="form-group form-inline" style="float: left;">
-      <span>
-        <label>Resolved:</label>
+      <span><label>Resolved:</label>
         <select class="form-control" id="filter-actions-resolved" name="resolved">
           <option></option>
           <option>Unresolved</option>
@@ -65,7 +61,7 @@
       </thead>
       <tbody>
         {% for action in actions %}
-        <tr class="clickableRow {% if action.resolved == " RESOLVED" %}success{% elif action.resolved == " PENDING" %}warning{% endif %}" data-href="{% url 'action' action.id %}">
+        <tr class="clickableRow {% if action.resolved == "RESOLVED" %}success{% elif action.resolved == "PENDING" %}warning{% endif %}" data-href="{% url 'action' action.id %}">
           <td>{{ action.action_type.name }}</td>
           <td>{{ action.character.name }}</td>
           <td>{{ action.description|truncatechars:25 }}</td>
@@ -77,18 +73,19 @@
   </div>
 </div>
 
+
 <script>
 
   $('#action-table').dynatable({
     features: {
-      paginate: true,
-      recordCount: true,
-      sorting: true,
+      paginate:     true,
+      recordCount:  true,
+      sorting:      true,
       perPageSelect: false,
-      search: false
+      search:       false,
     },
     inputs: {
-      queries: $('#filter-actions-resolved,#filter-actions-type,#filter-actions-character,#search')
+      queries: $('#filter-actions-resolved,#filter-actions-type,#filter-actions-character,#search'),
     },
     writers: {
       _rowWriter: clickableRowWriter
@@ -97,7 +94,8 @@
       _rowReader: clickableRowReader
     },
     dataset: {
-      perPageDefault: 25
+      perPageDefault: 25,
     }
   });
+
 </script>
