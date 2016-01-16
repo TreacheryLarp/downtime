@@ -9,17 +9,17 @@
       <dd>{{character.age}}</dd>
       <dt>Titles</dt>
       <dd>
-      {% for t in character.titles.all %}
+        {% for t in character.titles.all %}
         {{ t.name }}
-      {% endfor %}
-      <dt>Disciplines</dt>
-      <dd>
-      {% for d in character.disciplines.all %}
-        {{ d.name }}
-      {% endfor %}
-      </dd>
-      <dt>Resources</dt>
-      <dd>{{character.resources}}</dd>
-    </dl>
+        {% endfor %}
+        <dt>Disciplines</dt>
+        <dd>
+          {% for d in character.disciplines.all %}
+          {{ d.name }}
+          {% endfor %}
+        </dd>
+        <dt>Resources</dt>
+        <dd>{{character.resources}}</dd>
+      </dl>
+    </div>
   </div>
-</div>

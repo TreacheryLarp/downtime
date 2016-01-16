@@ -1,59 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  {% load staticfiles %}
-  {% load bootstrap3 %}
+  <head>
+    {% load staticfiles %}
+    {% load bootstrap3 %}
 
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css">
 
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
-  <link rel="stylesheet" href="{% static "treachery/css/treachery.css" %}" />
+    <link rel="stylesheet" href="{% static " treachery/css/treachery.css" %}"/>
 
-  <title>{% block title %}Treachery Gamemaster{% endblock %}</title>
+    <title>{% block title %}Treachery Gamemaster{% endblock %}</title>
 
-</head>
+  </head>
 
-<body>
-  <div class="container-fluid">
+  <body>
+    <div class="container-fluid">
 
-    <div class="row">
+      <div class="row">
 
-      <div class="col-md-12">
-        {% if extra_title %}
+        <div class="col-md-12">
+          {% if extra_title %}
           <span id="extra-title">
             <b>{{ extra_title }}:</b>
           </span>
           <span id="extra-data">
             {{ extra_data }}
           </span>
-        {% endif %}
+          {% endif %}
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-12">
-        <form action="" method="post">{% csrf_token %}
-          {% bootstrap_form form %}
-          <div class="text-right">
-            {% buttons %}
+      <div class="row">
+        <div class="col-md-12">
+          <form action="" method="post">{% csrf_token %}
+            {% bootstrap_form form %}
+            <div class="text-right">
+              {% buttons %}
               <button id="submit-button" type="submit" class="btn btn-primary">
-                {% bootstrap_icon "ok" %} Update
+                {% bootstrap_icon "ok" %}
+                Update
               </button>
-            {% endbuttons %}
-          </div>
+              {% endbuttons %}
+            </div>
 
-        </form>
+          </form>
+        </div>
       </div>
+      {% include "comment.html" with comment_object=object%}
     </div>
-    {% include "comment.html" with comment_object=object%}
-  </div>
-</body>
+  </body>
 </html>

@@ -2,11 +2,15 @@
 
 {% block content %}
 
-{{boon.key}} belonging to {{boon.debtor}} of size {{boon.size}}
+{{boon.key}}
+belonging to
+{{boon.debtor}}
+of size
+{{boon.size}}
 
 <form action="" method="post">{% csrf_token %}
   {{ form.as_p }}
-  <input type="submit" value="Transfer" />
+  <input type="submit" value="Transfer"/>
 </form>
 
 {% endblock %}

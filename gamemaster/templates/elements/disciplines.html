@@ -1,7 +1,8 @@
-
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
-    <h1>{{ session_name }} <small>Disciplines</small></h1>
+    <h1>{{ session_name }}
+      <small>Disciplines</small>
+    </h1>
   </div>
 </div>
 
@@ -38,25 +39,23 @@
 
 <script>
 
-$('#disciplines-table').dynatable({
-  features: {
-    paginate:     true,
-    recordCount:  true,
-    sorting:      true,
-    search:       false,
-    perPageSelect: false,
-  },
-  inputs: {
-  },
-  writers: {
-    _rowWriter: clickableRowWriter
-  },
-  readers: {
-    _rowReader: clickableRowReader
-  },
-  dataset: {
-    perPageDefault: 25,
-  }
-});
-
+  $('#disciplines-table').dynatable({
+    features: {
+      paginate: true,
+      recordCount: true,
+      sorting: true,
+      search: false,
+      perPageSelect: false
+    },
+    inputs: {},
+    writers: {
+      _rowWriter: clickableRowWriter
+    },
+    readers: {
+      _rowReader: clickableRowReader
+    },
+    dataset: {
+      perPageDefault: 25
+    }
+  });
 </script>
