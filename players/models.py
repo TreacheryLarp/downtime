@@ -2,6 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from simple_history.models import HistoricalRecords
 
+UNRESOLVED = 'UNRESOLVED'
+RESOLVED = 'RESOLVED'
+PENDING = 'PENDING'
+NO_ACTIONS = 'NO_ACTIONS'
+
+
 class ActionType(models.Model):
     name = models.CharField(max_length=200)
     template = models.TextField(blank=True)
@@ -158,6 +164,24 @@ class Session(models.Model):
     def submitted(self):
         return [i for i in list(Character.objects.all()) if i.submitted(self)]
 
+    def resolved_state(self, character):
+        """
+            Checks all actions and feedings,
+            priority is pending > unresolved > resolved
+        """
+        state = RESOLVED
+        actions = list(Action.objects.filter(character=character,
+                                             session=self))
+        actions.extend(list(Feeding.objects.filter(character=character,
+                                                   session=self)))
+        if len(actions) == 0:
+            return NO_ACTIONS
+        for a in actions:
+            if a.resolved == PENDING:
+                return a.resolved
+            elif a.resolved == UNRESOLVED:
+                state = UNRESOLVED
+        return state
 
 class Action(models.Model):
     action_type = models.ForeignKey(ActionType)
@@ -165,10 +189,10 @@ class Action(models.Model):
     session = models.ForeignKey(Session, related_name='actions')
     description = models.TextField()
     resolved = models.CharField(max_length=10,
-                                choices=(('UNRESOLVED', 'Unresolved'),
-                                         ('PENDING', 'Pending'),
-                                         ('RESOLVED', 'Resolved')),
-                                default='UNRESOLVED')
+                                choices=((UNRESOLVED, 'Unresolved'),
+                                         (PENDING, 'Pending'),
+                                         (RESOLVED, 'Resolved')),
+                                default=UNRESOLVED)
     history = HistoricalRecords()
 
     def __str__(self):
@@ -182,10 +206,10 @@ class Feeding(models.Model):
     discipline = models.ForeignKey(Discipline, blank=True, null=True)
     description = models.TextField()
     resolved = models.CharField(max_length=10,
-                                choices=(('UNRESOLVED', 'Unresolved'),
-                                         ('PENDING', 'Pending'),
-                                         ('RESOLVED', 'Resolved')),
-                                default='UNRESOLVED')
+                                choices=((UNRESOLVED, 'Unresolved'),
+                                         (PENDING, 'Pending'),
+                                         (RESOLVED, 'Resolved')),
+                                default=UNRESOLVED)
     history = HistoricalRecords()
 
     def __str__(self):

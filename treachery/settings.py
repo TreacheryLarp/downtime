@@ -90,7 +90,7 @@ STATICFILES_DIRS = (
 
 # Authentication
 LOGIN_URL='/login'
-LOGIN_REDIRECT_URL='/players/profile'
+LOGIN_REDIRECT_URL='/'
 
 # Enable site contrib module setting
 SITE_ID = 1
