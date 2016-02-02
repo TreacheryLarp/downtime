@@ -7,6 +7,11 @@ from players.models import *
 class LoginForm(AuthenticationForm):
     def confirm_login_allowed(self, user):
         super(LoginForm, self).confirm_login_allowed(user)
+        if not user.is_staff and user.character == None:
+            raise forms.ValidationError(
+                    _("This account has no character."),
+                    code='no_character',
+                )
 
 
 # Session submit forms
