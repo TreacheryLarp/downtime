@@ -7,12 +7,11 @@ from players.models import *
 class LoginForm(AuthenticationForm):
     def confirm_login_allowed(self, user):
         super(LoginForm, self).confirm_login_allowed(user)
-        if not user.is_staff and user.character == None:
+        if not user.is_staff and not hasattr(user, 'character'):
             raise forms.ValidationError(
-                    _("This account has no character."),
+                    "This account has no character. Please wait for a GM to add one.",
                     code='no_character',
                 )
-
 
 # Session submit forms
 class SessionFormSet(BaseModelFormSet):
