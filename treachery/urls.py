@@ -6,7 +6,8 @@ from players.forms import LoginForm
 urlpatterns = patterns('',
     url(r'^logout/$','django.contrib.auth.views.logout',
         {'next_page': '/'}),
-
+    url(r'^login/$', 'django.contrib.auth.views.login',
+        {'authentication_form': LoginForm}),
     url('^', include('django.contrib.auth.urls')),
 
     url(r'^gm/', include('gamemaster.urls')),
