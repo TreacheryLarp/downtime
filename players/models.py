@@ -129,9 +129,9 @@ class Character(models.Model):
 class Domain(models.Model):
     name = models.CharField(max_length=200)
     feeding_capacity = models.PositiveIntegerField()
-    status = models.TextField()
-    influence = models.TextField()
-    masquerade = models.TextField()
+    status = models.CharField(max_length=200)
+    influence = models.CharField(max_length=200)
+    masquerade = models.CharField(max_length=200)
     population = models.ManyToManyField(Population, blank=True)
     history = HistoricalRecords()
 
