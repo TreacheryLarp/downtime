@@ -98,6 +98,6 @@ SITE_ID = 1
 # SMTP settings
 EMAIL_HOST_USER = os.environ.get('DJANGO_EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('DJANGO_EMAIL_PASSWORD')
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = os.environ.get('DJANGO_EMAIL_HOST')
 EMAIL_PORT = '465'
 EMAIL_USE_SSL = True
