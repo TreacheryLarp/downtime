@@ -137,8 +137,11 @@ class Domain(models.Model):
 
     def __str__(self):
         population = ', '.join(d.name for d in self.population.all())
-        return '%s - %s FP (%s)' % (self.name,
+        return '%s - FP: %s, S: %s, I: %s, M: %s, P: [%s]' % (self.name,
                                     self.feeding_capacity,
+                                    self.status,
+                                    self.influence,
+                                    self.masquerade,
                                     population)
 
 class InfluenceRating(models.Model):
