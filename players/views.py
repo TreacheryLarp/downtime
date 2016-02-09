@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.views import generic
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db import models
-from django.contrib.formtools.wizard.views import SessionWizardView
+from formtools.wizard.views import SessionWizardView
 from django.utils.decorators import method_decorator
 from django.forms.models import modelformset_factory
 from django.contrib.auth import logout
