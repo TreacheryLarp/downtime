@@ -19,7 +19,7 @@ def logout_view(request):
     return redirect('login')
 
 @login_required
-@user_passes_test(lambda u: not u.is_superuser, login_url='/gm')
+@user_passes_test(lambda u: not u.is_superuser, login_url='/gm/')
 def profile(request):
     session_state = []
     for session in Session.objects.order_by('name').all():
@@ -31,7 +31,7 @@ def profile(request):
                                             'session_list': session_state})
 
 @login_required
-@user_passes_test(lambda u: not u.is_superuser, login_url='/gm')
+@user_passes_test(lambda u: not u.is_superuser, login_url='/gm/')
 def session(request, session):
     session = get_object_or_404(Session, pk=session)
     character = request.user.character
@@ -43,7 +43,7 @@ def session(request, session):
     return render(request, 'session.html', data)
 
 @login_required
-@user_passes_test(lambda u: not u.is_superuser, login_url='/gm')
+@user_passes_test(lambda u: not u.is_superuser, login_url='/gm/')
 def wizard(request, session):
     data = {
         'user': request.user,
