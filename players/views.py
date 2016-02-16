@@ -4,20 +4,22 @@ from django.core.urlresolvers import reverse
 from django.views import generic
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db import models
-from django.contrib.formtools.wizard.views import SessionWizardView
+from formtools.wizard.views import SessionWizardView
 from django.utils.decorators import method_decorator
 from django.forms.models import modelformset_factory
 from django.contrib.auth import logout
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import redirect
 
 from players import forms
 from players.models import *
 
 def logout_view(request):
     logout(request)
+    return redirect('login')
 
 @login_required
-@user_passes_test(lambda u: not u.is_superuser, login_url='/gm')
+@user_passes_test(lambda u: not u.is_superuser, login_url='/gm/')
 def profile(request):
     session_state = []
     for session in Session.objects.order_by('name').all():
@@ -29,7 +31,7 @@ def profile(request):
                                             'session_list': session_state})
 
 @login_required
-@user_passes_test(lambda u: not u.is_superuser, login_url='/gm')
+@user_passes_test(lambda u: not u.is_superuser, login_url='/gm/')
 def session(request, session):
     session = get_object_or_404(Session, pk=session)
     character = request.user.character
@@ -41,7 +43,7 @@ def session(request, session):
     return render(request, 'session.html', data)
 
 @login_required
-@user_passes_test(lambda u: not u.is_superuser, login_url='/gm')
+@user_passes_test(lambda u: not u.is_superuser, login_url='/gm/')
 def wizard(request, session):
     data = {
         'user': request.user,

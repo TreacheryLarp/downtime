@@ -1,17 +1,17 @@
 from django.conf.urls import patterns, include, url
-from django.contrib import admin
+from django.contrib import admin, auth
+import django.contrib.auth.views
 
 from players.forms import LoginForm
 
-urlpatterns = patterns('',
-    url(r'^logout/$','django.contrib.auth.views.logout',
-        {'next_page': '/'}),
-    url(r'^login/$', 'django.contrib.auth.views.login',
-        {'authentication_form': LoginForm}),
-    url('^', include('django.contrib.auth.urls')),
+urlpatterns = [
+    url(r'^', include('players.urls')),
 
     url(r'^gm/', include('gamemaster.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^comments/', include('django_comments.urls')),
-    url(r'^', include('players.urls')),
-)
+
+    url(r'^login', django.contrib.auth.views.login,
+        {'authentication_form': LoginForm}),
+    url(r'^', include('django.contrib.auth.urls')),
+]
