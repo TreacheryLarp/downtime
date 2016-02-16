@@ -20,6 +20,10 @@
       </dd>
       <dt>Resources</dt>
       <dd>{{character.resources}}</dd>
+      <dt>Influences</dt>
+      <dd>{% for i in character.influences.all %}
+        {{ i.influence.name }}: {{i.rating}}<br>
+      {% endfor %}</dd>
     </dl>
   </div>
 </div>
