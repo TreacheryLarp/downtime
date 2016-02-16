@@ -109,6 +109,24 @@ class FeedingListView(ListView):
         context['feedings'] = self.object_list
         return context
 
+class RumorListView(ListView):
+    model = Rumor
+    template_name = 'list.html'
+
+    def get_queryset(self):
+        self.session = get_object_or_404(Session, id=self.kwargs['session'])
+        return Rumor.objects.filter(session=self.session)
+
+    def get_context_data(self, **kwargs):
+        context = super(RumorListView, self).get_context_data(**kwargs)
+        session_name = get_object_or_404(Session, id=self.kwargs['session']).name
+        context['session_name'] = session_name
+        context['characters'] = Character.objects.all()
+        context['influences'] = Influence.objects.all()
+        context['type'] = 'rumors'
+        context['rumors'] = self.object_list
+        return context
+
 
 class ActionUpdate(UpdateView):
     model = Action
@@ -148,5 +166,17 @@ class CharUpdate(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(CharUpdate, self).get_context_data(**kwargs)
+        context['request'] = self.request
+        return context
+
+
+class RumorUpdate(UpdateView):
+    model = Rumor
+    template_name = 'editor.html'
+    fields = ['influence', 'reliable', 'description', 'gm_note', 'recipient']
+    success_url = reverse_lazy('closewindow')
+
+    def get_context_data(self, **kwargs):
+        context = super(RumorUpdate, self).get_context_data(**kwargs)
         context['request'] = self.request
         return context

@@ -250,3 +250,15 @@ class ExtraAction(models.Model):
     def __str__(self):
         action_options = ', '.join(str(d) for d in self.action_options.all())
         return '[%s] +%s to %s' % (self.session.name, action_options, self.character)
+
+
+class Rumor(models.Model):
+    influence = models.ForeignKey(Influence)
+    session = models.ForeignKey(Session, related_name='rumors')
+    recipient = models.ForeignKey(Character, blank=True, null=True)
+    reliable = models.BooleanField()
+    description = models.TextField()
+    gm_note = models.TextField(blank=True)
+
+    def __str__(self):
+        return '[%s] %s: %s' % (self.session.name, self.influence, self.description)
