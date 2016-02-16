@@ -15,5 +15,6 @@ urlpatterns = [
     url(r'^a/(?P<pk>\d+)$', staff_member_required(views.ActionUpdate.as_view()), name='action'),
     url(r'^f/(?P<pk>\d+)$', staff_member_required(views.FeedingUpdate.as_view()), name='feeding'),
     url(r'^c/(?P<pk>\d+)$', staff_member_required(views.CharUpdate.as_view()), name='character'),
-    url(r'^r/(?P<pk>\d+)$', staff_member_required(views.RumorUpdate.as_view()), name='rumor')
+    url(r'^r/(?P<pk>\d+)$', staff_member_required(views.RumorUpdate.as_view()), name='rumor'),
+    url(r'^r/(?P<session>\d+)/assign$', staff_member_required(views.assign_rumors), name='assign_rumors'),
 ]
