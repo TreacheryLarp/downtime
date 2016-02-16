@@ -11,7 +11,9 @@ urlpatterns = [
     url(r'^s/(?P<session>\d+)/f$', staff_member_required(views.FeedingListView.as_view()), name='feedings'),
     url(r'^s/(?P<session>\d+)/d$', staff_member_required(views.DisciplineListView.as_view()), name='disciplines'),
     url(r'^s/(?P<session>\d+)/cs$', staff_member_required(views.CharacterListView.as_view()), name='characters'),
+    url(r'^s/(?P<session>\d+)/r$', staff_member_required(views.RumorListView.as_view()), name='rumors'),
     url(r'^a/(?P<pk>\d+)$', staff_member_required(views.ActionUpdate.as_view()), name='action'),
     url(r'^f/(?P<pk>\d+)$', staff_member_required(views.FeedingUpdate.as_view()), name='feeding'),
     url(r'^c/(?P<pk>\d+)$', staff_member_required(views.CharUpdate.as_view()), name='character'),
+    url(r'^r/(?P<pk>\d+)$', staff_member_required(views.RumorUpdate.as_view()), name='rumor')
 ]
