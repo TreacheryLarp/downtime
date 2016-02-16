@@ -5,7 +5,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 urlpatterns = patterns('',
     url(r'^closewindow$', views.close, name='closewindow'),
-    url(r'^$', staff_member_required(views.SessionListView.as_view()), name='sessions'),
+    url(r'^', staff_member_required(views.SessionListView.as_view()), name='sessions'),
     url(r'^s/(?P<session>\d+)/toggle$', staff_member_required(views.toggle_session), name='toggle_session'),
     url(r'^s/(?P<session>\d+)/a$', staff_member_required(views.ActionListView.as_view()), name='actions'),
     url(r'^s/(?P<session>\d+)/f$', staff_member_required(views.FeedingListView.as_view()), name='feedings'),

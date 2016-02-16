@@ -9,12 +9,14 @@ from django.utils.decorators import method_decorator
 from django.forms.models import modelformset_factory
 from django.contrib.auth import logout
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import redirect
 
 from players import forms
 from players.models import *
 
 def logout_view(request):
     logout(request)
+    return redirect('login')
 
 @login_required
 @user_passes_test(lambda u: not u.is_superuser, login_url='/gm')
