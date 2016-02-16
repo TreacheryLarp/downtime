@@ -1,3 +1,5 @@
+import random
+
 from django.shortcuts import get_object_or_404, render
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.list import ListView
@@ -9,6 +11,34 @@ from players.models import *
 
 def close(request):
     return render(request, 'closewindow.html')
+
+def assign_rumors(request, session):
+
+    # for each influence
+    influences = Influence.objects.all()
+    for influence in influences:
+        # get unassigned rumors
+        rumors = Rumor.objects.filter(session=session, recipient=None, influence=influence)
+
+        # get all influence ratings
+        ratings = InfluenceRating.objects.filter(influence=influence)
+
+        # create of characters to sample from
+        characters = []
+        for rating in ratings:
+            rumors_needed = rating.rating - len(Rumor.objects.filter(session=session, recipient=rating.character, influence=influence))
+
+            characters.extend([rating.character] * rumors_needed)
+        random.shuffle(characters)
+
+        for rumor in rumors:
+            if len(characters) == 0:
+                break
+            character = characters.pop()
+            rumor.recipient = character
+            rumor.save()
+
+    return redirect('rumors', session=session)
 
 def character(request, session, character):
     context = {
@@ -125,6 +155,7 @@ class RumorListView(ListView):
         context['influences'] = Influence.objects.all()
         context['type'] = 'rumors'
         context['rumors'] = self.object_list
+        context['session_id'] = self.kwargs['session']
         return context
 
 
