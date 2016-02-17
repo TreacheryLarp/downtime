@@ -40,9 +40,6 @@
       <div class="col-md-12">
         <form action="" method="post">{% csrf_token %}
           {% bootstrap_form form %}
-
-          {% include "comment.html" with comment_object=object%}
-          
           <div class="text-right">
             {% buttons %}
               <button id="submit-button" type="submit" class="btn btn-primary">
@@ -54,6 +51,8 @@
         </form>
       </div>
     </div>
+
+    {% include "comment.html" with comment_object=object%}
 
   </div>
 </body>
