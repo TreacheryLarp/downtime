@@ -1,6 +1,10 @@
 
 # Created by https://www.gitignore.io/api/django,python,osx
 
+venv/
+.out
+.env
+
 ### Django ###
 *.log
 *.pot
@@ -82,7 +86,8 @@ target/
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
