@@ -53,8 +53,9 @@
       </div>
     </div>
 
+    {% if enable_comments %}
     {% include "comment.html" with comment_object=object%}
-
+    {% endif %}
   </div>
 </body>
 </html>

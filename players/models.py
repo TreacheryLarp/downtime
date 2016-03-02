@@ -2,11 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 from simple_history.models import HistoricalRecords
 
+# Resolved states
 UNRESOLVED = 'UNRESOLVED'
 RESOLVED = 'RESOLVED'
 PENDING = 'PENDING'
 NO_ACTIONS = 'NO_ACTIONS'
 
+# Rumor Types
+RUMOR_UNRELIABLE = 'Unreliable'
+RUMOR_RELIABLE = 'Reliable'
+RUMOR_FACT = 'Fact'
+RUMOR_VAMPIRE = 'Vampire'
 
 class ActionType(models.Model):
     name = models.CharField(max_length=200)
@@ -255,10 +261,15 @@ class ExtraAction(models.Model):
 class Rumor(models.Model):
     influence = models.ForeignKey(Influence)
     session = models.ForeignKey(Session, related_name='rumors')
-    recipient = models.ForeignKey(Character, blank=True, null=True)
-    reliable = models.BooleanField()
+    recipients = models.ManyToManyField(Character, blank=True, related_name='rumors')
     description = models.TextField()
     gm_note = models.TextField(blank=True)
+    rumor_type = models.CharField(max_length=15,
+                                  choices=((RUMOR_UNRELIABLE, 'Unreliable'),
+                                         (RUMOR_RELIABLE, 'Reliable'),
+                                         (RUMOR_FACT, 'Fact'),
+                                         (RUMOR_VAMPIRE, 'Vampire')),
+                                default=RUMOR_UNRELIABLE)
 
     def __str__(self):
-        return '[%s] %s: %s' % (self.session.name, self.influence, self.description)
+        return '[%s] %s - %s: %s' % (self.session.name, self.influence, self.rumor_type, self.description)

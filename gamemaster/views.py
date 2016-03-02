@@ -14,29 +14,52 @@ def close(request):
 
 def assign_rumors(request, session):
 
-    # for each influence
+    # for each <influence> in influences
     influences = Influence.objects.all()
     for influence in influences:
-        # get unassigned rumors
-        rumors = Rumor.objects.filter(session=session, recipient=None, influence=influence)
 
-        # get all influence ratings
-        ratings = InfluenceRating.objects.filter(influence=influence)
+        # get all unassigned rumors, UR, in <influence>
+        unassigned = Rumor.objects.filter(session=session, recipients=None, influence=influence).exclude(rumor_type=RUMOR_FACT)
 
-        # create of characters to sample from
+        # get all characters that requires more rumors.
         characters = []
+        ratings = InfluenceRating.objects.filter(influence=influence)
         for rating in ratings:
-            rumors_needed = rating.rating - len(Rumor.objects.filter(session=session, recipient=rating.character, influence=influence))
+            rumors_needed = rating.rating - len(Rumor.objects.filter(session=session, recipients=rating.character, influence=influence))
 
             characters.extend([rating.character] * rumors_needed)
         random.shuffle(characters)
 
-        for rumor in rumors:
+        for rumor in unassigned:
             if len(characters) == 0:
                 break
             character = characters.pop()
-            rumor.recipient = character
+            rumor.recipients.add(character)
             rumor.save()
+
+        if len(characters) == 0:
+            # all characters have rumors
+            continue
+
+        # when no more unique rumors assign already assigned rumors
+        all_rumors = set(Rumor.objects.filter(session=session, influence=influence).exclude(rumor_type=RUMOR_FACT))
+
+        for character in characters:
+            char_rumors = set(Rumor.objects.filter(session=session, recipients=rating.character, influence=influence))
+            rumors = all_rumors - char_rumors
+            if len(rumors) > 0:
+                rumor = random.sample(rumors, 1)[0]
+                rumor.recipients.add(character)
+                rumor.save()
+
+        # assign facts
+        facts = Rumor.objects.filter(session=session, recipients=None, influence=influence, rumor_type=RUMOR_FACT)
+        ratings = InfluenceRating.objects.filter(influence=influence)
+        for rating in ratings:
+            if rating.rating >= 2:
+                for fact in facts:
+                    fact.recipients.add(rating.character)
+                    fact.save()
 
     return redirect('rumors', session=session)
 
@@ -139,6 +162,7 @@ class FeedingListView(ListView):
         context['feedings'] = self.object_list
         return context
 
+
 class RumorListView(ListView):
     model = Rumor
     template_name = 'list.html'
@@ -168,6 +192,7 @@ class ActionUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(ActionUpdate, self).get_context_data(**kwargs)
         context['request'] = self.request
+        context['enable_comments'] = True
         session = self.object.session
         character = self.object.character
         adisc = ActiveDisciplines.objects.filter(session=session, character=character)
@@ -187,6 +212,7 @@ class FeedingUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(FeedingUpdate, self).get_context_data(**kwargs)
         context['request'] = self.request
+        context['enable_comments'] = True
         return context
 
 
@@ -194,6 +220,7 @@ class CharUpdate(UpdateView):
     model = Character
     template_name = 'editor.html'
     success_url = reverse_lazy('closewindow')
+    fields = ['name', 'user', 'clan', 'disciplines', 'titles', 'age', 'resources']
 
     def get_context_data(self, **kwargs):
         context = super(CharUpdate, self).get_context_data(**kwargs)
@@ -204,7 +231,7 @@ class CharUpdate(UpdateView):
 class RumorUpdate(UpdateView):
     model = Rumor
     template_name = 'editor.html'
-    fields = ['influence', 'reliable', 'description', 'gm_note', 'recipient']
+    fields = ['influence', 'rumor_type', 'description', 'gm_note', 'recipients']
     success_url = reverse_lazy('closewindow')
 
     def get_context_data(self, **kwargs):

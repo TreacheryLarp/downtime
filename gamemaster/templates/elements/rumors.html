@@ -42,7 +42,7 @@
       <thead>
         <tr>
           <th class="dynatable-head">Influence</th>
-          <th class="dynatable-head">Reliable</th>
+          <th class="dynatable-head">Type</th>
           <th class="dynatable-head">Recipient</th>
           <th class="dynatable-head">Description</th>
         </tr>
@@ -51,8 +51,8 @@
         {% for rumor in rumors %}
         <tr class="clickableRow" data-href="{% url 'rumor' rumor.id %}">
           <td>{{ rumor.influence.name }}</td>
-          <td>{{ rumor.reliable }}</td>
-          <td>{{ rumor.recipient.name }}</td>
+          <td>{{ rumor.rumor_type }}</td>
+          <td>{% for char in rumor.recipients.all %}{{char.name}} {% endfor %}</td>
           <td>{{ rumor.description|truncatechars:40 }}</td>
         </tr>
         {% endfor %}

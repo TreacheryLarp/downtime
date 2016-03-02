@@ -37,7 +37,7 @@ def session(request, session):
     character = request.user.character
     data =  {'session': session,
              'character': character,
-             'rumor_list': Rumor.objects.filter(session=session, recipient=character),
+             'rumor_list': Rumor.objects.filter(session=session, recipients=character),
              'submitted': character.submitted(session),
              'extra_actions': ExtraAction.objects.filter(session=session, character=character),
              'request': request}
