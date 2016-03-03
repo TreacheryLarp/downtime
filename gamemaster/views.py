@@ -19,7 +19,7 @@ def assign_rumors(request, session):
     for influence in influences:
 
         # get all unassigned rumors, UR, in <influence>
-        unassigned = Rumor.objects.filter(session=session, recipients=None, influence=influence).exclude(rumor_type=RUMOR_FACT)
+        unassigned = Rumor.objects.filter(session=session, recipients=None, influence=influence).exclude(rumor_type=RUMOR_FACT).exclude(rumor_type=RUMOR_VAMPIRE)
 
         # get all characters that requires more rumors.
         characters = []
@@ -42,7 +42,7 @@ def assign_rumors(request, session):
             continue
 
         # when no more unique rumors assign already assigned rumors
-        all_rumors = set(Rumor.objects.filter(session=session, influence=influence).exclude(rumor_type=RUMOR_FACT))
+        all_rumors = set(Rumor.objects.filter(session=session, influence=influence).exclude(rumor_type=RUMOR_FACT).exclude(rumor_type=RUMOR_VAMPIRE))
 
         for character in characters:
             char_rumors = set(Rumor.objects.filter(session=session, recipients=rating.character, influence=influence))
