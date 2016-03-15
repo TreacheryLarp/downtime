@@ -14,3 +14,6 @@ This app handles management of the Treachery downtime system. This app is optimi
 
 ### Dependencies ###
 See the requirements.txt and runtime.txt files for dependencies.
+
+### Fixtures
+The system is intended to be flexible and support rules changes. To that effect the system stores a rules preset as fixtures.
