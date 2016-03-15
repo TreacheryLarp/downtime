@@ -53,11 +53,7 @@
             <td>{{ character.name }}</td>
             <td>{{ character.user.first_name }} {{ character.user.last_name }}</td>
             <td>{{ character.age.name }}</td>
-            <td>
-              {% for t in character.titles.all %}
-                {{ t.name }}
-              {% endfor %}
-            </td>
+            <td>{{ character.titles.all |join:", " }}</td>
             <td>{{ character.clan.name }}</td>
           </tr>
         {% endfor %}

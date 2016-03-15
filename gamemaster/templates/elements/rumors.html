@@ -52,7 +52,7 @@
         <tr class="clickableRow" data-href="{% url 'rumor' rumor.id %}">
           <td>{{ rumor.influence.name }}</td>
           <td>{{ rumor.rumor_type }}</td>
-          <td>{% for char in rumor.recipients.all %}{{ char.name |join:", " }} {% endfor %}</td>
+          <td>{{ rumor.recipients.all |join:", " }}</td>
           <td>{{ rumor.description|truncatechars:40 }}</td>
         </tr>
         {% endfor %}
