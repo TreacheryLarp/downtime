@@ -23,19 +23,20 @@
   			  	<div class="panel-body">
               <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
                  {% csrf_token %}
-                      <fieldset>
-  			    	  	<div class="form-group">
+                 <fieldset>
+    	  	        <div class="form-group">
   			    		    <input class="form-control" placeholder="Username" name="username" type="text">
-  			    		</div>
-  			    		<div class="form-group">
-  			    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
-  			    		</div>
+    		          </div>
+    			    		<div class="form-group">
+    			    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
+    			    		</div>
                   <input class="btn btn-lg btn-success btn-block" type="submit" value="Login"/>
                   <input type="hidden" name="next" value="{{ next }}" />
-  			    	</fieldset>
-  			      	</form>
+		    	      </fieldset>
+  			      </form>
   			    </div>
   			</div>
+        <p class="text-right"><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
   		</div>
       </div>
 
