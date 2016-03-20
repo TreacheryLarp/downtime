@@ -13,7 +13,8 @@ There are two modes to run the app in.
 3. Install dependencies `python -m pip install -r requirements_development.txt`
 4. Migrate database
 5. Create superuser
-6. Run server `python manage.py runserver`
+6. Load fixtures ```python manage.py loaddata treachery_rules```
+7. Run server `python manage.py runserver`
 
 ### Production
 1. Set the following environment variables on Dokku:
@@ -30,6 +31,7 @@ DJANGO_SECRET
 2. Push master to dokku
 3. Migrate database
 4. Create superuser
+5. Load fixtures ```python manage.py loaddata treachery_rules```
 
 ### Dependencies ###
 See the requirements.txt and runtime.txt files for dependencies.
