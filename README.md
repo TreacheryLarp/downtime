@@ -1,5 +1,5 @@
 # Treachery app #
-
+[![Build Status](https://travis-ci.org/TreacheryLarp/downtime.svg?branch=master)](https://travis-ci.org/TreacheryLarp/downtime)
 [ ![Codeship Status for TreacheryLarp/downtime](https://codeship.com/projects/c708dbd0-b06f-0133-9188-565ee1f98c10/status?branch=master)](https://codeship.com/projects/132663)
 
 This app handles management of the Treachery downtime system. This app is optimised for Dokku.
