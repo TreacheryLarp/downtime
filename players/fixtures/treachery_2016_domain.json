@@ -1,0 +1,374 @@
+[
+{
+  "model": "players.domain",
+  "pk": 1,
+  "fields": {
+    "masquerade": "Worse",
+    "feeding_capacity": 15,
+    "name": "St. Judas Church",
+    "status": "2",
+    "influence": "3",
+    "population": [
+      2,
+      5,
+      8
+    ]
+  }
+},
+{
+  "model": "players.domain",
+  "pk": 2,
+  "fields": {
+    "masquerade": "Normal",
+    "feeding_capacity": 10,
+    "name": "Waterfront (Hamnkvarteren)",
+    "status": "2",
+    "influence": "3",
+    "population": [
+      1,
+      7,
+      9
+    ]
+  }
+},
+{
+  "model": "players.domain",
+  "pk": 3,
+  "fields": {
+    "masquerade": "Better",
+    "feeding_capacity": 20,
+    "name": "Oakhills",
+    "status": "3",
+    "influence": "1",
+    "population": [
+      5,
+      6,
+      8
+    ]
+  }
+},
+{
+  "model": "players.domain",
+  "pk": 4,
+  "fields": {
+    "masquerade": "Normal",
+    "feeding_capacity": 20,
+    "name": "Kulturhuset",
+    "status": "3",
+    "influence": "2",
+    "population": [
+      2,
+      7,
+      9
+    ]
+  }
+},
+{
+  "model": "players.domain",
+  "pk": 5,
+  "fields": {
+    "masquerade": "Normal",
+    "feeding_capacity": 15,
+    "name": "Universitetet",
+    "status": "2",
+    "influence": "2",
+    "population": [
+      4,
+      5,
+      6
+    ]
+  }
+},
+{
+  "model": "players.domain",
+  "pk": 6,
+  "fields": {
+    "masquerade": "Intakt",
+    "feeding_capacity": 5,
+    "name": "Stadscentrum",
+    "status": "3",
+    "influence": "5",
+    "population": [
+      1,
+      3,
+      7
+    ]
+  }
+},
+{
+  "model": "players.domain",
+  "pk": 7,
+  "fields": {
+    "masquerade": "Better",
+    "feeding_capacity": 5,
+    "name": "Stora Biblioteket",
+    "status": "5",
+    "influence": "2",
+    "population": [
+      2,
+      5,
+      7
+    ]
+  }
+},
+{
+  "model": "players.domain",
+  "pk": 8,
+  "fields": {
+    "masquerade": "Normal",
+    "feeding_capacity": 10,
+    "name": "de Graafs dom\u00e4n",
+    "status": "4",
+    "influence": "1",
+    "population": [
+      5,
+      6,
+      7
+    ]
+  }
+},
+{
+  "model": "players.domain",
+  "pk": 9,
+  "fields": {
+    "masquerade": "Worse",
+    "feeding_capacity": 20,
+    "name": "Katedralen",
+    "status": "2",
+    "influence": "4",
+    "population": [
+      2,
+      3,
+      6
+    ]
+  }
+},
+{
+  "model": "players.domain",
+  "pk": 10,
+  "fields": {
+    "masquerade": "Better",
+    "feeding_capacity": 15,
+    "name": "Naturreservatet",
+    "status": "1",
+    "influence": "1",
+    "population": [
+      5,
+      9,
+      10
+    ]
+  }
+},
+{
+  "model": "players.domain",
+  "pk": 11,
+  "fields": {
+    "masquerade": "Normal",
+    "feeding_capacity": 0,
+    "name": "Barrens 1",
+    "status": "1",
+    "influence": "1",
+    "population": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "players.domain",
+  "pk": 12,
+  "fields": {
+    "masquerade": "Normal",
+    "feeding_capacity": 0,
+    "name": "Barrens 2",
+    "status": "1",
+    "influence": "1",
+    "population": [
+      3,
+      4
+    ]
+  }
+},
+{
+  "model": "players.influence",
+  "pk": 1,
+  "fields": {
+    "name": "Politik"
+  }
+},
+{
+  "model": "players.influence",
+  "pk": 2,
+  "fields": {
+    "name": "Lag och ordning"
+  }
+},
+{
+  "model": "players.influence",
+  "pk": 3,
+  "fields": {
+    "name": "Sjukv\u00e5rd"
+  }
+},
+{
+  "model": "players.influence",
+  "pk": 4,
+  "fields": {
+    "name": "Media"
+  }
+},
+{
+  "model": "players.influence",
+  "pk": 5,
+  "fields": {
+    "name": "Undre v\u00e4rlden"
+  }
+},
+{
+  "model": "players.influence",
+  "pk": 6,
+  "fields": {
+    "name": "Religion & Ockult"
+  }
+},
+{
+  "model": "players.influence",
+  "pk": 7,
+  "fields": {
+    "name": "Turism"
+  }
+},
+{
+  "model": "players.influence",
+  "pk": 8,
+  "fields": {
+    "name": "Import/Export"
+  }
+},
+{
+  "model": "players.influence",
+  "pk": 9,
+  "fields": {
+    "name": "Internet"
+  }
+},
+{
+  "model": "players.population",
+  "pk": 1,
+  "fields": {
+    "name": "Kriminella"
+  }
+},
+{
+  "model": "players.population",
+  "pk": 2,
+  "fields": {
+    "name": "Religi\u00f6sa"
+  }
+},
+{
+  "model": "players.population",
+  "pk": 3,
+  "fields": {
+    "name": "Konservativa"
+  }
+},
+{
+  "model": "players.population",
+  "pk": 4,
+  "fields": {
+    "name": "V\u00e4nstervridna"
+  }
+},
+{
+  "model": "players.population",
+  "pk": 5,
+  "fields": {
+    "name": "Akademiker"
+  }
+},
+{
+  "model": "players.population",
+  "pk": 6,
+  "fields": {
+    "name": "Kulturella"
+  }
+},
+{
+  "model": "players.population",
+  "pk": 7,
+  "fields": {
+    "name": "\u00d6verklass"
+  }
+},
+{
+  "model": "players.population",
+  "pk": 8,
+  "fields": {
+    "name": "Underklass"
+  }
+},
+{
+  "model": "players.population",
+  "pk": 9,
+  "fields": {
+    "name": "Turister"
+  }
+},
+{
+  "model": "players.population",
+  "pk": 10,
+  "fields": {
+    "name": "Milj\u00f6aktivister"
+  }
+},
+{
+  "model": "players.session",
+  "pk": 1,
+  "fields": {
+    "feeding_domains": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      11,
+      10,
+      12,
+      9
+    ],
+    "is_open": false,
+    "name": "Inf\u00f6r session 1"
+  }
+},
+{
+  "model": "players.session",
+  "pk": 2,
+  "fields": {
+    "feeding_domains": [],
+    "is_open": true,
+    "name": "Inf\u00f6r session 2"
+  }
+},
+{
+  "model": "players.session",
+  "pk": 3,
+  "fields": {
+    "feeding_domains": [],
+    "is_open": false,
+    "name": "Inf\u00f6r session 3"
+  }
+},
+{
+  "model": "players.session",
+  "pk": 4,
+  "fields": {
+    "feeding_domains": [],
+    "is_open": false,
+    "name": "Inf\u00f6r session 4"
+  }
+}
+]

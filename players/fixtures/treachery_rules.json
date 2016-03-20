@@ -1,0 +1,600 @@
+[
+{
+  "model": "players.actionoption",
+  "fields": {
+    "action_types": [
+      13,
+      14,
+      15,
+      16,
+      3,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12,
+      1,
+      7,
+      4,
+      2
+    ],
+    "count": 4
+  },
+  "pk": 1
+},
+{
+  "model": "players.actionoption",
+  "fields": {
+    "action_types": [
+      13,
+      14,
+      15
+    ],
+    "count": 1
+  },
+  "pk": 2
+},
+{
+  "model": "players.actionoption",
+  "fields": {
+    "action_types": [
+      15
+    ],
+    "count": 1
+  },
+  "pk": 3
+},
+{
+  "model": "players.actionoption",
+  "fields": {
+    "action_types": [
+      5
+    ],
+    "count": 1
+  },
+  "pk": 4
+},
+{
+  "model": "players.actionoption",
+  "fields": {
+    "action_types": [
+      13,
+      14
+    ],
+    "count": 1
+  },
+  "pk": 5
+},
+{
+  "model": "players.actionoption",
+  "fields": {
+    "action_types": [
+      2
+    ],
+    "count": 1
+  },
+  "pk": 6
+},
+{
+  "model": "players.actionoption",
+  "fields": {
+    "action_types": [
+      1
+    ],
+    "count": 1
+  },
+  "pk": 7
+},
+{
+  "model": "players.actionoption",
+  "fields": {
+    "action_types": [
+      17
+    ],
+    "count": 1
+  },
+  "pk": 8
+},
+{
+  "model": "players.actionoption",
+  "fields": {
+    "action_types": [
+      18
+    ],
+    "count": 1
+  },
+  "pk": 9
+},
+{
+  "model": "players.actionoption",
+  "fields": {
+    "action_types": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      7
+    ],
+    "count": 1
+  },
+  "pk": 10
+},
+{
+  "model": "players.actionoption",
+  "fields": {
+    "action_types": [
+      19
+    ],
+    "count": 3
+  },
+  "pk": 11
+},
+{
+  "model": "players.actionoption",
+  "fields": {
+    "action_types": [
+      21
+    ],
+    "count": 1
+  },
+  "pk": 12
+},
+{
+  "model": "players.actionoption",
+  "fields": {
+    "action_types": [
+      20
+    ],
+    "count": 1
+  },
+  "pk": 13
+},
+{
+  "model": "players.actionoption",
+  "fields": {
+    "action_types": [
+      1
+    ],
+    "count": 1
+  },
+  "pk": 14
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "**Slag:** Varierar\r\n\r\nDu hj\u00e4lper/eller stj\u00e4lper en annan karakt\u00e4r. Du skickar in en Aid Action-handling och anger en handling som en annan karakt\u00e4r t\u00e4nker genomf\u00f6ra och om du vill hj\u00e4lpa eller stj\u00e4lpa. Om de har skickat in handlingen som du anger s\u00e5 f\u00e5r de v\u00e4lja om de vill motta din Aid Action. De fr\u00e5n INTE veta om du kommer hj\u00e4lpa eller stj\u00e4lpa (du f\u00e5r givetvis p\u00e5st\u00e5 vad du vill). Om de vill ta emot din hj\u00e4lp sl\u00e5r du samma slag som de g\u00f6r och l\u00e4gger till/drar ifr\u00e5n dina lyckade till deras. Den du hj\u00e4lper \u00e4r dock den som f\u00e5r effekten av en lyckad handling. Om handlingen du hj\u00e4lper inneb\u00e4r en risk s\u00e5 kan den drabba \u00e4ven dig. ",
+    "name": "Aid Action"
+  },
+  "pk": 1
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "**Slag:**\r\n\r\n- **SKYDDA DOM\u00c4N:** Charisma + Inflytandets Ability + Dominate\\* + 3 Automatiska lyckade VS Motst\u00e5ndarens slag f\u00f6r INFLUENCE (Steal) eller INFLUENCE (destroy)\r\n- **SP\u00c5RA ANGRIPARE:** Manipulation + Inflytandets Ability + Auspex\\* VS Motst\u00e5ndarens slag f\u00f6r att d\u00f6lja sig\r\n\r\nDu f\u00f6rst\u00e4rker din kontroll \u00f6ver ett av dina etablerade inflytandeomr\u00e5den och f\u00e5r m\u00f6jlighet att uppt\u00e4cka vem som genomf\u00f6r eventuella angrepp. Vanligtvis f\u00f6rsvarar du ditt inflytande med Inflytandets ability + Dominate, men med conserve influence-handlingen f\u00e5r du l\u00e4gga till din charisma och f\u00e5r dessutom tre automatiska lyckade.",
+    "name": "Conserve (Influence)"
+  },
+  "pk": 2
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "**Slag:** \r\n\r\n- **HINDRA PROBLEM:** Intelligence + Leadership/Streetwise + Animalism VS Sv\u00e5righetsgrad p\u00e5 problem\r\n- **UPPT\u00c4CKA JAKT:** Wits + Leadership/Streetwise + Protean\\* VS Motst\u00e5ndarens slag f\u00f6r att d\u00f6lja sig\r\n\r\nDu minskar de omedelbara effekterna av problem som uppst\u00e5r p\u00e5 din dom\u00e4n till f\u00f6ljd av ploter, downtimehandlingar och overfeeding. Du f\u00e5r ocks\u00e5 sl\u00e5 slag f\u00f6r att uppt\u00e4cka vem/vilka som overfeedat i din dom\u00e4n.",
+    "name": "Conserve (Domain)"
+  },
+  "pk": 3
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "**Slag:**\r\n\r\n- **SKAPA HOOK:** Charisma + Inflytandets Ability + Presence\\* VS Special\r\n\r\n**Krav:** Tidigare lyckad Investigate (Influence) ELLER Namngiven karakt\u00e4r som inte \u00e4r en hook\r\n\r\nDu skapar en ny Hook f\u00f6rutsatt att det finns en ledig plats f\u00f6r dig. Om flera personer f\u00f6rs\u00f6ker flytta till en tom niv\u00e5 samtidigt best\u00e4ms vem platsen g\u00e5r enligt f\u00f6ljande:\r\n\r\n1. De som har f\u00f6rlorat en hook i inflytandet denna eller f\u00f6reg\u00e5ende downtime l\u00e4mnar f\u00f6retr\u00e4de till alla andra.\r\n2. De som stj\u00e4l inflytande f\u00e5r f\u00f6rtur.\r\n3. Den som har st\u00f6rst antal successes f\u00e5r f\u00f6rtur.\r\n\r\nDu m\u00e5ste specificera i vilken dom\u00e4n du skapar en ny hook. En lyckad kr\u00e4vs f\u00f6r att skapa en ny hook i en dom\u00e4n d\u00e4r inflytandet \u00e4r vanligt f\u00f6rekommande, annars kr\u00e4vs tre lyckade. Du f\u00e5r sl\u00e5 ett slag f\u00f6r att d\u00f6lja din inblandning.",
+    "name": "Influence (Forge)"
+  },
+  "pk": 4
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "**Slag:**\r\n\r\n- **STJ\u00c4LA HOOK:** Charisma + Inflytandes Ability + Presence\\* VS Most\u00e5ndarens basslag (Inflytandets Ability + Dominate\\*) ELLER CONSERVE (Influence)\r\n- **D\u00d6LJA SP\u00c5R:** Manipulation + Stealth + Obfuscate\\* VS Motst\u00e5ndarens slag f\u00f6r att uppt\u00e4cka \r\n\r\nKrav: Namngiven karakta\u0308r som a\u0308r en hook tillho\u0308rande en annan karakta\u0308r\r\n\r\nDu stja\u0308l en ny hook fo\u0308rutsatt att det finns en ledig plats fo\u0308r dig. I annat fall frigo\u0308rs hooken sa\u030a att ingen la\u0308ngre kontrollerar den. Du fa\u030ar sla\u030a ett slag fo\u0308r att do\u0308lja din inblandning. Se Influence (Forge) fo\u0308r mer information.",
+    "name": "Influence (Steal)"
+  },
+  "pk": 5
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "**Slag:**\r\n\r\n- **F\u00d6RST\u00d6RA INFLYTANDE:** Valfri kombination av Strength/Charisma/Intelligence + Inflytandets \t\t\t\t\t\tAbility/Combat/Intimidation + Celerity*/Fortitude*/Potence*/Dementation* VS Most\u00e5ndarens basslag (Inflytandets Ability + Dominate*) ELLER CONSERVE (Influence)\r\n- **D\u00d6LJA SP\u00c5R:** Manipulation + Stealth + Obfuscate* VS Motst\u00e5ndarens slag f\u00f6r att uppt\u00e4cka\r\n\r\n**Krav:** Namngiven karakt\u00e4r som \u00e4r en hook tillh\u00f6rande en annan karakt\u00e4r OCH F\u00f6rlora en Humanityniv\u00e5\r\n\r\nDu f\u00f6rst\u00f6r permanent en hook. Du f\u00e5r sl\u00e5 ett slag f\u00f6r att d\u00f6lja din inblandning.",
+    "name": "Influence (Destroy)"
+  },
+  "pk": 6
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "**Slag:** Manipulation + Investigation + Auspex\\* VS Special\r\n\r\nDu unders\u00f6ker en karakt\u00e4rs inflytande. Du f\u00e5r spendera dina lyckade f\u00f6r att f\u00e5 information enligt f\u00f6ljande:\r\n\r\n* Alla Masterniv\u00e5er 1\r\n* Alla Master och Contenderniv\u00e5er 2\r\n* Alla Inflytandeniv\u00e5er 3\r\n* Alla hooks i ett valt inflytande 2\r\n* En hook i ett valt inflytande 1\r\n* En k\u00e4nd hooks keywords 1\r\n\r\nN\u00e4r t\u00e4rningarna slagits s\u00e5 spenderar du alla dina lyckade samtidigt. Om det inte finns n\u00e5gon information att h\u00e4mta s\u00e5 g\u00e5r dina lyckade \u00e5t f\u00f6r att f\u00e5 reda p\u00e5 det. Om du inte kan spendera dina lyckade j\u00e4mnt s\u00e5 g\u00e5r oanv\u00e4nda till spillo.",
+    "name": "Investigate (Character: Influence)"
+  },
+  "pk": 7
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "**Slag:** Wits + Investigation + Protean\\* VS Special\r\n\r\nDu unders\u00f6ker en karakt\u00e4rs backgrounds och feeding. Du f\u00e5r spendera dina lyckade f\u00f6r att f\u00e5 information enligt f\u00f6ljande:\r\n\r\nEn slumpm\u00e4ssigt background 1\r\nEn vald typ av background 1\r\nHur mycket blod som tagits och var 3\r\nHur m\u00e5nga Resource points karakt\u00e4ren har 3\r\n\r\nN\u00e4r t\u00e4rningarna slagits s\u00e5 spenderar du alla dina lyckade samtidigt. Om du spenderar mer lyckade \u00e4n det finns backgrounds s\u00e5 g\u00e5r de till spillo.",
+    "name": "Investigate (Character: Resources)"
+  },
+  "pk": 8
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "**Slag:** Wits + Investigation + Protean\\* VS Wits + Stealth + Obfuscate\\*\r\n\r\nDu unders\u00f6ker vilka downtime-handlingar en spelare har valt och kan v\u00e4lja att ingripa f\u00f6r att stoppa n\u00e5gon av dem. Om du lyckas s\u00e5 f\u00e5r du en lista av handlingar och kan s\u00e4tta en scen d\u00e4r du ingriper p\u00e5 ett s\u00e4tt som du finner l\u00e4mpligt.\r\n",
+    "name": "Investigate (Character: Downtime Actions)"
+  },
+  "pk": 9
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "**Slag:** Wits + Investigation + Protean\\* VS Wits + Stealth + Obfuscate\\*\r\n\r\nDu unders\u00f6ker om n\u00e5gon f\u00f6rs\u00f6ker ta reda p\u00e5 saker om dig eller dina inflytanden. Du f\u00e5r en lista p\u00e5 alla om har unders\u00f6kt dig som du har f\u00e5tt lika m\u00e5nga eller fler lyckade som.",
+    "name": "Investigate (Counter spionage)"
+  },
+  "pk": 10
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "**Slag:** Wits + Investigation + Dementation\\* VS Special\r\n\r\nDu f\u00f6rs\u00f6ker ta reda p\u00e5 information om ett settingelement. Fler lyckade ger mer, b\u00e4ttre information. Det \u00e4r m\u00f6jligt att v\u00e4lja ett inflytandeomr\u00e5de, i s\u00e5dana fall ger 1 lyckad ett os\u00e4kert rykte och 3 lyckade ett s\u00e4kert rykte.",
+    "name": "Investigate (Phenomenon)"
+  },
+  "pk": 11
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "**Slag:** Manipulation + Inflytandes Ability + Auspex\\*  VS Special\r\n\r\nDu unders\u00f6ker det allm\u00e4nna l\u00e4get inom ett inflytandeomr\u00e5de. Den f\u00f6rsta lyckade ger vem som \u00e4r master och contenders, alla f\u00f6ljande lyckade ger slumpm\u00e4ssiga hooks inom inflytandet.",
+    "name": "Investigate (Influence)"
+  },
+  "pk": 12
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "Du bo\u0308rjar att la\u0308ra dig ett nytt trait enligt inla\u0308rningsreglerna.",
+    "name": "Learn"
+  },
+  "pk": 13
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "Du bo\u0308rjar skaffa dig en ny background enligt inla\u0308rningsreglerna.",
+    "name": "Invest"
+  },
+  "pk": 14
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "Du ger mentorbonusen till na\u030agon fo\u0308r ett trait du a\u0308r kvalificerad att la\u0308ra dem enligt inla\u0308rningsreglerna.",
+    "name": "Mentor"
+  },
+  "pk": 15
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "Du a\u030aterfa\u030ar alla spenderad Willpower.",
+    "name": "Rest"
+  },
+  "pk": 16
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "Lagmannen kan v\u00e4lja ett omr\u00e5de d\u00e4r det uppst\u00e5r ett Problem mindre under downtime.",
+    "name": "Patrullera dom\u00e4n"
+  },
+  "pk": 17
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "Lagmannen kan v\u00e4lja ett omr\u00e5de d\u00e4r det uppst\u00e5r ett Problem mer under downtime.",
+    "name": "Neglegera dom\u00e4n"
+  },
+  "pk": 18
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "Elysiem\u00e4staren f\u00e5r st\u00e4lla vars en personlig fr\u00e5ga till tre valfria bes\u00f6kare p\u00e5 Elysium. Bes\u00f6karen m\u00e5ste svara \u00e4rligt eller betala en Liten G\u00e4ld. Om information avsl\u00f6jas beslutar spelarna hur den har framkommit.",
+    "name": "Elysiem\u00e4starens fr\u00e5ga"
+  },
+  "pk": 19
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "Primogener har en extra downtimehandling som endast kan anv\u00e4ndas till Aid Action till n\u00e5gon inom klanen.",
+    "name": "Primogenens Aid Action"
+  },
+  "pk": 20
+},
+{
+  "model": "players.actiontype",
+  "fields": {
+    "template": "Primogener f\u00e5r st\u00e4lla en personlig fr\u00e5ga till en valfri klanmedlem. Klanmedlemmen m\u00e5ste svara \u00e4rligt eller betala en ansenlig G\u00e4ld. Om information avsl\u00f6jas beslutar spelarna hur den har framkommit.",
+    "name": "Primogenens fr\u00e5ga"
+  },
+  "pk": 21
+},
+{
+  "model": "players.age",
+  "fields": {
+    "action_options": [
+      1,
+      2,
+      5
+    ],
+    "name": "Novis"
+  },
+  "pk": 1
+},
+{
+  "model": "players.age",
+  "fields": {
+    "action_options": [
+      1,
+      2,
+      5
+    ],
+    "name": "Neonat"
+  },
+  "pk": 2
+},
+{
+  "model": "players.age",
+  "fields": {
+    "action_options": [
+      1,
+      2,
+      4
+    ],
+    "name": "Ancilla"
+  },
+  "pk": 3
+},
+{
+  "model": "players.age",
+  "fields": {
+    "action_options": [
+      1,
+      2,
+      3
+    ],
+    "name": "\u00c4ldste"
+  },
+  "pk": 4
+},
+{
+  "model": "players.clan",
+  "fields": {
+    "name": "Brujah"
+  },
+  "pk": 1
+},
+{
+  "model": "players.clan",
+  "fields": {
+    "name": "Gangrel"
+  },
+  "pk": 2
+},
+{
+  "model": "players.clan",
+  "fields": {
+    "name": "Nosferatu"
+  },
+  "pk": 3
+},
+{
+  "model": "players.clan",
+  "fields": {
+    "name": "Malkavian"
+  },
+  "pk": 4
+},
+{
+  "model": "players.clan",
+  "fields": {
+    "name": "Caitiff"
+  },
+  "pk": 5
+},
+{
+  "model": "players.clan",
+  "fields": {
+    "name": "Toreador"
+  },
+  "pk": 6
+},
+{
+  "model": "players.clan",
+  "fields": {
+    "name": "Tremere"
+  },
+  "pk": 7
+},
+{
+  "model": "players.clan",
+  "fields": {
+    "name": "Ventrue"
+  },
+  "pk": 8
+},
+{
+  "model": "players.discipline",
+  "fields": {
+    "name": "Auspex"
+  },
+  "pk": 1
+},
+{
+  "model": "players.discipline",
+  "fields": {
+    "name": "Animalism"
+  },
+  "pk": 2
+},
+{
+  "model": "players.discipline",
+  "fields": {
+    "name": "Celerity"
+  },
+  "pk": 3
+},
+{
+  "model": "players.discipline",
+  "fields": {
+    "name": "Demenation"
+  },
+  "pk": 4
+},
+{
+  "model": "players.discipline",
+  "fields": {
+    "name": "Dominate"
+  },
+  "pk": 5
+},
+{
+  "model": "players.discipline",
+  "fields": {
+    "name": "Fortitude"
+  },
+  "pk": 6
+},
+{
+  "model": "players.discipline",
+  "fields": {
+    "name": "Obfuscate"
+  },
+  "pk": 7
+},
+{
+  "model": "players.discipline",
+  "fields": {
+    "name": "Potence"
+  },
+  "pk": 8
+},
+{
+  "model": "players.discipline",
+  "fields": {
+    "name": "Presence"
+  },
+  "pk": 9
+},
+{
+  "model": "players.discipline",
+  "fields": {
+    "name": "Protean"
+  },
+  "pk": 10
+},
+{
+  "model": "players.discipline",
+  "fields": {
+    "name": "Thaumaturgy"
+  },
+  "pk": 11
+},
+{
+  "model": "players.title",
+  "fields": {
+    "action_options": [
+      6
+    ],
+    "name": "Furste"
+  },
+  "pk": 1
+},
+{
+  "model": "players.title",
+  "fields": {
+    "action_options": [
+      7
+    ],
+    "name": "Seneskalk"
+  },
+  "pk": 2
+},
+{
+  "model": "players.title",
+  "fields": {
+    "action_options": [
+      8,
+      9
+    ],
+    "name": "Sheriff"
+  },
+  "pk": 3
+},
+{
+  "model": "players.title",
+  "fields": {
+    "action_options": [
+      10
+    ],
+    "name": "Fiskal"
+  },
+  "pk": 4
+},
+{
+  "model": "players.title",
+  "fields": {
+    "action_options": [],
+    "name": "J\u00e4gare"
+  },
+  "pk": 5
+},
+{
+  "model": "players.title",
+  "fields": {
+    "action_options": [],
+    "name": "Harpya"
+  },
+  "pk": 6
+},
+{
+  "model": "players.title",
+  "fields": {
+    "action_options": [
+      11
+    ],
+    "name": "Elysiem\u00e4stare"
+  },
+  "pk": 7
+},
+{
+  "model": "players.title",
+  "fields": {
+    "action_options": [],
+    "name": "Dom\u00e4n\u00e4gare"
+  },
+  "pk": 8
+},
+{
+  "model": "players.title",
+  "fields": {
+    "action_options": [
+      12,
+      13
+    ],
+    "name": "Primogen"
+  },
+  "pk": 9
+}
+]

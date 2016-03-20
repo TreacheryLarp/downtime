@@ -1,0 +1,13 @@
+{% if rumor_list %}
+  <h3>Rumors</h3>
+  <ul class="list-group">
+  {% for rumor in rumor_list %}
+    <li class="list-group-item">
+      <h4 class="list-group-item-heading">
+        {{ rumor.influence }} <small>{{ rumor.rumor_type }}</small>
+        </h4>
+      <p class="list-group-item-text">{{ rumor.description }}</p>
+    </li>
+  {% endfor %}
+  </ul>
+{% endif %}

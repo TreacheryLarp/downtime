@@ -24,11 +24,7 @@
         {% for discipline in disciplines %}
         <tr>
           <td>{{ discipline.character.name }}</td>
-          <td>
-            {% for d in discipline.disciplines.all %}
-            {{ d.name }}
-            {% endfor %}
-          </td>
+          <td>{{ discipline.disciplines.all |join:", " }}</td>
         </tr>
         {% endfor %}
       </tbody>
