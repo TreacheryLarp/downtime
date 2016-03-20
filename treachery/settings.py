@@ -10,18 +10,41 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import json
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ien^q6kug&kusfp433big&@fjam%o4j(bm#nrg9&8547cfni14'
+PRODUCTION_MODE = os.environ.get('DJANGO_PRODUCTION', '').lower() == 'true'
+ALLOWED_HOSTS = json.loads(os.environ.get('DJANGO_ALLOWED_HOSTS', '[]'))
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if PRODUCTION_MODE:
+    import dj_database_url
 
-ALLOWED_HOSTS = []
+    DEBUG = os.environ.get('DJANGO_DEBUG', '').lower() == 'true'
+    SECRET_KEY = os.environ.get('DJANGO_SECRET')
+    DATABASES = {'default': dj_database_url.config()}
+
+    EMAIL_HOST_USER = os.environ.get('DJANGO_EMAIL_USER')
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+    EMAIL_HOST_PASSWORD = os.environ.get('DJANGO_EMAIL_PASSWORD')
+    EMAIL_HOST = os.environ.get('DJANGO_EMAIL_HOST')
+
+else:
+    DEBUG = True
+    SECRET_KEY = 'testkey'
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+
+    EMAIL_HOST_USER = ''
+    EMAIL_HOST_PASSWORD = ''
+    EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_PORT = '465'
+EMAIL_USE_SSL = True
 
 # Application definition
 
@@ -54,17 +77,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'treachery.urls'
 
 WSGI_APPLICATION = 'treachery.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -118,10 +130,3 @@ LOGIN_REDIRECT_URL='/'
 
 # Enable site contrib module setting
 SITE_ID = 1
-
-# SMTP settings
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = '465'
-EMAIL_USE_SSL = True
