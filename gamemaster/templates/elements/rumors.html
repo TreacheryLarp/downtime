@@ -10,7 +10,7 @@
 
     <div class="form-group form-inline" style="float: left; padding-right:10px">
       <span><label>Influence:</label>
-        <select class="form-control" id="filter-influence" name="domain">
+        <select class="form-control" id="filter-influence" name="influence">
           <option></option>
           {% for influence in influences %}
           <option>{{ influence.name }}</option>
@@ -20,8 +20,8 @@
     </div>
 
     <div class="form-group form-inline" style="float: left; padding-right: 10px">
-      <span><label>Character:</label>
-        <select class="form-control" id="filter-character" name="overfeeding">
+      <span><label>Recipient:</label>
+        <select class="form-control" id="filter-character" name="recipient">
           <option></option>
           {% for character in characters %}
           <option>{{ character.name }}</option>
@@ -79,7 +79,7 @@
       perPageSelect: false,
     },
     inputs: {
-      queries: $('#filter-character,#search, #filter-influence'),
+      queries: $('#filter-character,#search,#filter-influence'),
     },
     writers: {
       _rowWriter: clickableRowWriter
