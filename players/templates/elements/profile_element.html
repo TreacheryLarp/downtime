@@ -8,16 +8,9 @@
       <dt>Age</dt>
       <dd>{{character.age}}</dd>
       <dt>Titles</dt>
-      <dd>
-      {% for t in character.titles.all %}
-        {{ t.name }}
-      {% endfor %}
+      <dd>{{ character.titles.all|join:", " }}</dd>
       <dt>Disciplines</dt>
-      <dd>
-      {% for d in character.disciplines.all %}
-        {{ d.name }}
-      {% endfor %}
-      </dd>
+      <dd>{{ character.disciplines.all|join:", " }}</dd>
       <dt>Resources</dt>
       <dd>{{character.resources}}</dd>
       <dt>Influences</dt>

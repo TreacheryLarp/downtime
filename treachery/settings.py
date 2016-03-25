@@ -130,3 +130,6 @@ LOGIN_REDIRECT_URL='/'
 
 # Enable site contrib module setting
 SITE_ID = 1
+
+# App version
+APP_VERISON = "2.2.0"

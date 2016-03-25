@@ -4,6 +4,7 @@ from django.template.defaultfilters import stringfilter
 import markdown
 
 from players import models
+from treachery import settings
 
 register = template.Library()
 
@@ -56,3 +57,7 @@ def submission_resolved_state_color(submission, is_open):
             return 'panel-info'
         elif state == models.PENDING:
             return 'panel-warning'
+
+@register.simple_tag
+def app_version():
+    return settings.APP_VERISON

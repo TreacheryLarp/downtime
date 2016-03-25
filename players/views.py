@@ -23,7 +23,6 @@ def logout_view(request):
 def profile(request):
     session_state = []
     for session in Session.objects.order_by('name').all():
-        print(dir(session))
         state = session.resolved_state(request.user.character)
         session_state.append({'state':state, 'session': session})
 
