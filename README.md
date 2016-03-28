@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/TreacheryLarp/downtime.svg?branch=master)](https://travis-ci.org/TreacheryLarp/downtime)
 [ ![Codeship Status for TreacheryLarp/downtime](https://codeship.com/projects/c708dbd0-b06f-0133-9188-565ee1f98c10/status?branch=master)](https://codeship.com/projects/132663)
 
-This app handles management of the Treachery downtime system. This app is optimised for Dokku.
+This app handles management of the Treachery downtime system. The system is designed for Dokku/Heroku.
 
 ## Installation ##
 There are two modes to run the app in.
@@ -18,16 +18,16 @@ There are two modes to run the app in.
 
 ### Production
 1. Set the following environment variables on Dokku:
-```json
-DJANGO_PRODUCTION=true
-DJANGO_ALLOWED_HOSTS=your_domain,your_other_domain,your_third_domain
-DATABASE_URL=postgres://
-DJANGO_DEBUG=false
-DJANGO_EMAIL_HOST=...
-DJANGO_EMAIL_PASSWORD=...
-DJANGO_EMAIL_USER=...
-DJANGO_SECRET=...
-```
+  ```json
+  DJANGO_PRODUCTION=true
+  DJANGO_ALLOWED_HOSTS=your_domain,your_other_domain,your_third_domain
+  DATABASE_URL=postgres://
+  DJANGO_DEBUG=false
+  DJANGO_EMAIL_HOST=...
+  DJANGO_EMAIL_PASSWORD=...
+  DJANGO_EMAIL_USER=...
+  DJANGO_SECRET=...
+  ```
 2. Push master to dokku
 3. Migrate database
 4. Create superuser
