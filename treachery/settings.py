@@ -15,7 +15,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 PRODUCTION_MODE = os.environ.get('DJANGO_PRODUCTION', '').lower() == 'true'
-ALLOWED_HOSTS = json.loads(os.environ.get('DJANGO_ALLOWED_HOSTS', '[]'))
 
 if PRODUCTION_MODE:
     import dj_database_url
@@ -28,9 +27,11 @@ if PRODUCTION_MODE:
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
     EMAIL_HOST_PASSWORD = os.environ.get('DJANGO_EMAIL_PASSWORD')
     EMAIL_HOST = os.environ.get('DJANGO_EMAIL_HOST')
+    ALLOWED_HOSTS = json.loads(os.environ.get('DJANGO_ALLOWED_HOSTS', '[]'))
 
 else:
     DEBUG = True
+    ALLOWED_HOSTS = []
     SECRET_KEY = 'testkey'
     DATABASES = {
         'default': {
