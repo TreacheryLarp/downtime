@@ -18,16 +18,16 @@ There are two modes to run the app in.
 
 ### Production
 1. Set the following environment variables on Dokku:
-  ```json
-  DJANGO_PRODUCTION=true
-  DJANGO_ALLOWED_HOSTS=your_domain,your_other_domain,your_third_domain
-  DATABASE_URL=postgres://
-  DJANGO_DEBUG=false
-  DJANGO_EMAIL_HOST=...
-  DJANGO_EMAIL_PASSWORD=...
-  DJANGO_EMAIL_USER=...
-  DJANGO_SECRET=...
-  ```
+```json
+DJANGO_PRODUCTION=true
+DJANGO_ALLOWED_HOSTS=your_domain,your_other_domain,your_third_domain
+DATABASE_URL=postgres://
+DJANGO_DEBUG=false
+DJANGO_EMAIL_HOST=...
+DJANGO_EMAIL_PASSWORD=...
+DJANGO_EMAIL_USER=...
+DJANGO_SECRET=...
+```
 2. Push master to dokku
 3. Migrate database
 4. Create superuser
