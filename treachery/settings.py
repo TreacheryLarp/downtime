@@ -10,7 +10,6 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-import json
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -27,7 +26,7 @@ if PRODUCTION_MODE:
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
     EMAIL_HOST_PASSWORD = os.environ.get('DJANGO_EMAIL_PASSWORD')
     EMAIL_HOST = os.environ.get('DJANGO_EMAIL_HOST')
-    ALLOWED_HOSTS = json.loads(os.environ.get('DJANGO_ALLOWED_HOSTS', '[]'))
+    ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
 
 else:
     DEBUG = True
