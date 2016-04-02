@@ -53,7 +53,7 @@ def assign_rumors(request, session):
                     rumor.save()
 
         # assign facts
-        facts = Rumor.objects.filter(session=session, recipients=None, influence=influence, rumor_type=RUMOR_FACT)
+        facts = Rumor.objects.filter(session=session, influence=influence, rumor_type=RUMOR_FACT)
         ratings = InfluenceRating.objects.filter(influence=influence)
         for rating in ratings:
             if rating.rating >= 2:
