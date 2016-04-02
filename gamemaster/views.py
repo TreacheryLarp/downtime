@@ -37,20 +37,20 @@ def assign_rumors(request, session):
             rumor.recipients.add(character)
             rumor.save()
 
-        if len(characters) == 0:
-            # all characters have rumors
-            continue
+        if len(characters) != 0:
+            # when no more unique rumors assign already assigned rumors
+            all_rumors = set(Rumor.objects.filter(session=session, influence=influence).exclude(rumor_type=RUMOR_FACT).exclude(
+            rumor_type=RUMOR_VAMPIRE))
 
-        # when no more unique rumors assign already assigned rumors
-        all_rumors = set(Rumor.objects.filter(session=session, influence=influence).exclude(rumor_type=RUMOR_FACT).exclude(rumor_type=RUMOR_VAMPIRE))
-
-        for character in characters:
-            char_rumors = set(Rumor.objects.filter(session=session, recipients=character, influence=influence).exclude(rumor_type=RUMOR_FACT).exclude(rumor_type=RUMOR_VAMPIRE))
-            rumors = all_rumors - char_rumors
-            if len(rumors) > 0:
-                rumor = random.sample(rumors, 1)[0]
-                rumor.recipients.add(character)
-                rumor.save()
+            for character in characters:
+                char_rumors = set(Rumor.objects.filter(session=session, recipients=character, influence=influence).exclude(
+                rumor_type=RUMOR_FACT).exclude(
+                rumor_type=RUMOR_VAMPIRE))
+                rumors = all_rumors - char_rumors
+                if len(rumors) > 0:
+                    rumor = random.sample(rumors, 1)[0]
+                    rumor.recipients.add(character)
+                    rumor.save()
 
         # assign facts
         facts = Rumor.objects.filter(session=session, recipients=None, influence=influence, rumor_type=RUMOR_FACT)
