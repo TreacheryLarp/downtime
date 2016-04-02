@@ -133,4 +133,4 @@ LOGIN_REDIRECT_URL='/'
 SITE_ID = 1
 
 # App version
-APP_VERISON = "2.3.0"
+APP_VERISON = "2.3.1"
