@@ -128,4 +128,4 @@ LOGIN_REDIRECT_URL = '/'
 SITE_ID = 1
 
 # App version
-APP_VERISON = "2.3.2"
+APP_VERISON = "2.4.0"
