@@ -4,18 +4,18 @@ from django.forms.models import BaseModelFormSet
 
 from players.models import *
 
+
 class LoginForm(AuthenticationForm):
     def confirm_login_allowed(self, user):
         super(LoginForm, self).confirm_login_allowed(user)
         if not user.is_staff and not hasattr(user, 'character'):
             raise forms.ValidationError(
-                    "This account has no character. Please wait for a GM to add one.",
-                    code='no_character',
-                )
+                "This account has no character. Please wait for a GM to add one.",
+                code='no_character', )
+
 
 # Session submit forms
 class SessionFormSet(BaseModelFormSet):
-
     def __init__(self, *args, **kwargs):
         initial = kwargs.pop('initial')
         self.user = initial['user']
@@ -24,7 +24,7 @@ class SessionFormSet(BaseModelFormSet):
         super(SessionFormSet, self).__init__(*args, **kwargs)
 
     def fill_save(self):
-        self.save_existing_objects(commit=True) # deletes objects
+        self.save_existing_objects(commit=True)  # deletes objects
         instances = self.save(commit=False)
         for instance in instances:
             instance.session = self.session
@@ -34,21 +34,23 @@ class SessionFormSet(BaseModelFormSet):
 
 
 class DisciplineActivationFormSet(SessionFormSet):
-
     def __init__(self, *args, **kwargs):
         super(DisciplineActivationFormSet, self).__init__(*args, **kwargs)
-        self.queryset = ActiveDisciplines.objects.filter(character=self.character, session=self.session)
+        self.queryset = ActiveDisciplines.objects.filter(
+            character=self.character,
+            session=self.session)
         self.max_num = 1
         self.can_delete = False
         for form in self.forms:
-            form.fields['disciplines'].queryset = self.user.character.disciplines.all()
+            form.fields[
+                'disciplines'].queryset = self.user.character.disciplines.all()
 
 
 class ActionFormSet(SessionFormSet):
-
     def __init__(self, *args, **kwargs):
         super(ActionFormSet, self).__init__(*args, **kwargs)
-        self.queryset = Action.objects.filter(character=self.character, session=self.session)
+        self.queryset = Action.objects.filter(character=self.character,
+                                              session=self.session)
         action_count = self.character.action_count(self.session)
         self.extra = action_count
         self.max_num = self.extra
@@ -67,12 +69,13 @@ class ActionFormSet(SessionFormSet):
 
 
 class FeedingFormSet(SessionFormSet):
-
     def __init__(self, *args, **kwargs):
         super(FeedingFormSet, self).__init__(*args, **kwargs)
-        self.queryset = Feeding.objects.filter(character=self.character, session=self.session)
+        self.queryset = Feeding.objects.filter(character=self.character,
+                                               session=self.session)
         self.max_num = 3
         self.extra = 3
         self.can_delete = False
         for form in self.forms:
-            form.fields['discipline'].queryset = self.user.character.disciplines.all()
+            form.fields[
+                'discipline'].queryset = self.user.character.disciplines.all()

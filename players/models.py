@@ -14,6 +14,7 @@ RUMOR_RELIABLE = 'Reliable'
 RUMOR_FACT = 'Fact'
 RUMOR_VAMPIRE = 'Vampire'
 
+
 class ActionType(models.Model):
     name = models.CharField(max_length=200)
     template = models.TextField(blank=True)
@@ -95,7 +96,10 @@ class Clan(models.Model):
 
 class Character(models.Model):
     name = models.CharField(max_length=200)
-    user = models.OneToOneField(User, related_name='character', blank=True, null=True)
+    user = models.OneToOneField(User,
+                                related_name='character',
+                                blank=True,
+                                null=True)
     disciplines = models.ManyToManyField(Discipline, blank=True)
     titles = models.ManyToManyField(Title, blank=True)
     age = models.ForeignKey(Age)
@@ -115,7 +119,8 @@ class Character(models.Model):
 
     def actions(self, session):
         action_options = list(self.age.action_options.all())
-        extra_actions = ExtraAction.objects.filter(character=self, session=session)
+        extra_actions = ExtraAction.objects.filter(character=self,
+                                                   session=session)
         for extra_action in extra_actions:
             action_options.extend(extra_action.action_options.all())
         for title in self.titles.all():
@@ -125,9 +130,12 @@ class Character(models.Model):
     def submitted(self, session):
         actions = Action.objects.filter(character=self, session=session)
         feedings = Feeding.objects.filter(character=self, session=session)
-        active_disciplines = ActiveDisciplines.objects.filter(character=self, session=session)
+        active_disciplines = ActiveDisciplines.objects.filter(character=self,
+                                                              session=session)
         if len(actions) + len(feedings) + len(active_disciplines) > 0:
-            return {'disc': active_disciplines, 'feed': feedings, 'actions': actions}
+            return {'disc': active_disciplines,
+                    'feed': feedings,
+                    'actions': actions}
         else:
             return False
 
@@ -151,12 +159,10 @@ class Domain(models.Model):
 
     def __str__(self):
         population = ', '.join(d.name for d in self.population.all())
-        return '%s - FP: %s, S: %s, I: %s, M: %s, P: [%s]' % (self.name,
-                                    self.feeding_capacity,
-                                    self.status,
-                                    self.influence,
-                                    self.masquerade,
-                                    population)
+        return '%s - FP: %s, S: %s, I: %s, M: %s, P: [%s]' % (
+            self.name, self.feeding_capacity, self.status, self.influence,
+            self.masquerade, population)
+
 
 class InfluenceRating(models.Model):
     influence = models.ForeignKey(Influence)
@@ -200,20 +206,23 @@ class Session(models.Model):
                 state = UNRESOLVED
         return state
 
+
 class Action(models.Model):
     action_type = models.ForeignKey(ActionType)
     character = models.ForeignKey(Character)
     session = models.ForeignKey(Session, related_name='actions')
     description = models.TextField()
-    resolved = models.CharField(max_length=10,
-                                choices=((UNRESOLVED, 'Unresolved'),
-                                         (PENDING, 'Pending'),
-                                         (RESOLVED, 'Resolved')),
-                                default=UNRESOLVED)
+    resolved = models.CharField(
+        max_length=10,
+        choices=((UNRESOLVED, 'Unresolved'), (PENDING, 'Pending'), (
+            RESOLVED, 'Resolved')),
+        default=UNRESOLVED)
     history = HistoricalRecords()
 
     def __str__(self):
-        return '[%s] %s: %s' % (self.session.name, self.character, self.action_type)
+        return '[%s] %s: %s' % (self.session.name, self.character,
+                                self.action_type)
+
 
 class Feeding(models.Model):
     character = models.ForeignKey(Character)
@@ -222,18 +231,20 @@ class Feeding(models.Model):
     feeding_points = models.PositiveIntegerField()
     discipline = models.ForeignKey(Discipline, blank=True, null=True)
     description = models.TextField()
-    resolved = models.CharField(max_length=10,
-                                choices=((UNRESOLVED, 'Unresolved'),
-                                         (PENDING, 'Pending'),
-                                         (RESOLVED, 'Resolved')),
-                                default=UNRESOLVED)
+    resolved = models.CharField(
+        max_length=10,
+        choices=((UNRESOLVED, 'Unresolved'), (PENDING, 'Pending'), (
+            RESOLVED, 'Resolved')),
+        default=UNRESOLVED)
     history = HistoricalRecords()
 
     def __str__(self):
-        return '[%s] %s: %d in %s' % (self.session.name, self.character, self.feeding_points, self.domain)
+        return '[%s] %s: %d in %s' % (self.session.name, self.character,
+                                      self.feeding_points, self.domain)
 
     def is_overfeeding(self):
-        feedings = list(Feeding.objects.filter(session=self.session, domain=self.domain))
+        feedings = list(Feeding.objects.filter(session=self.session,
+                                               domain=self.domain))
         sum = 0
         for feeding in feedings:
             sum += feeding.feeding_points
@@ -263,21 +274,25 @@ class ExtraAction(models.Model):
 
     def __str__(self):
         action_options = ', '.join(str(d) for d in self.action_options.all())
-        return '[%s] +%s to %s' % (self.session.name, action_options, self.character)
+        return '[%s] +%s to %s' % (self.session.name, action_options,
+                                   self.character)
 
 
 class Rumor(models.Model):
     influence = models.ForeignKey(Influence)
     session = models.ForeignKey(Session, related_name='rumors')
-    recipients = models.ManyToManyField(Character, blank=True, related_name='rumors')
+    recipients = models.ManyToManyField(Character,
+                                        blank=True,
+                                        related_name='rumors')
     description = models.TextField()
     gm_note = models.TextField(blank=True)
-    rumor_type = models.CharField(max_length=15,
-                                  choices=((RUMOR_UNRELIABLE, 'Unreliable'),
-                                         (RUMOR_RELIABLE, 'Reliable'),
-                                         (RUMOR_FACT, 'Fact'),
-                                         (RUMOR_VAMPIRE, 'Vampire')),
-                                default=RUMOR_UNRELIABLE)
+    rumor_type = models.CharField(
+        max_length=15,
+        choices=((RUMOR_UNRELIABLE, 'Unreliable'), (
+            RUMOR_RELIABLE, 'Reliable'), (RUMOR_FACT, 'Fact'), (RUMOR_VAMPIRE,
+                                                                'Vampire')),
+        default=RUMOR_UNRELIABLE)
 
     def __str__(self):
-        return '[%s] %s - %s: %s' % (self.session.name, self.influence, self.rumor_type, self.description)
+        return '[%s] %s - %s: %s' % (self.session.name, self.influence,
+                                     self.rumor_type, self.description)

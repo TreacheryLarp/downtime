@@ -32,11 +32,17 @@ def notify_user_about_comment(sender, **kwargs):
             </p>
         </body>
         </html>
-        """ % (receipient_user.username, comment.name, target_object, comment.comment)
+        """ % (receipient_user.username, comment.name, target_object,
+               comment.comment)
 
-        send_mail('[Treachery Downtime]: New comment', '', '',
-        [to_address], fail_silently=True, html_message=html)
+        send_mail('[Treachery Downtime]: New comment',
+                  '',
+                  '',
+                  [to_address],
+                  fail_silently=True,
+                  html_message=html)
     except:
         print('Error while sending mail notification: %s' % kwargs)
+
 
 comment_was_posted.connect(notify_user_about_comment)

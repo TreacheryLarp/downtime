@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
 PRODUCTION_MODE = os.environ.get('DJANGO_PRODUCTION', '').lower() == 'true'
 
 if PRODUCTION_MODE:
@@ -26,7 +25,8 @@ if PRODUCTION_MODE:
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
     EMAIL_HOST_PASSWORD = os.environ.get('DJANGO_EMAIL_PASSWORD')
     EMAIL_HOST = os.environ.get('DJANGO_EMAIL_HOST')
-    ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
+    ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS',
+                                   'localhost').split(',')
 
 else:
     DEBUG = True
@@ -48,20 +48,18 @@ EMAIL_USE_SSL = True
 
 # Application definition
 
-INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.sites',
-    'django_comments',
-    'simple_history',
-    'bootstrap3',
-    'players',
-    'gamemaster',
-)
+INSTALLED_APPS = ('django.contrib.admin',
+                  'django.contrib.auth',
+                  'django.contrib.contenttypes',
+                  'django.contrib.sessions',
+                  'django.contrib.messages',
+                  'django.contrib.staticfiles',
+                  'django.contrib.sites',
+                  'django_comments',
+                  'simple_history',
+                  'bootstrap3',
+                  'players',
+                  'gamemaster', )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -71,8 +69,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'simple_history.middleware.HistoryRequestMiddleware',
-)
+    'simple_history.middleware.HistoryRequestMiddleware', )
 
 ROOT_URLCONF = 'treachery.urls'
 
@@ -121,13 +118,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 
 # Authentication
-LOGIN_URL='/login'
-LOGIN_REDIRECT_URL='/'
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/'
 
 # Enable site contrib module setting
 SITE_ID = 1

@@ -8,10 +8,12 @@ from treachery import settings
 
 register = template.Library()
 
+
 @register.filter
 @stringfilter
 def markdownify(text):
     return markdown.markdown(text, safe_mode='escape')
+
 
 @register.filter
 def session_resolved_state_color(s):
@@ -29,6 +31,7 @@ def session_resolved_state_color(s):
         elif state == models.NO_ACTIONS:
             return ''
 
+
 @register.filter
 def session_resolved_state(s):
     state = s['state']
@@ -45,6 +48,7 @@ def session_resolved_state(s):
         elif state == models.NO_ACTIONS:
             return '(Closed)'
 
+
 @register.filter
 def submission_resolved_state_color(submission, is_open):
     state = submission.resolved
@@ -57,6 +61,7 @@ def submission_resolved_state_color(submission, is_open):
             return 'panel-info'
         elif state == models.PENDING:
             return 'panel-warning'
+
 
 @register.simple_tag
 def app_version():

@@ -8,21 +8,31 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('players', '0008_auto_20160216_1722'),
-    ]
+    dependencies = [('players', '0008_auto_20160216_1722'), ]
 
     operations = [
         migrations.CreateModel(
             name='Rumor',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True,
+                                        serialize=False,
+                                        verbose_name='ID')),
                 ('description', models.TextField()),
                 ('gm_note', models.TextField(blank=True)),
-                ('rumor_type', models.CharField(choices=[('UNRELIABLE', 'Unreliable'), ('RELIABLE', 'Reliable'), ('FACT', 'Fact'), ('VAMPIRE', 'Vampire')], default='UNRELIABLE', max_length=15)),
-                ('influence', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='players.Influence')),
-                ('recipients', models.ManyToManyField(blank=True, to='players.Character')),
-                ('session', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='rumors', to='players.Session')),
-            ],
-        ),
+                ('rumor_type', models.CharField(choices=[(
+                    'UNRELIABLE', 'Unreliable'), ('RELIABLE', 'Reliable'), (
+                        'FACT', 'Fact'), ('VAMPIRE', 'Vampire')],
+                                                default='UNRELIABLE',
+                                                max_length=15)),
+                ('influence',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                   to='players.Influence')),
+                ('recipients', models.ManyToManyField(blank=True,
+                                                      to='players.Character')),
+                ('session',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                   related_name='rumors',
+                                   to='players.Session')),
+            ], ),
     ]
