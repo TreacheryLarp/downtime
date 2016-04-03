@@ -11,8 +11,8 @@
       <dd>{{ character.titles.all|join:", " }}</dd>
       <dt>Disciplines</dt>
       <dd>{{ character.disciplines.all|join:", " }}</dd>
-      <dt>Resources</dt>
-      <dd>{{character.resources}}</dd>
+      <dt>Resources Income</dt>
+      <dd>{{character.resource_income}}</dd>
       <dt>Influences</dt>
       <dd>{% for i in character.influences.all %}
         {{ i.influence.name }}: {{i.rating}}<br>

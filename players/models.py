@@ -131,6 +131,14 @@ class Character(models.Model):
         else:
             return False
 
+    def resource_income(self):
+        ratings = InfluenceRating.objects.filter(character=self)
+        weights = [1, 5, 10]
+        income = 0
+        for rating in ratings:
+            income += weights[min(rating.rating, 3) - 1]
+        return income
+
 
 class Domain(models.Model):
     name = models.CharField(max_length=200)
