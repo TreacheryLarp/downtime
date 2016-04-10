@@ -3,11 +3,11 @@
   "model": "players.domain",
   "pk": 1,
   "fields": {
-    "masquerade": "Worse",
-    "feeding_capacity": 15,
     "name": "St. Judas Church",
+    "feeding_capacity": 15,
     "status": "2",
     "influence": "3",
+    "masquerade": "Worse",
     "population": [
       2,
       5,
@@ -19,11 +19,11 @@
   "model": "players.domain",
   "pk": 2,
   "fields": {
-    "masquerade": "Normal",
-    "feeding_capacity": 10,
     "name": "Waterfront (Hamnkvarteren)",
+    "feeding_capacity": 15,
     "status": "2",
     "influence": "3",
+    "masquerade": "Normal",
     "population": [
       1,
       7,
@@ -35,11 +35,11 @@
   "model": "players.domain",
   "pk": 3,
   "fields": {
-    "masquerade": "Better",
-    "feeding_capacity": 20,
     "name": "Oakhills",
+    "feeding_capacity": 20,
     "status": "3",
     "influence": "1",
+    "masquerade": "Better",
     "population": [
       5,
       6,
@@ -51,11 +51,11 @@
   "model": "players.domain",
   "pk": 4,
   "fields": {
-    "masquerade": "Normal",
-    "feeding_capacity": 20,
     "name": "Kulturhuset",
+    "feeding_capacity": 20,
     "status": "3",
     "influence": "2",
+    "masquerade": "Normal",
     "population": [
       2,
       7,
@@ -67,11 +67,11 @@
   "model": "players.domain",
   "pk": 5,
   "fields": {
-    "masquerade": "Normal",
-    "feeding_capacity": 15,
     "name": "Universitetet",
+    "feeding_capacity": 15,
     "status": "2",
     "influence": "2",
+    "masquerade": "Normal",
     "population": [
       4,
       5,
@@ -83,11 +83,11 @@
   "model": "players.domain",
   "pk": 6,
   "fields": {
-    "masquerade": "Intakt",
-    "feeding_capacity": 5,
     "name": "Stadscentrum",
+    "feeding_capacity": 10,
     "status": "3",
     "influence": "5",
+    "masquerade": "Intakt",
     "population": [
       1,
       3,
@@ -99,11 +99,11 @@
   "model": "players.domain",
   "pk": 7,
   "fields": {
-    "masquerade": "Better",
-    "feeding_capacity": 5,
     "name": "Stora Biblioteket",
+    "feeding_capacity": 5,
     "status": "5",
     "influence": "2",
+    "masquerade": "Better",
     "population": [
       2,
       5,
@@ -115,11 +115,11 @@
   "model": "players.domain",
   "pk": 8,
   "fields": {
-    "masquerade": "Normal",
-    "feeding_capacity": 10,
-    "name": "de Graafs dom\u00e4n",
+    "name": "Bayside",
+    "feeding_capacity": 15,
     "status": "4",
     "influence": "1",
+    "masquerade": "Normal",
     "population": [
       5,
       6,
@@ -131,11 +131,11 @@
   "model": "players.domain",
   "pk": 9,
   "fields": {
-    "masquerade": "Worse",
-    "feeding_capacity": 20,
     "name": "Katedralen",
+    "feeding_capacity": 20,
     "status": "2",
     "influence": "4",
+    "masquerade": "Worse",
     "population": [
       2,
       3,
@@ -147,11 +147,11 @@
   "model": "players.domain",
   "pk": 10,
   "fields": {
-    "masquerade": "Better",
-    "feeding_capacity": 15,
     "name": "Naturreservatet",
+    "feeding_capacity": 15,
     "status": "1",
     "influence": "1",
+    "masquerade": "Better",
     "population": [
       5,
       9,
@@ -163,14 +163,15 @@
   "model": "players.domain",
   "pk": 11,
   "fields": {
-    "masquerade": "Normal",
-    "feeding_capacity": 0,
-    "name": "Barrens 1",
+    "name": "The Cauldron",
+    "feeding_capacity": 5,
     "status": "1",
     "influence": "1",
+    "masquerade": "Normal",
     "population": [
       1,
-      2
+      2,
+      11
     ]
   }
 },
@@ -178,11 +179,11 @@
   "model": "players.domain",
   "pk": 12,
   "fields": {
-    "masquerade": "Normal",
+    "name": "The Community College (Barrens 2)",
     "feeding_capacity": 0,
-    "name": "Barrens 2",
     "status": "1",
     "influence": "1",
+    "masquerade": "Normal",
     "population": [
       3,
       4
@@ -323,52 +324,98 @@
   }
 },
 {
+  "model": "players.population",
+  "pk": 11,
+  "fields": {
+    "name": "Studenter"
+  }
+},
+{
   "model": "players.session",
   "pk": 1,
   "fields": {
+    "name": "Inf\u00f6r session 1",
+    "is_open": false,
     "feeding_domains": [
       1,
-      2,
       3,
       4,
       5,
-      6,
       7,
-      8,
-      11,
       10,
+      9,
       12,
-      9
-    ],
-    "is_open": false,
-    "name": "Inf\u00f6r session 1"
+      11,
+      8,
+      2,
+      6
+    ]
   }
 },
 {
   "model": "players.session",
   "pk": 2,
   "fields": {
-    "feeding_domains": [],
-    "is_open": true,
-    "name": "Inf\u00f6r session 2"
+    "name": "Inf\u00f6r session 2",
+    "is_open": false,
+    "feeding_domains": [
+      1,
+      3,
+      4,
+      5,
+      7,
+      10,
+      9,
+      12,
+      11,
+      8,
+      2,
+      6
+    ]
   }
 },
 {
   "model": "players.session",
   "pk": 3,
   "fields": {
-    "feeding_domains": [],
-    "is_open": false,
-    "name": "Inf\u00f6r session 3"
+    "name": "Inf\u00f6r session 3",
+    "is_open": true,
+    "feeding_domains": [
+      1,
+      3,
+      4,
+      5,
+      7,
+      10,
+      9,
+      12,
+      11,
+      8,
+      2,
+      6
+    ]
   }
 },
 {
   "model": "players.session",
   "pk": 4,
   "fields": {
-    "feeding_domains": [],
+    "name": "Inf\u00f6r session 4",
     "is_open": false,
-    "name": "Inf\u00f6r session 4"
+    "feeding_domains": [
+      1,
+      3,
+      4,
+      5,
+      7,
+      10,
+      9,
+      12,
+      11,
+      8,
+      2,
+      6
+    ]
   }
 }
 ]
