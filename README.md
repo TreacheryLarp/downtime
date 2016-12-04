@@ -38,3 +38,20 @@ See the requirements.txt and runtime.txt files for dependencies.
 
 ### Fixtures
 The system is intended to be flexible and support rules changes. To that effect the system stores a rules preset as fixtures.
+
+## License
+Treachery Downtime System
+Copyright (C) 2016  Erik Gärtner
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
