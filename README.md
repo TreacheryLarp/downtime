@@ -41,6 +41,7 @@ The system is intended to be flexible and support rules changes. To that effect 
 
 ## License
 Treachery Downtime System
+
 Copyright (C) 2016  Erik Gärtner
 
 This program is free software: you can redistribute it and/or modify
