@@ -18,4 +18,11 @@ urlpatterns = [
     url(r'^s/submit/(?P<session>\d+)$',
         views.wizard,
         name='wizard'),
+    url(r'^s/submit/(?P<session>\d+)/action_details$',
+        views.actionDetails,
+        name='action details'),
+    url(r'^character$',
+        views.make_character,
+        name='make character'),
+        
 ]

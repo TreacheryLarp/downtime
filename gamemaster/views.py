@@ -215,7 +215,7 @@ class RumorListView(ListView):
 class ActionUpdate(UpdateView):
     model = Action
     template_name = 'editor.html'
-    fields = ['character', 'action_type', 'description', 'resolved']
+    fields = ['character', 'willpower','helpers','action_type', 'description', 'resolved']
     success_url = reverse_lazy('closewindow')
 
     def get_context_data(self, **kwargs):
